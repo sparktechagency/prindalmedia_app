@@ -23,7 +23,7 @@ const Profile = () => {
       style={tw`p-[6%] 
     `}
     >
-      <View style={tw``}>
+      <View style={tw`mb-4`}>
         {/* Profile image and badge */}
         <View style={tw`items-center relative`}>
           <Image

@@ -1,12 +1,11 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
-  FontAwesome,
   Feather,
+  FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
-import { ScrollView } from "react-native";
+
 
 const Bookmarks = () => {
   return (
@@ -14,7 +13,7 @@ const Bookmarks = () => {
       <Text style={tw`text-xl font-semibold my-4`}>Bookmarks</Text>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* bookMark full content wrapper  */}
-        <View style={tw`flex-cols gap-1 mt-5 mb-10  justify-between items-center`}>
+        <View style={tw`flex-col gap-1 mt-5 mb-10  justify-between items-center`}>
           <View style={tw`flex-row  items-center`}>
             {/* Image */}
             <Image

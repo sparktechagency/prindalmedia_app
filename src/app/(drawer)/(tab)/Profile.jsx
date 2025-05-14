@@ -4,19 +4,26 @@ import { Image, Pressable, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import tw from "twrnc";
+import Followers from "../../../components/ui/Followers";
+import Following from "../../../components/ui/Following";
+import Recent from "../../../components/ui/Recent";
+
+// tabs name and icons
+const tabs = [
+  { label: "Recent", icon: "history" },
+  { label: "Followers", icon: "account-group-outline" },
+  { label: "Following",icon: "account-multiple-outline"},
+];
 
 const Profile = () => {
-  const tabs = [
-    { label: "Recent", icon: "history", route: "Recent" },
-    { label: "Followers", icon: "account-group-outline", route: "Followers" },
-    {label: "Following", icon: "account-multiple-outline", route: "Following"},
-  ];
-
   const [activeTab, setActiveTab] = useState("Recent");
 
   return (
-    <View>
-      <View style={tw`p-[6%]`}>
+    <View
+      style={tw`p-[6%] 
+    `}
+    >
+      <View style={tw``}>
         {/* Profile image and badge */}
         <View style={tw`items-center relative`}>
           <Image
@@ -69,12 +76,14 @@ const Profile = () => {
                 activeTab === item.label ? "bg-blue-600" : ""
               }`}
             >
+              {/* view icons  */}
               <Icons
                 name={item.icon}
                 size={20}
                 color={activeTab === item.label ? "white" : "#454545"}
                 style={tw`mr-2`}
               />
+              {/* tabs name and bg change  */}
               <Text
                 style={tw`${
                   activeTab === item.label ? "text-white" : "text-[#454545]"
@@ -85,6 +94,12 @@ const Profile = () => {
             </Pressable>
           ))}
         </View>
+      </View>
+       {/* added the all tabs view components */}
+       <View style={tw`mt-2 mb-20`}>
+           {activeTab === 'Recent' && <Recent /> }
+           {activeTab === 'Followers' && <Followers /> }
+           {activeTab === 'Following' && <Following /> }
       </View>
     </View>
   );

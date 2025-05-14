@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
   Pressable,
@@ -8,27 +9,21 @@ import {
   View,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { Dialog, PanningProvider, RadioButton } from "react-native-ui-lib";
 import tw from "twrnc";
 import AddPhoto from "../../../components/ui/AddPhoto";
+import Location from "../../../components/ui/Location";
 import TagUser from "../../../components/ui/TagUser";
 import UserRating from "../../../components/ui/UserRating";
-import { Dialog, PanningProvider, RadioButton } from "react-native-ui-lib";
-import { MaterialIcons } from "@expo/vector-icons";
-import Location from "../../../components/ui/Location";
-
-const restaurant = [
-  { label: "Restaurant", value: "restaurant" },
-  { label: "Home-Made", value: "home-made" },
-];
-const food_props = [
-  { label: "Meal", value: "meal" },
-  { label: "Drink", value: "drink" },
-];
 
 const Post = () => {
-  const [value, setValue] = useState("");
+  const [restaurant, setRestaurant] = useState("");
+  const [homeMade, setHomeMade] = useState("");
   const [meal, setMeal] = useState("");
-  // console.log(meal);
+  const [drink, setDrink] = useState("");
+
+
+  // console.log(restaurant, homeMade, meal, drink);
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -41,7 +36,7 @@ const Post = () => {
         <View style={tw` w-full  gap-6 flex-col justify-between mt-3`}>
           {/* dish/drink  input */}
           <View style={tw`flex-col gap-2`}>
-            <Text style={tw`text-lg font-medium`}>Email</Text>
+            <Text style={tw`text-lg font-medium`}>Meal Name</Text>
             <View style={tw`bg-[#e7e7e7] rounded-md `}>
               <TextInput
                 placeholder="What’s the name of your dish/drink?"
@@ -51,27 +46,26 @@ const Post = () => {
             </View>
           </View>
           {/* Where did you have it? */}
-          <View style={tw` gap-2`}>
+          <View style={tw`gap-2`}>
             <Text style={tw`text-lg font-medium`}>Where did you have it?</Text>
-            <View style={tw` flex-row gap-6`}>
-              <TouchableOpacity>
-                <RadioButton
-                  label="Restaurant"
-                  labelStyle={{ color: "#454545", fontWeight: "400" }}
-                  selected={value}
-                  onPress={() => setValue(!value)}
-                  color="#B0B0B0"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <RadioButton
-                  label="Home-Made"
-                  labelStyle={{ color: "#454545", fontWeight: "400" }}
-                  selected={value}
-                  onPress={() => setValue(!value)}
-                  color="#B0B0B0"
-                />
-              </TouchableOpacity>
+            <View style={tw`flex-row gap-6`}>
+              <RadioButton
+                label="Restaurant"
+                labelStyle={{ color: "#454545", fontWeight: "400" }}
+                selected={restaurant === "restaurant"}
+                onPress={() =>
+                  setRestaurant(restaurant === "restaurant" ? "" : "restaurant")
+                }
+                color="#B0B0B0"
+              />
+
+              <RadioButton
+                label="Home-Made"
+                labelStyle={{ color: "#454545", fontWeight: "400" }}
+                selected={homeMade === "home-made"}
+                onPress={() => setHomeMade( homeMade === "home-made" ? "" : "home-made")}
+                color="#B0B0B0"
+              />
             </View>
           </View>
 
@@ -80,24 +74,21 @@ const Post = () => {
             <Text style={tw`text-lg font-medium`}>Food type?</Text>
             <View style={tw` flex-row gap-2`}>
               <View style={tw` flex-row gap-6`}>
-                <TouchableOpacity>
-                  <RadioButton
-                    label="Meal"
-                    labelStyle={{ color: "#454545", fontWeight: "400" }}
-                    selected={value}
-                    onPress={() => setValue(!value)}
-                    color="#B0B0B0"
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <RadioButton
-                    label="Drink"
-                    labelStyle={{ color: "#454545", fontWeight: "400" }}
-                    selected={value}
-                    onPress={() => setValue(!value)}
-                    color="#B0B0B0"
-                  />
-                </TouchableOpacity>
+                <RadioButton
+                  label="Meal"
+                  labelStyle={{ color: "#454545", fontWeight: "400" }}
+                  selected={meal === 'meal'}
+                  onPress={() => setMeal(meal === 'meal' ? '' : 'meal')}
+                  color="#B0B0B0"
+                />
+
+                <RadioButton
+                  label="Drink"
+                  labelStyle={{ color: "#454545", fontWeight: "400" }}
+                  selected={drink === 'drink'}
+                  onPress={() => setDrink(drink === 'drink' ? '' : 'drink')}
+                  color="#B0B0B0"
+                />
               </View>
             </View>
           </View>
@@ -110,7 +101,7 @@ const Post = () => {
           {/* Description */}
           <View style={tw`flex-col gap-2 `}>
             <Text style={tw`text-lg font-medium`}>Description</Text>
-            <View style={tw`bg-[#e7e7e7] rounded-[8gpx] `}>
+            <View style={tw`bg-[#e7e7e7] rounded-[8px] `}>
               <TextInput
                 style={tw`h-30 top-0 px-4 w-full  flex items-start `}
                 placeholder="What’s the name of your dish/drink?"

@@ -1,4 +1,5 @@
 // ProfileCard.tsx
+import { Link } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -30,11 +31,15 @@ const Profile = () => {
             source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} // Replace with your image
             style={tw`w-20 h-20 rounded-full`}
           />
+          <Link 
+           style={tw`absolute bottom-0 right-32 bg-blue-500 p-2 rounded-full`}
+           href={'/provers/1'}>
           <View
-            style={tw`absolute bottom-0 right-32 bg-blue-500 p-2 rounded-full`}
+           
           >
             <Icon name="edit" size={18} color="#fff" />
           </View>
+          </Link>
         </View>
 
         {/* Name and handle */}

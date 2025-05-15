@@ -1,6 +1,6 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
-import { View, Text, Pressable, Alert } from "react-native";
+import { Alert, Pressable, Text, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import tw from "twrnc";
 
@@ -11,7 +11,7 @@ const OTPOne = () => {
 
     const handleNavigate = () => {
         if (otpVerify) {
-            router.push('/EmailVerify')
+            router.push('auth/EmailVerify')
         }else{
             Alert.alert( 'OTP' ,'OTP Not Verify')
         }

@@ -24,10 +24,10 @@ const ChangePassword = () => {
             <Text style={tw`text-4.2 font-bold`}>Edit</Text>
           </View>
         </TouchableOpacity>
-        <View style={tw`items-center relative`}>
+        <View style={tw`items-center`}>
           <Image
-            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} // Replace with your image
-            style={tw`w-20 h-20 rounded-full`}
+            source={require('../../../assets/images/changePassword.png' )} // Replace with your image
+            style={tw`w-48 h-42`}
           />
           
         </View>

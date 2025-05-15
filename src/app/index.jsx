@@ -3,142 +3,116 @@ import Feather from "@expo/vector-icons/Feather";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import Checkbox from "expo-checkbox";
 import { Link, router } from "expo-router";
+import { Formik } from "formik";
 import { useState } from "react";
-import { Alert, Pressable, Text, TextInput, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Pressable, Text, TextInput, View } from "react-native";
 import tw from "twrnc";
+import * as Yup from 'yup';
+
+
+const validation = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required'),
+});
 
 export default function Index() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  // console.log(email, password);
+  console.log(email);
 
-  const handleShowPassword = () => {
-    // console.log("show password");
-    setPassword(!password);
-  };
-
-  const handleLogin = () => {
-    if (email && password) {
-      router.push("/(tab)");
-    } else {
-      Alert.alert("Please fill in all fields");
-    }
-  };
-
-  const [checkbox, setCheckbox] = useState(false);
+  const handleSubmit = () =>{
+    router.push('/(tab)')
+  }
 
   return (
-    <SafeAreaView
-      style={tw`p-5 h-full flex-1  bg-white dark:bg-black flex-col gap-10 items-center justify-center `}
-    >
-      <View style={tw` w-full flex-col gap-3 `}>
-        <Text style={tw`text-2xl text-black dark:text-white text-center`}>
-          Welcome back!
-        </Text>
+    <View style={tw`p-5 h-full flex-1 bg-white dark:bg-black flex-col gap-10 items-center justify-center`}>
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+          password: "",
+          checkbox: false,
+          createdOn: new Date(),
+        }}
+        validationSchema={validation}
+        onSubmit={handleSubmit}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue }) => (
+          <View style={tw`w-full flex-col gap-3`}>
+            <Text style={tw`text-2xl text-black dark:text-white text-center`}>
+              Welcome back!
+            </Text>
+            <Text style={tw`mt-2 text-base text-gray-700 dark:text-gray-300 text-center`}>
+              Please sign in to continue.
+            </Text>
 
-        <Text
-          style={tw`mt-2 text-base text-gray-700 dark:text-gray-300 text-center`}
-        >
-          Please sign in to continue.
-        </Text>
-      </View>
-
-      {/* Login input  */}
-      <View style={tw`mt-2 w-full flex-col gap-3`}>
-        {/* email input */}
-        <View style={tw`flex-col gap-3`}>
-          <Text style={tw`text-lg font-medium`}>Email</Text>
-          <View
-            style={tw`flex-row justify-between items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
-          >
-            <Fontisto
-              name="email"
-              size={20}
-              color="black"
-              style={tw`mr-2 text-[#888888]`}
-            />
-            <TextInput
-              style={tw`flex-1 text-base text-black dark:text-white `}
-              onChangeText={setEmail}
-              value={email}
-              enableErrors
-              validateOnChange
-              validate={['required', (value) => value.length > 6]}
-              validationMessage={['Field is required', 'Password is too short']}
-            />
-          </View>
-        </View>
-
-        {/* password input */}
-        <View style={tw`mt-2 w-full flex-col gap-3`}>
-          <Text style={tw`text-lg font-medium`}>Password</Text>
-
-          <View
-            style={tw`flex-row justify-between items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
-          >
-            {/* Lock icon + Input */}
-            <View style={tw`flex-row items-center flex-1`}>
-              <AntDesign
-                style={tw`mr-2 text-[#888888]`}
-                name="lock"
-                size={20}
-                color="black"
-              />
-
+            {/* Email */}
+            <Text style={tw`text-lg font-medium`}>Email</Text>
+            <View style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}>
+              <Fontisto name="email" size={20} color="black" style={tw`mr-2`} />
               <TextInput
-                style={tw`flex-1 text-base text-black dark:text-white `}
-                secureTextEntry={password ? true : false}
-                onChangeText={setPassword}
+                style={tw`flex-1 text-base text-black dark:text-white`}
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
               />
             </View>
+            {touched.email && errors.email && (
+              <Text style={tw`text-red-500`}>{errors.email}</Text>
+            )}
 
-            {/* Eye icon */}
-            <Feather
-              style={tw`mr-2 text-[#888888]`}
-              onPress={handleShowPassword}
-              name={password ? "eye-off" : "eye"}
-              size={18}
-              color="black"
-            />
+            {/* Password */}
+            <Text style={tw`text-lg font-medium mt-4`}>Password</Text>
+            <View style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}>
+              <AntDesign name="lock" size={20} color="black" style={tw`mr-2`} />
+              <TextInput
+                style={tw`flex-1 text-base text-black dark:text-white`}
+                secureTextEntry={!showPassword}
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                value={values.password}
+              />
+              <Feather
+                onPress={() => setShowPassword(prev => !prev)}
+                name={showPassword ? "eye-off" : "eye"}
+                size={18}
+                color="black"
+              />
+            </View>
+            {touched.password && errors.password && (
+              <Text style={tw`text-red-500`}>{errors.password}</Text>
+            )}
+
+            {/* Checkbox */}
+            <View style={tw`flex-row justify-between mt-2`}>
+              <View style={tw`flex-row items-center gap-2`}>
+                <Checkbox
+                  value={values.checkbox}
+                  onValueChange={(val) => setFieldValue("checkbox", val)}
+                  color="black"
+                />
+                <Text>Remember me</Text>
+              </View>
+              <Link href="auth/OTPOne" style={tw`text-[#0063E5] underline`}>
+                Forget password?
+              </Link>
+            </View>
+
+            {/* Submit Button */}
+            <Pressable onPress={handleSubmit} style={tw`mt-6 bg-black p-4 rounded-full`}>
+              <Text style={tw`text-center text-white text-xl`}>Sign in</Text>
+            </Pressable>
+
+            <Text style={tw`text-center mt-4`}>
+              Don’t have an account?{" "}
+              <Link href="/auth/SingUp" style={tw`text-blue-700`}>
+                Sign up
+              </Link>
+            </Text>
           </View>
-        </View>
-
-        {/*  Checbox box wrapp */}
-        <View style={tw`flex-row  justify-between mt-2`}>
-          <View style={tw`flex-row gap-2`}>
-            <Checkbox
-              style={tw``}
-              value={checkbox}
-              onValueChange={setCheckbox}
-              color={'black'}
-            />
-            <Text>Remember me</Text>
-          </View>
-          <View style={tw``}>
-            <Link href={"/OTPOne"} style={tw`text-[#0063E5] underline`}>
-              Forget password?
-            </Link>
-          </View>
-        </View>
-      </View>
-
-      {/* Login button */}
-      <View style={tw`w-full flex-col gap-4 mt-4 rounded-full bg-[#121212] `}>
-        <Pressable onPress={handleLogin} style={tw`py-4`}>
-          <Text style={tw`text-center text-white text-xl`}>Sign in</Text>
-        </Pressable>
-      </View>
-
-      <View style={tw``}>
-        <Text>
-          Don’t have an account?{" "}
-          <Link href={"/SingUp"} style={tw`text-blue-700`}>
-            Sign up
-          </Link>{" "}
-        </Text>
-      </View>
-    </SafeAreaView>
+        )}
+      </Formik>
+    </View>
   );
 }

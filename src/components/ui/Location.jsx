@@ -1,7 +1,7 @@
 import { EvilIcons } from "@expo/vector-icons";
 import axios from 'axios';
 import { useState } from "react";
-import { View, Text, TextInput } from "react-native";
+import { Text, TextInput, View } from "react-native";
 // import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import tw from "twrnc";
@@ -28,14 +28,14 @@ const Location = () => {
   return (
     <View>
       <View style={tw`flex-col gap-2`}>
-        <Text style={tw`text-lg font-medium`}>Location</Text>
+        <Text style={tw`text-[16px] font-semibold text-[#121212]`}>Location</Text>
         <View
               style={tw` bg-[#e7e7e7] rounded-md flex-row items-center justify-between `}
             >
               <TextInput
-                style={tw`px-4 py-4.5 flex-1 `}
+                style={tw`px-4 py-4 flex-1 `}
                 placeholder="What’s the name of your dish/drink?"
-                placeholderTextColor={"black"}
+                placeholderTextColor={"#888888"}
                 onChangeText={(text) => handleSearchLocation(text)}
               />
               <EvilIcons name="location" size={24} color="black" />

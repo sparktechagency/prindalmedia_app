@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
-import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
+import { useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
 
 export default function AddPhoto() {
@@ -30,7 +30,7 @@ export default function AddPhoto() {
       ) : (
         <>
           <View
-            style={tw`flex-row items-center gap-2 border-[1px] border-[#B0B0B0]  rounded-md px-6 py-1.8  `}
+            style={tw`flex-row items-center w-41 justify-center gap-2 border-[1px] border-[#B0B0B0]  rounded-md  py-1.8  `}
           >
             <View style={tw` `}>
               <MaterialIcons
@@ -39,7 +39,7 @@ export default function AddPhoto() {
                 color="#B0B0B0"
               />
             </View>
-            <Text style={tw`text-lg font-medium`}>Add photo</Text>
+            <Text style={tw`text-[16px] font-bold text-[#121212] `}>Add photo</Text>
           </View>
         </>
       )}

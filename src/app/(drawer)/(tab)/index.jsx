@@ -37,6 +37,7 @@ const Home = () => {
       </View>
 
 
+      {/* view all user post  */}
       <View>
           <UserPost />
       </View>

@@ -22,149 +22,170 @@ const Post = () => {
   const [meal, setMeal] = useState("");
   const [drink, setDrink] = useState("");
 
-
   // console.log(restaurant, homeMade, meal, drink);
 
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <SafeAreaView style={tw`p-[6%]`}>
-      <Text style={tw` text-2xl font-medium`}>Share your meal</Text>
+      <Text style={tw` text-xl font-bold text-[#121212]`}>Share your meal</Text>
 
       {/* Login input  */}
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={tw` w-full  gap-6 flex-col justify-between mt-3`}>
-          {/* dish/drink  input */}
-          <View style={tw`flex-col gap-2`}>
-            <Text style={tw`text-lg font-medium`}>Meal Name</Text>
-            <View style={tw`bg-[#e7e7e7] rounded-md `}>
-              <TextInput
-                placeholder="What’s the name of your dish/drink?"
-                style={tw`px-4 py-4.5 `}
-                placeholderTextColor={"black"}
-              />
+        {/*  */}
+        <View style={tw` flex-col justify-between gap-10`}> 
+          <View style={tw` w-full  gap-4 flex-col justify-between mt-3`}>
+            {/* dish/drink  input */}
+            <View style={tw`flex-col gap-2`}>
+              <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+                Meal Name
+              </Text>
+              <View style={tw`bg-[#e7e7e7] rounded-md `}>
+                <TextInput
+                  placeholder="What’s the name of your dish/drink?"
+                  style={tw`px-4 py-4 `}
+                  placeholderTextColor={"#888888"}
+                />
+              </View>
             </View>
-          </View>
-          {/* Where did you have it? */}
-          <View style={tw`gap-2`}>
-            <Text style={tw`text-lg font-medium`}>Where did you have it?</Text>
-            <View style={tw`flex-row gap-6`}>
-              <RadioButton
-                label="Restaurant"
-                labelStyle={{ color: "#454545", fontWeight: "400" }}
-                selected={restaurant === "restaurant"}
-                onPress={() =>
-                  setRestaurant(restaurant === "restaurant" ? "" : "restaurant")
-                }
-                color="#B0B0B0"
-              />
-
-              <RadioButton
-                label="Home-Made"
-                labelStyle={{ color: "#454545", fontWeight: "400" }}
-                selected={homeMade === "home-made"}
-                onPress={() => setHomeMade( homeMade === "home-made" ? "" : "home-made")}
-                color="#B0B0B0"
-              />
-            </View>
-          </View>
-
-          {/* Food type? */}
-          <View style={tw` gap-2`}>
-            <Text style={tw`text-lg font-medium`}>Food type?</Text>
-            <View style={tw` flex-row gap-2`}>
-              <View style={tw` flex-row gap-6`}>
+            {/* Where did you have it? */}
+            <View style={tw`gap-2`}>
+              <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+                Where did you have it?
+              </Text>
+              <View style={tw`flex-row gap-6`}>
                 <RadioButton
-                  label="Meal"
+                  label="Restaurant"
                   labelStyle={{ color: "#454545", fontWeight: "400" }}
-                  selected={meal === 'meal'}
-                  onPress={() => setMeal(meal === 'meal' ? '' : 'meal')}
+                  selected={restaurant === "restaurant"}
+                  onPress={() =>
+                    setRestaurant(
+                      restaurant === "restaurant" ? "" : "restaurant"
+                    )
+                  }
                   color="#B0B0B0"
                 />
 
                 <RadioButton
-                  label="Drink"
+                  label="Home-Made"
                   labelStyle={{ color: "#454545", fontWeight: "400" }}
-                  selected={drink === 'drink'}
-                  onPress={() => setDrink(drink === 'drink' ? '' : 'drink')}
+                  selected={homeMade === "home-made"}
+                  onPress={() =>
+                    setHomeMade(homeMade === "home-made" ? "" : "home-made")
+                  }
                   color="#B0B0B0"
                 />
               </View>
             </View>
-          </View>
 
-          {/* Location */}
-          <View>
-            <Location />
-          </View>
+            {/* Food type? */}
+            <View style={tw` gap-2`}>
+              <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+                Food type?
+              </Text>
+              <View style={tw` flex-row gap-2`}>
+                <View style={tw` flex-row gap-6`}>
+                  <RadioButton
+                    label="Meal"
+                    labelStyle={{ color: "#454545", fontWeight: "400" }}
+                    selected={meal === "meal"}
+                    onPress={() => setMeal(meal === "meal" ? "" : "meal")}
+                    color="#B0B0B0"
+                  />
 
-          {/* Description */}
-          <View style={tw`flex-col gap-2 `}>
-            <Text style={tw`text-lg font-medium`}>Description</Text>
-            <View style={tw`bg-[#e7e7e7] rounded-[8px] `}>
-              <TextInput
-                style={tw`h-30 top-0 px-4 w-full  flex items-start `}
-                placeholder="What’s the name of your dish/drink?"
-                multiline
-                numberOfLines={6}
-                verticalAlign="top"
-                textAlignVertical="top"
-                textAlign="left"
-                placeholderTextColor={"black"}
-              />
-            </View>
-          </View>
-
-          <View style={tw``}>
-            <UserRating />
-          </View>
-
-          {/* add Photo  */}
-          <View style={tw`flex-row items-center gap-3 rounded-md `}>
-            <View>
-              <AddPhoto />
-            </View>
-            {/* Tag people */}
-            <View
-              style={tw`flex-row items-center gap-1.5 border-[1px] border-[#B0B0B0] px-6 py-1.8  rounded-md `}
-            >
-              <TouchableOpacity
-                style={tw`  flex-row  items-center gap-1.5`}
-                onPress={() => setIsVisible(true)}
-              >
-                <View style={tw` `}>
-                  <MaterialIcons
-                    name="add-photo-alternate"
-                    size={20}
+                  <RadioButton
+                    label="Drink"
+                    labelStyle={{ color: "#454545", fontWeight: "400" }}
+                    selected={drink === "drink"}
+                    onPress={() => setDrink(drink === "drink" ? "" : "drink")}
                     color="#B0B0B0"
                   />
                 </View>
-                <Text style={tw`text-lg font-medium`}>Add photo</Text>
-              </TouchableOpacity>
+              </View>
+            </View>
 
-              <Dialog
-                visible={isVisible}
-                onDismiss={() => setIsVisible(false)}
-                panDirection={PanningProvider.Directions.DOWN}
+            {/* Location */}
+            <View>
+              <Location />
+            </View>
+
+            {/* Description */}
+            <View style={tw`flex-col gap-2 `}>
+              <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+                Description
+              </Text>
+              <View style={tw`bg-[#e7e7e7] rounded-[8px] `}>
+                <TextInput
+                  style={tw`h-30 top-0 px-4 w-full  flex items-start `}
+                  placeholder="What’s the name of your dish/drink?"
+                  multiline
+                  numberOfLines={6}
+                  verticalAlign="top"
+                  textAlignVertical="top"
+                  textAlign="left"
+                  placeholderTextColor={"#888888"}
+                />
+              </View>
+            </View>
+
+            {/* user rating  */}
+            <View style={tw``}>
+              <UserRating />
+            </View>
+
+            {/* add Photo  */}
+            <View style={tw`flex-row items-center gap-4 rounded-md `}>
+              <View>
+                <AddPhoto />
+              </View>
+              {/* Tag people */}
+              <View
+                style={tw`flex-row items-center justify-center gap-1.5 border-[1px] border-[#B0B0B0] w-[50%] i py-1.8  rounded-md `}
               >
-                <View>
-                  <TagUser close={() => setIsVisible(false)} />
-                </View>
-              </Dialog>
+                <TouchableOpacity
+                  style={tw`  flex-row  items-center gap-1.5`}
+                  onPress={() => setIsVisible(true)}
+                >
+                  <View style={tw` `}>
+                    <MaterialIcons
+                      name="add-photo-alternate"
+                      size={20}
+                      color="#B0B0B0"
+                    />
+                  </View>
+                  <Text style={tw`text-[16px] font-bold text-[#121212] `}>
+                    Tag people
+                  </Text>
+                </TouchableOpacity>
+
+                {/* tag dilog box */}
+                <Dialog
+                  visible={isVisible}
+                  onDismiss={() => setIsVisible(false)}
+                  panDirection={PanningProvider.Directions.DOWN}
+                >
+                  {/*  view tag user  */}
+                  <View>
+                    <TagUser close={() => setIsVisible(false)} />
+                  </View>
+                </Dialog>
+              </View>
             </View>
           </View>
-
-          {/* add post button */}
-          <View style={tw` items-center justify-center flex-row mb-5 `}>
-            <Pressable
-              style={tw` items-center justify-center flex-row bg-black w-30 rounded-full `}
-            >
-              <Text
-                style={tw`  text-white  flex items-center justify-center py-3 font-medium text-lg    `}
+          {/*  */}
+          <View>
+            {/* add post button */}
+            <View style={tw` items-center justify-center flex-row mb-5 `}>
+              <Pressable
+                style={tw` items-center justify-center flex-row bg-black w-30 rounded-full `}
               >
-                Post
-              </Text>
-            </Pressable>
+                <Text
+                  style={tw`  text-white  flex items-center justify-center py-3 font-bold text-[16px]   `}
+                >
+                  Post
+                </Text>
+              </Pressable>
+            </View>
           </View>
         </View>
       </ScrollView>

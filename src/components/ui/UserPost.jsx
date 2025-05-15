@@ -8,9 +8,11 @@ import icons from "../../../assets/images/restaurant.png";
 
 import userApi from "../../utils/user.json";
 
+import { Link } from "expo-router";
+import BookMark from "./BookMark";
 import ButtomSheet from "./ButtomSheet";
 import ShareButton from "./ShareButton";
-import BookMark from "./BookMark";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const UserPost = () => {
   const [isHeart, setIsHeart] = useState(false);
@@ -31,29 +33,46 @@ const UserPost = () => {
   };
 
   const renderItem = ({ item }) => (
-    <View style={tw`my-5 flex-col gap-3`}>
-      <View style={tw` flex-row items-center gap-2  px-3`}>
+    <View style={tw`my-4 flex-col gap-3`}>
+      <View style={tw` flex-row items-center gap-2`}>
         <Image
-          style={tw`w-15 h-15 rounded-full `}
+          style={tw`w-10 h-10 rounded-full `}
           source={{ uri: item?.user?.avatar }}
         />
+        {/* user name and verify icons wrapp */}
         <View style={tw`flex gap-0.5  `}>
-          <Text style={tw` text-lg font-semibold `}>{item?.user?.name}</Text>
-          <View style={tw`flex-row gap-1  `}>
-            <Image style={tw`w-5 h-5`} source={icons} />
-            <Text>{item?.user?.location}</Text>
+          {/* user name and verify icons wrapp */}
+          <View style={tw`flex-row items-center gap-2`}>
+            <Text style={tw` text-3.5 font-bold text-[#121212] `}>
+              {item?.user?.name}
+            </Text>
+            <MaterialCommunityIcons
+              name="check-decagram"
+              size={16}
+              color="#3b82f6"
+            />
+          </View>
+          <View style={tw`flex-row gap-1 items-center `}>
+            <Image style={tw`w-4 h-4`} source={icons} />
+            <Text style={tw` text-3 font-normal text-[#454545] `}>
+              {item?.user?.location}
+            </Text>
           </View>
         </View>
       </View>
-      {/*  */}
-      <View>
+
+      {/* redirects  to sing view post page  */}
+      <Link
+        href={{
+          pathname: `/viewpost/${item.id}`,
+          ququery: { props: JSON.stringify(item) },
+        }}
+      >
         <Image style={tw`w-full rounded `} source={foodImage} />
-      </View>
+      </Link>
       <View>
         {/* details view wrapp Like comment  */}
-        <View
-          style={tw`flex-row gap-4 items-center  justify-between mt-3 px-3 `}
-        >
+        <View style={tw`flex-row gap-4 items-center  justify-between mt-3`}>
           {/*  */}
           <View style={tw`flex-row gap-4 items-center  `}>
             {/* heart icon */}
@@ -84,15 +103,15 @@ const UserPost = () => {
         </View>
 
         {/*  view user info and details  */}
-        <View style={tw`flex mt-4 gap-2  px-3  `}>
-          <View style={tw`flex-col gap-2  `}>
+        <View style={tw`flex mt-2 gap-1   `}>
+          <View style={tw`flex-col gap-1   `}>
             {/* rating */}
             <View style={tw`flex-row justify-between  items-center  `}>
               <Text style={tw` text-lg font-semibold `}>{item?.title}</Text>
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
                 <FontAwesome name="star" size={20} color="#ffde21" />
-                <Text style={tw` text-lg font-semibold `}>{item?.rating}</Text>
+                <Text style={tw` text-[16px]  font-bold `}>{item?.rating}</Text>
               </View>
             </View>
             {/* past date  */}
@@ -100,14 +119,19 @@ const UserPost = () => {
               {/* view mail   */}
               <View style={tw`flex-row gap-1 items-center  `}>
                 {item?.category?.map((ite, index) => (
-                  <Text key={index} style={tw` text-lg  `}>
+                  <Text
+                    key={index}
+                    style={tw` text-[12px] font-semibold text-[#454545]  `}
+                  >
                     {ite}
                   </Text>
                 ))}
               </View>
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
-                <Text style={tw` text-[15px]  `}>{item?.date}</Text>
+                <Text style={tw` text-[14px] font-medium text-[#454545] `}>
+                  {item?.date}
+                </Text>
               </View>
             </View>
           </View>

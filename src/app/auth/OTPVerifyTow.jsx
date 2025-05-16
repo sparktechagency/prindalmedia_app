@@ -1,61 +1,70 @@
+import { ImageBackground } from "expo-image";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import tw from "twrnc";
+import image from "../../../assets/images/SplashScreen.png";
 
 const OTPVerifyTow = () => {
+  const [otpVerify, setOtpVerify] = useState("");
 
-
-    const [otpVerify, setOtpVerify] = useState('');
-
-    const handleNavigate = () => {
-        if (otpVerify) {
-            router.push('auth/ResetPassword')
-        }else{
-            Alert.alert( 'OTP' ,'OTP Not Verify')
-        }
+  const handleNavigate = () => {
+    if (otpVerify) {
+      router.push("auth/ResetPassword");
+    } else {
+      Alert.alert("OTP", "OTP Not Verify");
     }
-
+  };
 
   return (
-    <View
-      style={tw`flex flex-col gap-8 items-center justify-center h-full p-4`}
-    >
-      <View style={tw` w-full flex-col gap-3 `}>
-        <Text style={tw`text-2xl text-black dark:text-white text-center`}>
-          Verify OTP
-        </Text>
-
-        <Text
-          style={tw`mt-2 text-base text-gray-700 dark:text-gray-300 text-center`}
+    <View>
+      <ImageBackground
+        source={image}
+        resizeMode="cover"
+        style={tw`w-full  overflow-hidden`}
+      >
+        <View
+          style={tw`flex flex-col   items-center justify-center h-full p-[4%] `}
         >
-          We have sent a six digit code to your email
-        </Text>
-      </View>
+          <View style={tw` w-full flex-col gap-3 mb-16`}>
+            <Text style={tw`text-3xl text-[#121212] font-bold dark:text-white text-center `}>
+              Verify OTP
+            </Text>
 
-      <OtpInput
-        style={tw`bg-red-500`}
-        focusColor="black"
-        placeholder="******"
-        numberOfDigits={6}
-        type="numeric"
-        onFilled={(text) => setOtpVerify(text)}
-        textInputProps={{
-          accessibilityLabel: "One-Time Password",
-        }}
-        textProps={{
-          accessibilityRole: "text",
-          accessibilityLabel: "OTP digit",
-          allowFontScaling: false,
-        }}
-      />
+            <Text
+              style={tw`mt-2 text-3 text-[#888888] dark:text-gray-300 text-center`}
+            >
+              We have sent a six digit code to your email
+            </Text>
+          </View>
 
-      <View style={tw`w-full flex-col gap-4 mt-4 rounded-full bg-[#121212] `}>
-        <Pressable onPress={handleNavigate} style={tw`py-4`}>
-          <Text style={tw`text-center text-white text-xl`}>Verify</Text>
-        </Pressable>
-      </View>
+          <OtpInput
+            style={tw`bg-red-500`}
+            focusColor="black"
+            placeholder="******"
+            numberOfDigits={6}
+            type="numeric"
+            onFilled={(text) => setOtpVerify(text)}
+            textInputProps={{
+              accessibilityLabel: "One-Time Password",
+            }}
+            textProps={{
+              accessibilityRole: "text",
+              accessibilityLabel: "OTP digit",
+              allowFontScaling: false,
+            }}
+          />
+
+          <View
+            style={tw`w-full flex-col gap-4 mt-4 rounded-full bg-[#121212] mt-10 `}
+          >
+            <Pressable onPress={handleNavigate} style={tw`py-4`}>
+              <Text style={tw`text-center text-white text-xl`}>Verify</Text>
+            </Pressable>
+          </View>
+        </View>
+      </ImageBackground>
     </View>
   );
 };

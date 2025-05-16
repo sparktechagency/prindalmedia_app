@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import tw from "twrnc";
+import Logout from "./Logout";
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -52,33 +53,87 @@ const Header = () => {
       {/* Drawer (Mock) */}
       <Modal transparent visible={drawerOpen}>
         <Pressable
-          style={tw`flex-1 bg-black bg-opacity-40`}
+          style={tw` bg-black bg-opacity-40`}
           onPress={() => setDrawerOpen(false)}
         >
-          <View style={tw`w-64 rounded-r-2xl flex-col gap-6 h-full bg-white p-5`}>
-            {/* tab Navigation */}
-            {/* Left - Hamburger and Logo */}
-            <View style={tw`flex-row items-center justify-between`}>
-              <Text style={tw`text-9 font-bold text-[#121212]`}>Kalamari</Text>
-              <TouchableOpacity onPress={() => setDrawerOpen(false)}>
-                <Ionicons name="close" size={24} style={tw`text-gray-800 mr-3`} />
-              </TouchableOpacity>
-            </View>
-            {/* Navigation  */}
+          <View
+            style={tw`w-80.1 rounded-r-2xl flex-col gap-6 h-full bg-white py-20 px-6 justify-between`}
+          >
+            <View style={tw` flex-col gap-4`}>
+              {/* tab Navigation */}
+              {/* Left - Hamburger and Logo */}
+              <View style={tw`flex-row items-center justify-between mb-10`}>
+                <Text style={tw`text-9 font-bold text-[#121212]`}>
+                  Kalamari.
+                </Text>
+                <TouchableOpacity onPress={() => setDrawerOpen(false)}>
+                  <Ionicons
+                    name="close"
+                    size={24}
+                    style={tw`text-gray-800 mr-3`}
+                  />
+                </TouchableOpacity>
+              </View>
+              {/* Navigation  */}
 
-            <View>
-              <Text onPress={() => setDrawerOpen(false)}  style={tw`text-lg font-semibold mb-4`}>Navigation</Text>
-              <Text style={tw`mb-2 text-4 text-[#454545]`}> Home</Text>
-              <Link href={'/(drawer)/Post'}><Text style={tw`mb-2 text-4 text-[#454545]`}> Post</Text></Link>
-              <Link href={'/(drawer)/Bookmarks'}><Text style={tw`mb-2 text-4 text-[#454545]`}> Bookmarks</Text></Link>
-              <Link href={'/(drawer)/Profile'}><Text style={tw`mb-2 text-4 text-[#454545]`}> Profile</Text></Link>
+              <View style={tw` flex-col gap-6`}>
+                <View style={tw` flex-col gap-4`}>
+                  <Text
+                    onPress={() => setDrawerOpen(false)}
+                    style={tw`text-lg font-semibold `}
+                  >
+                    Navigation
+                  </Text>
+                  <View style={tw` flex-col gap-2`}>
+                    <Text style={tw`mb-2 text-4 text-[#454545]`}> Home</Text>
+                    <Link href={"/(drawer)/Post"}>
+                      <Text style={tw`mb-2 text-4 text-[#454545]`}> Post</Text>
+                    </Link>
+                    <Link href={"/(drawer)/Bookmarks"}>
+                      <Text style={tw`mb-2 text-4 text-[#454545]`}>
+                        {" "}
+                        Bookmarks
+                      </Text>
+                    </Link>
+                    <Link href={"/(drawer)/Profile"}>
+                      <Text style={tw`mb-2 text-4 text-[#454545]`}>
+                        {" "}
+                        Profile
+                      </Text>
+                    </Link>
+                  </View>
+                </View>
+                {/* Account Navigation  */}
+                <View style={tw` flex-col gap-4`}>
+                  <Text style={tw`text-lg font-semibold `}>Account</Text>
+                  <View style={tw` flex-col gap-2`}>
+                    <Link href={"/(drawer)/ChangePassword"}>
+                      <Text style={tw` text-4 text-[#454545]`}>
+                        {" "}
+                        Change password
+                      </Text>
+                    </Link>
+                    <Link href={"/(drawer)/TermsAndConditions"}>
+                      <Text style={tw`text-4 text-[#454545]`}>
+                        {" "}
+                        Terms & Conditions
+                      </Text>
+                    </Link>
+                    <Link href={"/(drawer)/PrivacyPolicy"}>
+                      <Text style={tw` text-4 text-[#454545]`}>
+                        {" "}
+                        Privacy policy
+                      </Text>
+                    </Link>
+                  </View>
+                </View>
+              </View>
             </View>
-            {/* Account Navigation  */}
-            <View style={tw` flex-col gap-1`}>
-              <Text style={tw`text-lg font-semibold mb-4`}>Account</Text>
-              <Link href={'/(drawer)/ChangePassword'}><Text style={tw` text-4 text-[#454545]`}> Change password</Text></Link>
-              <Link href={'/(drawer)/TermsAndConditions'}><Text style={tw`text-4 text-[#454545]`}> Terms & Conditions</Text></Link>
-              <Link href={'/(drawer)/PrivacyPolicy'}><Text style={tw` text-4 text-[#454545]`}> Privacy policy</Text></Link>
+
+            {/* Logout  */}
+            
+            <View>
+              <Logout />
             </View>
           </View>
         </Pressable>

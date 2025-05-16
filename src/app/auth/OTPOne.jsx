@@ -1,8 +1,11 @@
+import { ImageBackground } from "expo-image";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Alert, Pressable, Text, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import tw from "twrnc";
+import image from "../../../assets/images/SplashScreen.png";
+
 
 const OTPOne = () => {
 
@@ -19,6 +22,12 @@ const OTPOne = () => {
 
 
   return (
+    <View>
+       <ImageBackground
+        source={image}
+        resizeMode="cover"
+        style={tw`w-full  overflow-hidden`}
+      >
     <View
       style={tw`flex flex-col gap-8 items-center justify-center h-full p-4`}
     >
@@ -37,7 +46,7 @@ const OTPOne = () => {
       <OtpInput
         style={tw`bg-red-500`}
         focusColor="black"
-        placeholder="******"
+        placeholder="000000"
         numberOfDigits={6}
         type="numeric"
         onFilled={(text) => setOtpVerify(text)}
@@ -56,6 +65,8 @@ const OTPOne = () => {
           <Text style={tw`text-center text-white text-xl`}>Verify</Text>
         </Pressable>
       </View>
+    </View>
+    </ImageBackground>
     </View>
   );
 };

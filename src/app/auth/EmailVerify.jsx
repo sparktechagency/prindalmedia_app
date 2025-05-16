@@ -30,7 +30,7 @@ const EmailVerify = () => {
         style={tw`w-full  overflow-hidden`}
       >
         <View
-          style={tw`p-5 h-full bg-white dark:bg-black flex-col gap-10 items-center justify-center`}
+          style={tw`p-5 h-full  dark:bg-black flex-col gap-10 items-center justify-center`}
         >
           <View style={tw`w-full flex-col gap-3`}>
             <Text style={tw`text-2xl text-[#121212] font-bold dark:text-white text-center`}>
@@ -38,7 +38,7 @@ const EmailVerify = () => {
             </Text>
 
             <Text
-              style={tw`mt-2 text-4  text-[#888888] dark:text-gray-300 text-center`}
+              style={tw`mt-2 text-3 text-[#888888] dark:text-gray-300 text-center`}
             >
               Enter your email address to reset your password
             </Text>

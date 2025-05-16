@@ -1,14 +1,15 @@
 import { AntDesign, Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
-import { TextInput } from "react-native";
 import {
-  View,
-  Text,
-  ScrollView,
   Image,
-  TouchableOpacity,
   Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
+
 import { RadioButton } from "react-native-ui-lib";
 import tw from "twrnc";
 
@@ -29,7 +30,7 @@ const TagUser = ({ close }) => {
     <View style={tw`bg-white rounded-[24px] p-[5%]`}>
       <View style={tw` flex-col gap-[40px] mb-[24px]`}>
         <View style={tw` flex-row items-center justify-between `}>
-          <Text style={tw`text-2xl py-4`}>Tag people</Text>
+          <Text style={tw`text-2xl py-4 font-bold text-[#121212] `}>Tag people</Text>
           <AntDesign onPress={close} name="close" size={24} color="black" />
         </View>
 
@@ -53,7 +54,7 @@ const TagUser = ({ close }) => {
        
       </View>
        <View style={tw` flex-row items-center justify-between `}>
-          <Text style={tw`text-2xl py-4`}>Tag people</Text>
+          <Text style={tw`text-xl py-4 text-[#121212] font-semibold`}>Your Followers</Text>
         </View>
 
       <ScrollView showsVerticalScrollIndicator={false} style={{ height: 320 }}>

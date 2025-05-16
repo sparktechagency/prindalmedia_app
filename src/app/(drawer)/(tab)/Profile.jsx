@@ -13,7 +13,7 @@ import Recent from "../../../components/ui/Recent";
 const tabs = [
   { label: "Recent", icon: "history" },
   { label: "Followers", icon: "account-group-outline" },
-  { label: "Following",icon: "account-multiple-outline"},
+  { label: "Following", icon: "account-multiple-outline" },
 ];
 
 const Profile = () => {
@@ -21,9 +21,12 @@ const Profile = () => {
 
   return (
     <View
-      style={tw`p-[6%] 
+      style={tw`p-[4%] 
     `}
     >
+      <Text style={tw`text-4.2 mt-8 text-[#121212] font-bold mb-5.2`}>
+        My Profile
+      </Text>
       <View style={tw`mb-4`}>
         {/* Profile image and badge */}
         <View style={tw`items-center relative`}>
@@ -31,14 +34,13 @@ const Profile = () => {
             source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} // Replace with your image
             style={tw`w-20 h-20 rounded-full`}
           />
-          <Link 
-           style={tw`absolute bottom-0 right-32 bg-blue-500 p-2 rounded-full`}
-           href={'/provers/1'}>
-          <View
-           
+          <Link
+            style={tw`absolute bottom-0 right-32 bg-blue-500 p-2 rounded-full`}
+            href={"/provers/1"}
           >
-            <Icon name="edit" size={18} color="#fff" />
-          </View>
+            <View>
+              <Icon name="edit" size={18} color="#fff" />
+            </View>
           </Link>
         </View>
 
@@ -49,19 +51,23 @@ const Profile = () => {
         </View>
 
         {/* Bio */}
-        <Text style={tw`text-center text-gray-600 mt-3`}>
-          Food lover sharing my journey through bites, sips unforgettable meals
+        <Text style={tw`text-center text-gray-600 mt-4 leading-6`}>
+          Food lover sharing my journey through bites, sips unforgettable meals 🍕🍔🌮
         </Text>
 
         {/* Follower stats */}
-        <View style={tw`flex-row justify-around mt-5`}>
-          <View style={tw`items-center flex-row gap-1.3 `}>
+        <View style={tw`flex-row mt-4  justify-center gap-2`}>
+          <View
+            style={tw`items-center flex-row gap-1.3 bg-[#D5D5D51A] p-2 rounded-2 px-6 `}
+          >
             <Icon name="users" size={18} color="gray" />
-            <Text style={tw`mt-1 font-semibold`}>
+            <Text style={tw`mt-1 font-semibold `}>
               Followers: <Text style={tw`text-black`}>5.1k</Text>
             </Text>
           </View>
-          <View style={tw`items-center flex-row gap-1.3`}>
+          <View
+            style={tw`items-center flex-row gap-1.3 bg-[#D5D5D51A] p-2 rounded-2 px-6 `}
+          >
             <Icon name="user-plus" size={18} color="gray" />
             <Text style={tw`mt-1 font-semibold`}>
               Following: <Text style={tw`text-black`}>1.2k</Text>
@@ -100,11 +106,11 @@ const Profile = () => {
           ))}
         </View>
       </View>
-       {/* added the all tabs view components */}
-       <View style={tw`mt-2 mb-20`}>
-           {activeTab === 'Recent' && <Recent /> }
-           {activeTab === 'Followers' && <Followers /> }
-           {activeTab === 'Following' && <Following /> }
+      {/* added the all tabs view components */}
+      <View style={tw`mt-2 mb-20`}>
+        {activeTab === "Recent" && <Recent />}
+        {activeTab === "Followers" && <Followers />}
+        {activeTab === "Following" && <Following />}
       </View>
     </View>
   );

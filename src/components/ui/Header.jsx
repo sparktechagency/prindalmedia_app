@@ -27,7 +27,7 @@ const Header = () => {
       </View>
 
       {/* Right - Icons and Avatar */}
-      <View style={tw`flex-row items-center space-x-3 gap-2`}>
+      <View style={tw`flex-row items-center gap-2`}>
         <TouchableOpacity style={tw`p-2 rounded-full bg-gray-100`}>
           <Link href={"/map"}>
             <Feather name="search" size={20} style={tw`text-gray-700`} />
@@ -57,19 +57,28 @@ const Header = () => {
         >
           <View style={tw`w-64 rounded-r-2xl flex-col gap-6 h-full bg-white p-5`}>
             {/* tab Navigation */}
+            {/* Left - Hamburger and Logo */}
+            <View style={tw`flex-row items-center justify-between`}>
+              <Text style={tw`text-9 font-bold text-[#121212]`}>Kalamari</Text>
+              <TouchableOpacity onPress={() => setDrawerOpen(false)}>
+                <Ionicons name="close" size={24} style={tw`text-gray-800 mr-3`} />
+              </TouchableOpacity>
+            </View>
+            {/* Navigation  */}
+
             <View>
-              <Text style={tw`text-lg text-[#454545] font-semibold mb-4`}>Navigation</Text>
-              <Text style={tw`mb-2 text-gray-800`}> Dashboard</Text>
-              <Text style={tw`mb-2 text-gray-800`}> Profile</Text>
-              <Text style={tw`mb-2 text-gray-800`}> Settings</Text>
-              <Text style={tw`mb-2 text-gray-800`}> Logout</Text>
+              <Text onPress={() => setDrawerOpen(false)}  style={tw`text-lg font-semibold mb-4`}>Navigation</Text>
+              <Text style={tw`mb-2 text-4 text-[#454545]`}> Home</Text>
+              <Link href={'/(drawer)/Post'}><Text style={tw`mb-2 text-4 text-[#454545]`}> Post</Text></Link>
+              <Link href={'/(drawer)/Bookmarks'}><Text style={tw`mb-2 text-4 text-[#454545]`}> Bookmarks</Text></Link>
+              <Link href={'/(drawer)/Profile'}><Text style={tw`mb-2 text-4 text-[#454545]`}> Profile</Text></Link>
             </View>
             {/* Account Navigation  */}
-            <View>
+            <View style={tw` flex-col gap-1`}>
               <Text style={tw`text-lg font-semibold mb-4`}>Account</Text>
-              <Text style={tw`mb-2 text-gray-800`}> Change password</Text>
-              <Text style={tw`mb-2 text-gray-800`}> Terms & Conditions</Text>
-              <Text style={tw`mb-2 text-gray-800`}> Privacy policy</Text>
+              <Link href={'/(drawer)/ChangePassword'}><Text style={tw` text-4 text-[#454545]`}> Change password</Text></Link>
+              <Link href={'/(drawer)/TermsAndConditions'}><Text style={tw`text-4 text-[#454545]`}> Terms & Conditions</Text></Link>
+              <Link href={'/(drawer)/PrivacyPolicy'}><Text style={tw` text-4 text-[#454545]`}> Privacy policy</Text></Link>
             </View>
           </View>
         </Pressable>

@@ -19,9 +19,9 @@ const ViewDeatils = () => {
     <View style={tw`p-[6%] flex-1 flex-col justify-between `}>
       <View>
         <TouchableOpacity onPress={() => navigate.goBack()}>
-          <View style={tw`flex-row items-center gap-2 my-4`}>
+          <View style={tw`flex-row items-center gap-2 my-t mb-12`}>
             <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-            <Text style={tw`text-4.2 text-[#121212] font-bold`}>Edit</Text>
+            <Text style={tw`text-5 text-[#121212] font-bold`}>Edit</Text>
           </View>
         </TouchableOpacity>
         <View style={tw`items-center relative`}>
@@ -38,12 +38,12 @@ const ViewDeatils = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={tw` mt-10`}>
+        <View style={tw` mt-10 `}>
           <Text style={tw`text-4.2 font-bold mb-6`}>Basic information</Text>
 
           {/* dish/drink  input */}
-          <View style={tw`flex-col gap-2`}>
-            <Text style={tw`text-lg font-bold`}>Name</Text>
+          <View style={tw`flex-col gap-4`}>
+            <Text style={tw`text-4 text-[#121212] font-semibold`}>Name</Text>
             <View style={tw`bg-[#e7e7e7] rounded-md `}>
               <TextInput
                 placeholder="What’s the name of your dish/drink?"
@@ -53,7 +53,7 @@ const ViewDeatils = () => {
             </View>
             {/* Description */}
             <View style={tw`flex-col gap-2 `}>
-              <Text style={tw`text-lg font-medium`}>Bio</Text>
+              <Text style={tw`text-4 text-[#121212] font-semibold`}>Bio</Text>
               <View style={tw`bg-[#e7e7e7] rounded-[8px] `}>
                 <TextInput
                   style={tw`h-30 top-0 px-4 w-full  flex items-start `}

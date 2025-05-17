@@ -8,6 +8,7 @@ import { Alert, Pressable, Text, TextInput, View } from "react-native";
 import tw from "twrnc";
 import * as Yup from "yup";
 import image from "../../../assets/images/SplashScreen.png";
+import AuthHeading from "../../components/ui/AuthHeading";
 
 // Yup validation schema
 const ResetPasswordSchema = Yup.object().shape({
@@ -39,16 +40,10 @@ export default function ResetPassword() {
         <View
           style={tw`p-5 h-full  dark:bg-black flex-col  items-center justify-center`}
         >
-          <View style={tw`w-full flex-col gap-2 mb-16`}>
-            <Text style={tw`text-2xl text-[#121212] font-bold dark:text-white text-center`}>
-             Reset your password
-            </Text>
-            <Text
-              style={tw`mt-2 text-3 text-[#888888] dark:text-gray-300 text-center`}
-            >
-              You have to create new password to continue
-            </Text>
-          </View>
+          
+          {/*  */}
+          <AuthHeading Heading={'Reset your password'} SubHeading={'You have to create new password to continue'} />
+
 
           <Formik
             initialValues={{ password: "", confirmPassword: "" }}
@@ -65,7 +60,7 @@ export default function ResetPassword() {
             }) => (
               <>
                 {/* Password Input */}
-                <View style={tw`w-full flex-col gap-3`}>
+                <View style={tw`w-full flex-col gap-2`}>
                   <Text style={tw`text-4 text-[#121212] font-semibold`}>Password</Text>
                   <View
                     style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
@@ -97,7 +92,7 @@ export default function ResetPassword() {
                 </View>
 
                 {/* Confirm Password Input */}
-                <View style={tw`w-full flex-col gap-4 mt-4`}>
+                <View style={tw`w-full flex-col gap-2 mt-4`}>
                   <Text style={tw`text-4 text-[#121212] font-semibold`}>Confirm Password</Text>
                   <View
                     style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
@@ -133,7 +128,7 @@ export default function ResetPassword() {
                 </View>
 
                 {/* Submit Button */}
-                <View style={tw`w-full mt-6 rounded-full bg-[#121212]`}>
+                <View style={tw`w-full mt-10 rounded-full bg-[#121212]`}>
                   <Pressable onPress={handleSubmit} style={tw`py-4`}>
                     <Text style={tw`text-center text-white text-xl`}>
                       Update

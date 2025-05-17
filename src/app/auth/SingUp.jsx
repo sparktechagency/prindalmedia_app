@@ -10,6 +10,7 @@ import { Pressable, SafeAreaView, Text, TextInput, View } from "react-native";
 import tw from "twrnc";
 import * as Yup from "yup";
 import image from "../../../assets/images/SplashScreen.png";
+import AuthHeading from '../../components/ui/AuthHeading';
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string().required("Username is required"),
@@ -43,7 +44,7 @@ export default function SingUp() {
         style={tw`w-full  overflow-hidden`}
       >
         <SafeAreaView
-          style={tw`p-6 h-full dark:bg-black flex-col gap-4 items-center justify-center`}
+          style={tw`p-[4%] h-full dark:bg-black flex-col gap-1 items-center justify-center`}
         >
           <Formik
             initialValues={{
@@ -66,13 +67,9 @@ export default function SingUp() {
               setFieldValue,
             }) => (
               <>
-                <View style={tw`w-full flex-col mb-10 `}>
-                  <Text
-                    style={tw`text-7 text-black font-bold dark:text-white text-center`}
-                  >
-                    Create an account
-                  </Text>
-                </View>
+                
+                {/* top hading  */}
+                <AuthHeading Heading={'Create an account'} />
 
                 {/* Username */}
                 <View style={tw`flex-col gap-2 w-full`}>
@@ -214,7 +211,7 @@ export default function SingUp() {
                 )}
 
                 {/* Submit Button */}
-                <View style={tw`w-full mt-4 rounded-full bg-[#121212]`}>
+                <View style={tw`w-full mt-10 rounded-full bg-[#121212]`}>
                   <Pressable onPress={handleSubmit} style={tw`py-4`}>
                     <Text style={tw`text-center text-white text-xl`}>
                       Register

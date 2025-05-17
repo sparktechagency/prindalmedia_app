@@ -1,6 +1,5 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
-import Fontisto from "@expo/vector-icons/Fontisto";
 import Checkbox from "expo-checkbox";
 import { Link, router } from "expo-router";
 import { Formik } from "formik";
@@ -15,6 +14,7 @@ import {
 import tw from "twrnc";
 import * as Yup from "yup";
 import image from "../../assets/images/SplashScreen.png";
+import AuthHeading from '../components/ui/AuthHeading';
 
 const validation = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -64,26 +64,17 @@ export default function Index() {
             setFieldValue,
           }) => (
             <View style={tw`w-full p-[4%]  h-full flex-col justify-center gap-3`}>
-              <Text style={tw`text-2xl text-black dark:text-white text-center`}>
-                Welcome back!
-              </Text>
-              <Text
-                style={tw`mt-2 text-base text-gray-700 dark:text-gray-300 text-center`}
-              >
-                Please sign in to continue.
-              </Text>
+              
+
+              {/* top Heading */}
+              <AuthHeading Heading={'Welcome back!'} SubHeading={'Please sign in to continue.'} />
 
               {/* Email */}
               <Text style={tw`text-lg font-medium`}>Email</Text>
               <View
                 style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
               >
-                <Fontisto
-                  name="email"
-                  size={20}
-                  color="black"
-                  style={tw`mr-2`}
-                />
+                
                 <TextInput
                   style={tw`flex-1 text-base text-black dark:text-white`}
                   onChangeText={handleChange("email")}

@@ -5,6 +5,7 @@ import { Alert, Pressable, Text, View } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import tw from "twrnc";
 import image from "../../../assets/images/SplashScreen.png";
+import AuthHeading from "../../components/ui/AuthHeading";
 
 
 const OTPOne = () => {
@@ -31,17 +32,9 @@ const OTPOne = () => {
     <View
       style={tw`flex flex-col gap-8 items-center justify-center h-full p-4`}
     >
-      <View style={tw` w-full flex-col gap-3 `}>
-        <Text style={tw`text-2xl text-black dark:text-white text-center`}>
-          Verify OTP
-        </Text>
-
-        <Text
-          style={tw`mt-2 text-base text-gray-700 dark:text-gray-300 text-center`}
-        >
-          We have sent a six digit code to your email
-        </Text>
-      </View>
+      
+      {/*  */}
+      <AuthHeading Heading={'Verify OTP'} SubHeading={'We have sent a six digit code to your email'} />
 
       <OtpInput
         style={tw`bg-red-500`}
@@ -60,7 +53,7 @@ const OTPOne = () => {
         }}
       />
 
-      <View style={tw`w-full flex-col gap-4 mt-4 rounded-full bg-[#121212] `}>
+      <View style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#121212] `}>
         <Pressable onPress={handleNavigate} style={tw`py-4`}>
           <Text style={tw`text-center text-white text-xl`}>Verify</Text>
         </Pressable>

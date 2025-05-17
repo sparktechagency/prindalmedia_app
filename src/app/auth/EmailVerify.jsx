@@ -7,6 +7,7 @@ import { Pressable, Text, TextInput, View } from "react-native";
 import tw from "twrnc";
 import * as Yup from "yup";
 import image from "../../../assets/images/SplashScreen.png";
+import AuthHeading from "../../components/ui/AuthHeading";
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,30 +20,21 @@ const EmailVerify = () => {
 
   const handleFormSubmit = (values) => {
     setVerifyEmail(values.email);
-    router.push("auth/OTPVerifyTo");
+    router.push("auth/OTPVerifyTow");
   };
 
   return (
      <View >
        <ImageBackground
         source={image}
-        resizeMode="cover"
         style={tw`w-full  overflow-hidden`}
       >
         <View
-          style={tw`p-5 h-full  dark:bg-black flex-col gap-10 items-center justify-center`}
+          style={tw`p-[4%] h-full  dark:bg-black flex-col items-center justify-center `}
         >
-          <View style={tw`w-full flex-col gap-3`}>
-            <Text style={tw`text-2xl text-[#121212] font-bold dark:text-white text-center`}>
-              Forgot password
-            </Text>
+          {/*  */}
 
-            <Text
-              style={tw`mt-2 text-3 text-[#888888] dark:text-gray-300 text-center`}
-            >
-              Enter your email address to reset your password
-            </Text>
-          </View>
+          <AuthHeading Heading={'Forgot password'} SubHeading={' Enter your email address to reset your password'} />
 
           <Formik
             initialValues={{ email: "" }}
@@ -59,7 +51,7 @@ const EmailVerify = () => {
             }) => (
               <>
                 {/* Email input */}
-                <View style={tw`mt-2 w-full flex-col gap-3`}>
+                <View style={tw`mt-2 w-full flex-col gap-2`}>
                   <Text style={tw`text-lg font-medium`}>Email</Text>
                   <View
                     style={tw`flex-row justify-between items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
@@ -86,7 +78,7 @@ const EmailVerify = () => {
 
                 {/* Submit button */}
                 <View
-                  style={tw`w-full flex-col gap-4 mt-4 rounded-full bg-[#121212]`}
+                  style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#121212]`}
                 >
                   <Pressable onPress={handleSubmit} style={tw`py-4`}>
                     <Text style={tw`text-center text-white text-xl`}>

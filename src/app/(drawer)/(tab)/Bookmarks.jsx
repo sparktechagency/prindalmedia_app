@@ -14,10 +14,18 @@ const Bookmarks = () => {
           style={tw`flex-col gap-4 mt-0 mb-10  justify-between items-center`}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
-            <View
+            <TouchableOpacity
               key={index}
-              style={tw`flex-row gap-4 bg-[rgba(213, 213, 213, 0.10)] p-2 rounded-2xl items-center `}
+              style={tw` flex-1 flex-row gap-4 bg-[rgba(213, 213, 213, 0.10)] p-2 rounded-2xl items-center `}
             >
+              {/* Image */}
+              {/* <Link  
+              href={{
+                pathname: `/viewpost/${item.id}`,
+                ququery: { props: JSON.stringify(item) },
+              }}
+              > */}
+        
               {/* Image */}
               <Image source={foodImage} style={tw`w-18 h-18 rounded-[8px]`} />
 
@@ -64,7 +72,8 @@ const Bookmarks = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
+            {/* </Link> */}
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>

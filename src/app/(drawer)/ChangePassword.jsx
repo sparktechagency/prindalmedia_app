@@ -1,5 +1,7 @@
 import { AntDesign, Feather, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Formik } from "formik";
+import { useState } from "react";
 import {
   Image,
   Pressable,
@@ -9,165 +11,172 @@ import {
   View,
 } from "react-native";
 import tw from "twrnc";
+import * as Yup from "yup";
+//  Yup validation schema
+const validationSchema = Yup.object().shape({
+  currentPassword: Yup.string()
+    .required("Current password is required")
+    .min(6, "Password must be at least 6 characters"),
+    
+  newPassword: Yup.string()
+    .required("New password is required")
+    .min(6, "Password must be at least 6 characters"),
+    
+  confirmPassword: Yup.string()
+    .required("Confirm password is required")
+    .oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
+});
 
-import { useState } from "react";
 
 const ChangePassword = () => {
   const navigate = useNavigation();
-  const [password, setPassword] = useState("");
-  const [currentpassword, setCurrentPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const handleShowPassword = () => setPassword(!password);
-  const handleConfirmPassword = () => setConfirmPassword(!confirmPassword);
-  const handleCurremtPassword = () => setCurrentPassword(!currentpassword);
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+
+   const handleSubmit = (values) => {
+    console.log("Submitted data", values);
+    // Handle API call or navigation
+  };
 
   return (
-    <View style={tw`p-[6%] flex-1 flex-col justify-between `}>
-      <View>
-        <TouchableOpacity onPress={() => navigate.goBack()}>
-          <View style={tw`flex-row items-center gap-2 mt-4 mb-6 `}>
-            <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-            <Text style={tw`text-4.2 font-bold `}>Edit</Text>
-          </View>
-        </TouchableOpacity>
-        <View style={tw`items-center`}>
-          <Image
-            source={require("../../../assets/images/changePassword.png")} // Replace with your image
-            style={tw`w-48 h-42`}
-          />
-        </View>
+    <Formik
+      initialValues={{
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      }}
+      validationSchema={validationSchema} 
+      onSubmit={handleSubmit}
+    >
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+      }) => (
+        <View style={tw`p-[6%] flex-1 justify-between`}>
+          {/* Back and Title */}
+          <TouchableOpacity onPress={() => navigate.goBack()}>
+            <View style={tw`flex-row items-center gap-2 mt-4 mb-6`}>
+              <MaterialIcons name="arrow-back-ios" size={24} color="black" />
+              <Text style={tw`text-4.2 font-bold`}>Edit</Text>
+            </View>
+          </TouchableOpacity>
 
-        <View style={tw` mt-10`}>
-          {/* Current Password input */}
-          <View style={tw`mt-2 w-full flex-col gap-3`}>
-            <Text style={tw`text-4 text-[#121212] font-semibold`}>
+          {/* Image */}
+          <View style={tw`items-center`}>
+            <Image
+              source={require("../../../assets/images/changePassword.png")}
+              style={tw`w-48 h-42`}
+            />
+          </View>
+
+          {/* Inputs */}
+          <View style={tw`mt-10`}>
+
+            {/* Current Password */}
+            <Text style={tw`text-4 text-[#121212] font-semibold mt-2`}>
               Current Password
             </Text>
-
-            <View
-              style={tw`flex-row justify-between items-center bg-[#f3f3f3] rounded-2 px-4 py-2`}
-            >
-              {/* Lock icon + Input */}
-              <View style={tw`flex-row items-center flex-1`}>
-                <AntDesign
-                  style={tw`mr-2 text-[#888888]`}
-                  name="lock"
-                  size={20}
-                  color="black"
-                />
-
-                <TextInput
-                  style={tw`flex-1 text-base text-black dark:text-white `}
-                  secureTextEntry={currentpassword ? true : false}
-                  onChangeText={setCurrentPassword}
-                  placeholder="Enter your previous password..."
-                  placeholderTextColor={"#888888"}
-                />
-              </View>
-
-              {/* Eye icon */}
+            <View style={tw`flex-row items-center bg-[#f3f3f3] rounded-2 px-4 py-2`}>
+              <AntDesign name="lock" size={20} style={tw`mr-2 text-[#888888]`} />
+              <TextInput
+                secureTextEntry={!showCurrent}
+                placeholder="Enter current password..."
+                placeholderTextColor="#888888"
+                style={tw`flex-1 text-base text-black`}
+                onChangeText={handleChange("currentPassword")}
+                onBlur={handleBlur("currentPassword")}
+                value={values.currentPassword}
+              />
               <Feather
-                style={tw`mr-2 text-[#888888]`}
-                onPress={handleCurremtPassword}
-                name={currentpassword ? "eye-off" : "eye"}
+                onPress={() => setShowCurrent(!showCurrent)}
+                name={showCurrent ? "eye-off" : "eye"}
                 size={18}
-                color="black"
-                placeholder="Enter a new password..."
+                style={tw`text-[#888888]`}
               />
             </View>
-          </View>
+            {touched.currentPassword && errors.currentPassword && (
+              <Text style={tw`text-red-500 mt-1 ml-2 text-xs`}>
+                {errors.currentPassword}
+              </Text>
+            )}
 
-          {/* password input */}
-          <View style={tw`mt-2 w-full flex-col gap-3`}>
-            <Text style={tw`text-4 text-[#121212] font-semibold`}>
+            {/* New Password */}
+            <Text style={tw`text-4 text-[#121212] font-semibold mt-4`}>
               New Password
             </Text>
-
-            <View
-              style={tw`flex-row justify-between items-center bg-[#f3f3f3]  rounded-2 px-4 py-2`}
-            >
-              {/* Lock icon + Input */}
-              <View style={tw`flex-row items-center flex-1`}>
-                <AntDesign
-                  style={tw`mr-2 text-[#888888]`}
-                  name="lock"
-                  size={20}
-                  color="black"
-                />
-
-                <TextInput
-                  style={tw`flex-1 text-base text-black dark:text-white `}
-                  secureTextEntry={password ? true : false}
-                  onChangeText={setPassword}
-                  placeholder="Enter a new password..."
-                  placeholderTextColor={"#888888"}
-                />
-              </View>
-
-              {/* Eye icon */}
+            <View style={tw`flex-row items-center bg-[#f3f3f3] rounded-2 px-4 py-2`}>
+              <AntDesign name="lock" size={20} style={tw`mr-2 text-[#888888]`} />
+              <TextInput
+                secureTextEntry={!showNew}
+                placeholder="Enter new password..."
+                placeholderTextColor="#888888"
+                style={tw`flex-1 text-base text-black`}
+                onChangeText={handleChange("newPassword")}
+                onBlur={handleBlur("newPassword")}
+                value={values.newPassword}
+              />
               <Feather
-                style={tw`mr-2 text-[#888888]`}
-                onPress={handleShowPassword}
-                name={password ? "eye-off" : "eye"}
+                onPress={() => setShowNew(!showNew)}
+                name={showNew ? "eye-off" : "eye"}
                 size={18}
-                color="black"
+                style={tw`text-[#888888]`}
               />
             </View>
-          </View>
+            {touched.newPassword && errors.newPassword && (
+              <Text style={tw`text-red-500 mt-1 ml-2 text-xs`}>
+                {errors.newPassword}
+              </Text>
+            )}
 
-          {/* confirm password input */}
-          <View style={tw`mt-2 w-full flex-col gap-3`}>
-            <Text style={tw`text-4 text-[#121212] font-semibold`}>
+            {/* Confirm Password */}
+            <Text style={tw`text-4 text-[#121212] font-semibold mt-4`}>
               Confirm Password
             </Text>
-
-            <View
-              style={tw`flex-row justify-between items-center bg-[#f3f3f3] rounded-2 px-4 py-2`}
-            >
-              {/* Lock icon + Input */}
-              <View style={tw`flex-row items-center flex-1`}>
-                <AntDesign
-                  style={tw`mr-2 text-[#888888]`}
-                  name="lock"
-                  size={20}
-                  color="black"
-                />
-
-                <TextInput
-                  style={tw`flex-1 text-base text-black dark:text-white `}
-                  secureTextEntry={confirmPassword ? true : false}
-                  onChangeText={setConfirmPassword}
-                  placeholder="Retype password..."
-                  placeholderTextColor={"#888888"}
-                />
-              </View>
-
-              {/* Eye icon */}
+            <View style={tw`flex-row items-center bg-[#f3f3f3] rounded-2 px-4 py-2`}>
+              <AntDesign name="lock" size={20} style={tw`mr-2 text-[#888888]`} />
+              <TextInput
+                secureTextEntry={!showConfirm}
+                placeholder="Confirm new password..."
+                placeholderTextColor="#888888"
+                style={tw`flex-1 text-base text-black`}
+                onChangeText={handleChange("confirmPassword")}
+                onBlur={handleBlur("confirmPassword")}
+                value={values.confirmPassword}
+              />
               <Feather
-                style={tw`mr-2 text-[#888888]`}
-                onPress={handleConfirmPassword}
-                name={confirmPassword ? "eye-off" : "eye"}
+                onPress={() => setShowConfirm(!showConfirm)}
+                name={showConfirm ? "eye-off" : "eye"}
                 size={18}
-                color="black"
+                style={tw`text-[#888888]`}
               />
             </View>
+            {touched.confirmPassword && errors.confirmPassword && (
+              <Text style={tw`text-red-500 mt-1 ml-2 text-xs`}>
+                {errors.confirmPassword}
+              </Text>
+            )}
+          </View>
+
+          {/* Submit Button */}
+          <View style={tw`items-center justify-center flex-row mb-5`}>
+            <Pressable
+              onPress={handleSubmit}
+              style={tw`items-center justify-center flex-row bg-black w-full rounded-full`}
+            >
+              <Text style={tw`text-white py-3 font-medium text-lg`}>
+                Save changes
+              </Text>
+            </Pressable>
           </View>
         </View>
-      </View>
-
-      {/* add post button */}
-      <View style={tw` items-center justify-center flex-row mb-5 `}>
-        <Pressable
-          style={tw` items-center justify-center flex-row bg-black w-full rounded-full `}
-        >
-          <Text
-            style={tw`  text-white  flex items-center justify-center py-3 font-medium text-lg    `}
-          >
-            Save changes
-          </Text>
-        </Pressable>
-      </View>
-    </View>
+      )}
+    </Formik>
   );
 };
 

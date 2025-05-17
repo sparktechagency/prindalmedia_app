@@ -4,11 +4,11 @@ import { Dimensions, FlatList, Image, TouchableOpacity, View } from "react-nativ
 import tw from "twrnc";
 
 const images = [
-  { uri: "https://img.freepik.com/free-psd/french-fries-with-sauce-round-basket-transparent-background_84443-1446.jpg?ga=GA1.1.2122055718.1747451571&semt=ais_hybrid&w=740" },
-  { uri: "https://img.freepik.com/free-psd/french-fries-with-sauce-round-basket-transparent-background_84443-1446.jpg?ga=GA1.1.2122055718.1747451571&semt=ais_hybrid&w=740" },
-  { uri: "https://img.freepik.com/free-psd/french-fries-with-sauce-round-basket-transparent-background_84443-1446.jpg?ga=GA1.1.2122055718.1747451571&semt=ais_hybrid&w=740" },
-  { uri: "https://img.freepik.com/free-psd/french-fries-with-sauce-round-basket-transparent-background_84443-1446.jpg?ga=GA1.1.2122055718.1747451571&semt=ais_hybrid&w=740" },
-  { uri: "https://img.freepik.com/free-psd/french-fries-with-sauce-round-basket-transparent-background_84443-1446.jpg?ga=GA1.1.2122055718.1747451571&semt=ais_hybrid&w=740" },
+  { uri: "https://i.ibb.co/vvqhJ5qD/Rectangle-5040-1.png" },
+  { uri: "https://i.ibb.co/vvqhJ5qD/Rectangle-5040-1.png" },
+  { uri: "https://i.ibb.co/vvqhJ5qD/Rectangle-5040-1.png" },
+  { uri: "https://i.ibb.co/vvqhJ5qD/Rectangle-5040-1.png" },
+  { uri: "https://i.ibb.co/vvqhJ5qD/Rectangle-5040-1.png" },
 ];
 
 const { width } = Dimensions.get("window");
@@ -42,6 +42,7 @@ const TacoSlider = () => {
     <View style={tw`relative items-center`}>
       {/* FlatList with scroll tracking */}
       <FlatList
+        style={{ borderRadius : 8}} // IMAGE  rounded 
         ref={flatListRef}
         horizontal
         data={images}
@@ -54,7 +55,7 @@ const TacoSlider = () => {
           <TouchableOpacity>
             <Image
               source={{ uri: item.uri }}
-              style={{ width, height: 300}}
+              style={{ width, height: 392 }}
             />
           </TouchableOpacity>
         )}
@@ -64,18 +65,18 @@ const TacoSlider = () => {
       <TouchableOpacity
         onPress={() => scrollToIndex(currentIndex - 1)}
         disabled={currentIndex === 0}
-        style={tw`absolute left-2 top-1/2 -mt-4 bg-white p-2 rounded-full shadow opacity-${currentIndex === 0 ? 30 : 100}`}
+        style={tw`absolute left-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full  opacity-${currentIndex === 0 ? 30 : 100}`}
       >
-        <AntDesign name="left" size={20} color="#333" />
+        <AntDesign name="left" size={20} color="#121212" />
       </TouchableOpacity>
 
       {/* Right Arrow */}
       <TouchableOpacity
         onPress={() => scrollToIndex(currentIndex + 1)}
         disabled={currentIndex === images.length - 1}
-        style={tw`absolute right-2 top-1/2 -mt-4 bg-white p-2 rounded-full shadow opacity-${currentIndex === images.length - 1 ? 30 : 100}`}
+        style={tw`absolute right-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full  opacity-${currentIndex === images.length - 1 ? 30 : 100}`}
       >
-        <AntDesign name="right" size={20} color="#333" />
+        <AntDesign name="right" size={20} color="#121212"  />
       </TouchableOpacity>
     </View>
   );

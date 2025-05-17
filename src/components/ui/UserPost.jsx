@@ -3,16 +3,15 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useEffect, useState } from "react";
 import { FlatList, Image, Text, View } from "react-native";
 import tw from "twrnc";
-import foodImage from "../../../assets/images/Rectangle.png";
 import icons from "../../../assets/images/restaurant.png";
 
 import userApi from "../../utils/user.json";
 
-import { Link } from "expo-router";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import BookMark from "./BookMark";
 import ButtomSheet from "./ButtomSheet";
 import ShareButton from "./ShareButton";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import TacoSlider from "./TacoSlider";
 
 const UserPost = () => {
   const [isHeart, setIsHeart] = useState(false);
@@ -62,14 +61,11 @@ const UserPost = () => {
       </View>
 
       {/* redirects  to sing view post page  */}
-      <Link
-        href={{
-          pathname: `/viewpost/${item.id}`,
-          ququery: { props: JSON.stringify(item) },
-        }}
-      >
-        <Image style={tw`w-full rounded `} source={foodImage} />
-      </Link>
+     
+        <View>
+          <TacoSlider />
+        </View>
+     
       <View>
         {/* details view wrapp Like comment  */}
         <View style={tw`flex-row gap-4 items-center  justify-between mt-3`}>

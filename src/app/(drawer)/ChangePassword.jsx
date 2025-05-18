@@ -63,7 +63,7 @@ const ChangePassword = () => {
           <TouchableOpacity onPress={() => navigate.goBack()}>
             <View style={tw`flex-row items-center gap-2 mt-4 mb-6`}>
               <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-              <Text style={tw`text-4.2 font-bold`}>Edit</Text>
+              <Text style={tw`text-4.2 font-bold `}>Change password</Text>
             </View>
           </TouchableOpacity>
 

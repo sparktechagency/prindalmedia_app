@@ -17,7 +17,7 @@ const OTPOne = () => {
   };
 
   return (
-    <View style={tw`p-[4%] h-full justify-center`}>
+    <View style={tw`p-[4%] bg-[#F3F3F3] h-full justify-center`}>
       <SafeAreaView style={tw`flex flex-col gap-8  `}>
         {/*  */}
         <AuthHeading
@@ -27,7 +27,7 @@ const OTPOne = () => {
 
         <View style={tw`flex flex-col gap-2 justify-end items-end `}>
           <OtpInput
-            style={tw`bg-red-500`}
+            style={tw`bg-[#F3F3F3]`}
             focusColor="black"
             placeholder="000000"
             numberOfDigits={6}

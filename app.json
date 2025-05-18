@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "project-two",
-    "slug": "project-two",
+    "name": "Kalamari",
+    "slug": "Kalamari",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -17,6 +17,11 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyARXa6r8AXKRaoeWqyesQNBI8Y3EUEWSnY"
+        }
+      },
       "package": "com.anonymous.projecttwo"
     },
     "web": {
@@ -27,6 +32,7 @@
     "plugins": [
       "expo-router",
       "expo-image-picker",
+      "expo-camera",
       [
         "expo-splash-screen",
         {
@@ -35,7 +41,15 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      [
+        "expo-maps",
+        {
+          "requestLocationPermission": "true",
+          "locationPermission": "Allow $(PRODUCT_NAME) to use your location"
+        }
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

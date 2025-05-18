@@ -48,7 +48,6 @@
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "~2.24.0",
     "react-native-google-places-autocomplete": "^2.5.7",
-    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-otp-entry": "^1.8.4",
     "react-native-paper": "^5.14.1",
     "react-native-raw-bottom-sheet": "^3.0.0",

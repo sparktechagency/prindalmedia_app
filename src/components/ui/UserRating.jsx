@@ -3,13 +3,13 @@ import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import tw from "twrnc";
 
-const RatingComponent = () => {
+const RatingComponent = ({ Rating }) => {
   const [rating, setRating] = useState();
   const [hover, setHover] = useState();
 
-
   const handlePress = (value) => {
     setRating(value);
+    Rating(value);
   };
 
   return (

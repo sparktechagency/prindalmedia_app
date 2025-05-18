@@ -30,7 +30,7 @@ export default function Index() {
   };
 
   return (
-    <View style={tw`flex-1 p-[4%]`}>
+    <View style={tw`flex-1 bg-[#FDFFFE] p-[4%]`}>
       <ScrollView scrollEnabled={false} style={tw``}>
         <View
           style={[
@@ -126,9 +126,12 @@ export default function Index() {
                     <Checkbox
                       value={values.checkbox}
                       onValueChange={(val) => setFieldValue("checkbox", val)}
-                      color="#B0B0B0"
+                      color="#B0B0B0" // tick color
+                      uncheckedColor="#B0B0B0"
+                      style={{ width: 16, height: 16 }}
+                      accessibilityHint="red"
                     />
-                    <Text>Remember me</Text>
+                    <Text style={tw`text-[#888888] text-3`}>Remember me</Text>
                   </View>
                   <Link href="auth/OTPOne" style={tw`text-[#0063E5] underline`}>
                     Forget password?
@@ -145,7 +148,7 @@ export default function Index() {
                   </Text>
                 </Pressable>
 
-                <Text style={tw`text-center mt-32`}>
+                <Text style={tw`text-center mt-32 text-[#121212]`}>
                   Don’t have an account?{" "}
                   <Link href="/auth/SingUp" style={tw`text-blue-700`}>
                     Sign up

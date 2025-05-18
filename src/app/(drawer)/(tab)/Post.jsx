@@ -2,7 +2,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import {
   Pressable,
-  SafeAreaView,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -13,6 +12,7 @@ import { Dialog, PanningProvider, RadioButton } from "react-native-ui-lib";
 import tw from "twrnc";
 import AddPhoto from "../../../components/ui/AddPhoto";
 import Location from "../../../components/ui/Location";
+import TagManager from "../../../components/ui/TagManager";
 import TagUser from "../../../components/ui/TagUser";
 import UserRating from "../../../components/ui/UserRating";
 
@@ -21,26 +21,29 @@ const Post = () => {
   const [homeMade, setHomeMade] = useState("");
   const [meal, setMeal] = useState("");
   const [drink, setDrink] = useState("");
+  const [userName, setuserName] = useState("");
 
   // console.log(restaurant, homeMade, meal, drink);
 
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <SafeAreaView style={tw`p-[6%]`}>
-      <Text style={tw` text-xl font-bold text-[#121212]`}>Share your meal</Text>
+    <View style={tw`p-[4%] flex-1 bg-[#FDFFFE]`}>
+      <Text style={tw` text-xl font-bold my-3 text-[#121212]`}>
+        Share your meal
+      </Text>
 
       {/* Login input  */}
       <ScrollView showsVerticalScrollIndicator={false}>
         {/*  */}
-        <View style={tw` flex-col justify-between gap-10`}> 
+        <View style={tw` flex-col justify-between gap-10`}>
           <View style={tw` w-full  gap-4 flex-col justify-between mt-3`}>
             {/* dish/drink  input */}
             <View style={tw`flex-col gap-2`}>
               <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
                 Meal Name
               </Text>
-              <View style={tw`bg-[#e7e7e7] rounded-md `}>
+              <View style={tw`bg-[#F3F3F3] rounded-md `}>
                 <TextInput
                   placeholder="What’s the name of your dish/drink?"
                   style={tw`px-4 py-4 `}
@@ -48,6 +51,7 @@ const Post = () => {
                 />
               </View>
             </View>
+
             {/* Where did you have it? */}
             <View style={tw`gap-2`}>
               <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
@@ -114,7 +118,7 @@ const Post = () => {
               <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
                 Description
               </Text>
-              <View style={tw`bg-[#e7e7e7] rounded-[8px] `}>
+              <View style={tw`bg-[#F3F3F3] rounded-[8px] `}>
                 <TextInput
                   style={tw`h-30 top-0 px-4 w-full  flex items-start `}
                   placeholder="What’s the name of your dish/drink?"
@@ -133,6 +137,10 @@ const Post = () => {
               <UserRating />
             </View>
 
+            <View>
+              <TagManager newTag={userName} />
+            </View>
+
             {/* add Photo  */}
             <View style={tw`flex-row items-center gap-4 rounded-md `}>
               <View>
@@ -140,7 +148,7 @@ const Post = () => {
               </View>
               {/* Tag people */}
               <View
-                style={tw`flex-row items-center justify-center gap-1.5 border-[1px] border-[#B0B0B0] w-[50%] i py-1.8  rounded-md `}
+                style={tw`flex-row items-center justify-center gap-1.5 border-[1px] border-[#B0B0B0] w-[50%] py-1.8  rounded-md `}
               >
                 <TouchableOpacity
                   style={tw`  flex-row  items-center gap-1.5`}
@@ -166,7 +174,10 @@ const Post = () => {
                 >
                   {/*  view tag user  */}
                   <View>
-                    <TagUser close={() => setIsVisible(false)} />
+                    <TagUser
+                      close={() => setIsVisible(false)}
+                      setuserName={setuserName}
+                    />
                   </View>
                 </Dialog>
               </View>
@@ -175,12 +186,12 @@ const Post = () => {
           {/*  */}
           <View>
             {/* add post button */}
-            <View style={tw` items-center justify-center flex-row mb-5 `}>
+            <View style={tw` items-center justify-center flex-row  `}>
               <Pressable
-                style={tw` items-center justify-center flex-row bg-black w-30 rounded-full `}
+                style={tw` items-center justify-center flex-row bg-black px-9 py-3 rounded-full `}
               >
                 <Text
-                  style={tw`  text-white  flex items-center justify-center py-3 font-bold text-[16px]   `}
+                  style={tw`  text-white  flex items-center justify-center font-bold text-[16px]   `}
                 >
                   Post
                 </Text>
@@ -189,7 +200,7 @@ const Post = () => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

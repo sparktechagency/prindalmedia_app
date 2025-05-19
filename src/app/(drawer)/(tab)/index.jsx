@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, SafeAreaView, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import tw from "twrnc";
 
 import Header from "../../../components/ui/Header";
@@ -9,19 +9,19 @@ const Home = () => {
 
   const [isActiveTab, setIsActiveTab] = useState("Following");
 
+  //
   return (
-    <View style={tw`flex-1 p-[4%] bg-[#FDFFFE]`}>
+    <View style={tw`flex-1 bg-[#FDFFFE] `}>
       {/* top header */}
-      <Header />
-
-      <SafeAreaView>
-        <View style={tw`mb-6`}>
+      <View style={tw` p-[4%] `}>
+        <Header />
+        <View style={tw` `}>
           <View style={tw`flex-row gap-4`}>
             {tab.map((item, index) => (
               <Pressable key={index} onPress={() => setIsActiveTab(item)}>
                 <Text
                   style={tw`
-                  text-[16px] text-[#454545] font-semibold px-4 py-1 ${
+                  text-[16px] text-[#454545] font-inter-400 px-4 py-1 ${
                     isActiveTab === item
                       ? "bg-black text-white rounded-full"
                       : ""
@@ -34,10 +34,10 @@ const Home = () => {
             ))}
           </View>
         </View>
+      </View>
 
-        {/* view all user post  */}
-        <UserPost />
-      </SafeAreaView>
+      {/* view all user post  */}
+      <UserPost />
     </View>
   );
 };

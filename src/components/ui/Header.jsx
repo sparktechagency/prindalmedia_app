@@ -38,7 +38,9 @@ const Header = () => {
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
-          <Feather name="bell" size={20} style={tw`text-gray-700`} />
+          <Link href={"/notifications"}>
+            <Feather name="bell" size={20} style={tw`text-gray-700`} />
+          </Link>
         </TouchableOpacity>
         <Link href={"(tab)/Profile"}>
           <Image

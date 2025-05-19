@@ -2,12 +2,12 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useEffect, useState } from "react";
 import { FlatList, Image, Text, View } from "react-native";
-import tw from "twrnc";
 import icons from "../../../assets/images/restaurant.png";
 
 import userApi from "../../utils/user.json";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import tw from "../../lib/tailwind";
 import BookMark from "./BookMark";
 import ButtomSheet from "./ButtomSheet";
 import ShareButton from "./ShareButton";
@@ -42,7 +42,7 @@ const UserPost = () => {
         <View style={tw`flex gap-0.5  `}>
           {/* user name and verify icons wrapp */}
           <View style={tw`flex-row items-center gap-2`}>
-            <Text style={tw` text-3.5 font-bold text-[#121212] `}>
+            <Text style={tw` text-3.5 font-inter-700  text-[#121212] `}>
               {item?.user?.name}
             </Text>
             <MaterialCommunityIcons
@@ -53,7 +53,7 @@ const UserPost = () => {
           </View>
           <View style={tw`flex-row gap-1 items-center `}>
             <Image style={tw`w-4 h-4`} source={icons} />
-            <Text style={tw` text-3 font-normal text-[#454545] `}>
+            <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
               {item?.user?.location}
             </Text>
           </View>
@@ -61,11 +61,11 @@ const UserPost = () => {
       </View>
 
       {/* redirects  to sing view post page  */}
-     
-        <View>
-          <TacoSlider />
-        </View>
-     
+
+      <View>
+        <TacoSlider />
+      </View>
+
       <View>
         {/* details view wrapp Like comment  */}
         <View style={tw`flex-row gap-4 items-center  justify-between mt-3`}>
@@ -142,7 +142,7 @@ const UserPost = () => {
   );
 
   return (
-    <View>
+    <View style={tw`flex-1 p-[4%]`}>
       {/* view Full Post */}
       <FlatList
         data={user}

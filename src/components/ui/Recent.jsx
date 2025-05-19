@@ -1,4 +1,4 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Fontisto } from "@expo/vector-icons";
 import { FlatList, Image, Text, View } from "react-native";
 import foodImage from "../../../assets/images/food-image.png";
 import Icon from "../../../assets/images/restaurant.png";
@@ -63,6 +63,7 @@ const Recent = () => {
                       Restaurant
                     </Text>
                   </View>
+                  <Fontisto name="favorite" size={22} color="#0063E5" />
                 </View>
               </View>
             </View>

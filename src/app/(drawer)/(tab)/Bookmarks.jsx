@@ -1,82 +1,63 @@
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import tw from "twrnc";
-import foodImage from "../../../../assets/images/food-image.png";
-import Icon from "../../../../assets/images/restaurant.png";
+import { useState } from "react";
+import { Pressable, Text, View } from "react-native";
+// import Icon from "react-native-vector-icons/FontAwesome";
+import Icons from "react-native-vector-icons/MaterialCommunityIcons";
+import Recent from "../../../components/ui/Recent";
+import tw from "../../../lib/tailwind";
+
+// tabs name and icons
+const tabs = [
+  { label: "Restaurants", icon: "history" },
+  { label: "Recipes", icon: "account-group-outline" },
+];
 
 const Bookmarks = () => {
+  const [activeTab, setActiveTab] = useState("Restaurants");
+
   return (
     <View style={tw`flex-1 bg-[#FDFFFE] `}>
-      <Text style={tw`text-xl font-bold p-4`}>Bookmarks</Text>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* bookMark full content wrapper  */}
-        <View
-          style={tw`flex-col gap-4 mt-0 p-[4%] justify-between items-center`}
-        >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={tw` flex-1  flex-row gap-4 bg-[#D5D5D51A]  p-2 rounded-2xl items-center `}
-            >
-              {/* Image */}
-              {/* <Link  
-              href={{
-                pathname: `/viewpost/${item.id}`,
-                ququery: { props: JSON.stringify(item) },
-              }}
-              > */}
+      <View style={tw`flex-1 p-[4%]  `}>
+        <Text style={tw`text-xl font-bold p-4`}>Bookmarks</Text>
 
-              {/* Image */}
-              <Image source={foodImage} style={tw`w-18 h-18 rounded-[8px]`} />
-
-              {/* Content */}
-              <View style={tw`flex-1 px-2`}>
-                {/* Title and Rating */}
-                <View style={tw`flex-row justify-between items-center`}>
-                  <Text style={tw` font-interblack  text-base  text-black`}>
-                    Spaghetti Carbonara
-                  </Text>
-                  <View style={tw`flex-row items-center`}>
-                    <FontAwesome name="star" size={16} color="#facc15" />
-                    <Text style={tw`ml-1  text-black `}>2.8</Text>
-                  </View>
-                </View>
-
-                {/* Location and Date */}
-                <View style={tw`flex-row justify-between items-center mt-1`}>
-                  <View style={tw`flex-row items-center`}>
-                    <Image style={tw`w-4 h-4`} source={Icon} />
-                    <Text style={tw`text-[#454545] ml-1 text-sm`}>
-                      78 Tampa, Florida
-                    </Text>
-                  </View>
-                  <Text style={tw`text-[#454545] text-sm`}>07/04/2027</Text>
-                </View>
-
-                {/* Tags and Bookmark */}
-                <View style={tw`flex-row justify-between items-center mt-2`}>
-                  <View style={tw`flex-row gap-2`}>
-                    <Text style={tw`text-[12px] font-bold text-[#454545]`}>
-                      Meal
-                    </Text>
-                    <Text style={tw`text-[12px] font-bold text-[#454545]`}>
-                      Restaurant
-                    </Text>
-                  </View>
-                  <TouchableOpacity>
-                    <MaterialCommunityIcons
-                      name="bookmark"
-                      size={20}
-                      color="#007AFF"
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-              {/* </Link> */}
-            </TouchableOpacity>
-          ))}
+        {/* added the all tabs view components */}
+        <View style={tw`flex-1 `}>
+          {activeTab === "Restaurants" && <Recent />}
+          {activeTab === "Recipes" && <Recent />}
         </View>
-      </ScrollView>
+
+        {/* Tabs */}
+        <View style={tw` mt-2 flex-row  items-center justify-center `}>
+          <View
+            style={tw` flex-row p-2 items-center w-[70%] justify-center  bg-[#3333331A] rounded-full `}
+          >
+            {tabs.map((item, index) => (
+              <Pressable
+                key={item.label}
+                onPress={() => setActiveTab(item.label)}
+                style={tw`flex-row items-center px-4 py-2 rounded-full ${
+                  activeTab === item.label ? "bg-orange" : ""
+                }`}
+              >
+                {/* view icons  */}
+                <Icons
+                  name={item.icon}
+                  size={20}
+                  color={activeTab === item.label ? "white" : "#454545"}
+                  style={tw`mr-2`}
+                />
+                {/* tabs name and bg change  */}
+                <Text
+                  style={tw`${
+                    activeTab === item.label ? "text-white" : "text-[#454545]"
+                  } font-medium`}
+                >
+                  {item.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+      </View>
     </View>
   );
 };

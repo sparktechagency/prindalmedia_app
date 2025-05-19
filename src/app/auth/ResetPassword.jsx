@@ -1,13 +1,18 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
-import { ImageBackground } from "expo-image";
 import { router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
-import { Alert, Pressable, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  SafeAreaView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import tw from "twrnc";
 import * as Yup from "yup";
-import image from "../../../assets/images/SplashScreen.png";
 import AuthHeading from "../../components/ui/AuthHeading";
 
 // Yup validation schema
@@ -31,19 +36,16 @@ export default function ResetPassword() {
   };
 
   return (
-    <View>
-      <ImageBackground
-        source={image}
-        resizeMode="cover"
-        style={tw`w-full  overflow-hidden`}
-      >
-        <View
-          style={tw`p-5 h-full  dark:bg-black flex-col  items-center justify-center`}
-        >
-          
+    <View
+      style={tw` p-[4%] bg-[#FDFFFE] flex-1 justify-center overflow-hidden`}
+    >
+      <SafeAreaView>
+        <View style={tw`dark:bg-black flex-col  `}>
           {/*  */}
-          <AuthHeading Heading={'Reset your password'} SubHeading={'You have to create new password to continue'} />
-
+          <AuthHeading
+            Heading={"Reset your password"}
+            SubHeading={"You have to create new password to continue"}
+          />
 
           <Formik
             initialValues={{ password: "", confirmPassword: "" }}
@@ -61,7 +63,9 @@ export default function ResetPassword() {
               <>
                 {/* Password Input */}
                 <View style={tw`w-full flex-col gap-2`}>
-                  <Text style={tw`text-4 text-[#121212] font-semibold`}>Password</Text>
+                  <Text style={tw`text-4 text-[#121212] font-semibold`}>
+                    Password
+                  </Text>
                   <View
                     style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
                   >
@@ -93,7 +97,9 @@ export default function ResetPassword() {
 
                 {/* Confirm Password Input */}
                 <View style={tw`w-full flex-col gap-2 mt-4`}>
-                  <Text style={tw`text-4 text-[#121212] font-semibold`}>Confirm Password</Text>
+                  <Text style={tw`text-4 text-[#121212] font-semibold`}>
+                    Confirm Password
+                  </Text>
                   <View
                     style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
                   >
@@ -139,7 +145,7 @@ export default function ResetPassword() {
             )}
           </Formik>
         </View>
-      </ImageBackground>
+      </SafeAreaView>
     </View>
   );
 }

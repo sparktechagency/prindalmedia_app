@@ -1,11 +1,10 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
 
-export default function AddPhoto() {
-  const [image, setImage] = useState(null);
+export default function AddPhoto({ image, setImage }) {
+  // console.log(image);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -39,7 +38,9 @@ export default function AddPhoto() {
                 color="#B0B0B0"
               />
             </View>
-            <Text style={tw`text-[16px] font-bold text-[#121212] `}>Add photo</Text>
+            <Text style={tw`text-[16px] font-bold text-[#121212] `}>
+              Add photo
+            </Text>
           </View>
         </>
       )}

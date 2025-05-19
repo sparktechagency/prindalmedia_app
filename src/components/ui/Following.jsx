@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Image, Pressable, ScrollView, Text, View } from 'react-native';
-import tw from 'twrnc';
+import { useState } from "react";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import tw from "../../lib/tailwind";
 
 const Following = () => {
   const [setIsFollowing, setIsFollowingsetIsFollowing] = useState(false);
@@ -14,7 +14,7 @@ const Following = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {/*  following  user content wrapp   */}
         <View
-          style={tw`bg-[#D5D5D5] bg-opacity-10 flex-row justify-between items-center my-4`}
+          style={tw` flex-row justify-between items-center bg-[#D5D5D51A] p-2 rounded-2`}
         >
           <View style={tw`flex-row items-center gap-2`}>
             <Image
@@ -23,33 +23,31 @@ const Following = () => {
                 uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwg2PWrY_5mkISXy_GqXWUYPbglvpL6FSUgg&s",
               }}
             />
-            <Text style={tw`text-4.2 font-bold`}>Saka</Text>
+            <Text style={tw`text-3.2 font-inter-700 `}>Saka</Text>
           </View>
           <View>
             <Pressable
               onPress={handleFollow}
               style={tw`  ${
-                setIsFollowing
-                  ? " bg-[#0063E5]  "
-                  : " border-2 border-[#0063E5] "
+                setIsFollowing ? " bg-orange  " : " border-2 border-orange "
               }  py-1 px-5  rounded-full `}
             >
               <Text
                 style={tw` ${
-                  setIsFollowing ? "text-white" : "text-[#0063E5]"
+                  setIsFollowing
+                    ? "text-white font-inter-700"
+                    : "text-orange font-inter-700"
                 }  `}
               >
                 {" "}
-                {setIsFollowing ? "Follow" : "Following"}{" "}
+                {setIsFollowing ? "Follow" : "Unfollow"}{" "}
               </Text>
             </Pressable>
           </View>
         </View>
-        
-       
       </ScrollView>
     </View>
   );
-}
+};
 
-export default Following
+export default Following;

@@ -29,14 +29,16 @@ const Following = () => {
             <Pressable
               onPress={handleFollow}
               style={tw`  ${
-                setIsFollowing ? " bg-orange  " : " border-2 border-orange "
+                setIsFollowing
+                  ? " bg-[#E53E3E]  "
+                  : " border-2 border-[#E53E3E] "
               }  py-1 px-5  rounded-full `}
             >
               <Text
                 style={tw` ${
                   setIsFollowing
-                    ? "text-white font-inter-700"
-                    : "text-orange font-inter-700"
+                    ? "text-white text-3 font-inter-700"
+                    : "text-[#E53E3E] font-inter-700"
                 }  `}
               >
                 {" "}

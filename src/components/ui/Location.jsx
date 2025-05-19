@@ -10,26 +10,21 @@ import {
 } from "react-native";
 import tw from "twrnc";
 
-const Location = () => {
-
-  const [searchText, setSearchText] = useState('');
+const Location = ({ setSelectedLocation }) => {
+  const [searchText, setSearchText] = useState("");
   const [locationSuggestions, setLocationSuggestions] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  // const [selectedLocation, setSelectedLocation] = useState(null);
 
   // console.log( 'view new locations ' ,selectedLocation?.name);
   // console.log( 'view new   {"lat": 23.7520933, "lng": 90.4246379} ' ,selectedLocation?.geometry?.location);
-  
- 
-  
-  
 
   const handleSearchLocation = async (query) => {
-    // location data is null  
+    // location data is null
     setSelectedLocation(null);
     // What the user types in the input field is being stored in state.
     setSearchText(query);
 
-    // spaces not a valid data 
+    // spaces not a valid data
     if (!query.trim()) {
       setLocationSuggestions([]);
       return;
@@ -47,14 +42,14 @@ const Location = () => {
 
   return (
     <View style={tw` flex-1`}>
-      
-
       {/* Search Section */}
       <View style={tw`flex-1`}>
         <Text style={tw`text-[16px] font-semibold text-[#121212] mb-2`}>
           Location
         </Text>
-        <View style={tw`bg-[#e7e7e7] rounded-md flex-row items-center justify-between mb-4`}>
+        <View
+          style={tw`bg-[#F3F3F3] rounded-md flex-row items-center justify-between`}
+        >
           <TextInput
             style={tw`px-4 py-4 flex-1`}
             placeholder="What’s the name of your dish/drink?"
@@ -80,7 +75,9 @@ const Location = () => {
               >
                 <View style={tw`py-2 border-b border-gray-300`}>
                   <Text style={tw`font-bold text-black`}>{item.name}</Text>
-                  <Text style={tw`text-gray-600`}>{item.formatted_address}</Text>
+                  <Text style={tw`text-gray-600`}>
+                    {item.formatted_address}
+                  </Text>
                 </View>
               </TouchableOpacity>
             )}

@@ -1,19 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: ["./app/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        interblack: ["InterBlack"],
-        interbold: ["InterBold"],
-        intersemibold: ["InterSemiBold"],
-        interlight: ["InterLight"],
-        interregular: ["InterRegular"],
-        intermedium: ["InterMedium"],
+        "inter-400": ["InterRegular"],
+        "inter-500": ["InterMedium"],
+        "inter-600": ["InterSemiBold"],
+        "inter-700": ["InterBold"],
+        "inter-800": ["InterExtraBold"],
+        "inter-900": ["InterBlack"],
       },
       colors: {
         primary: "red",
-        primarybg: "#FDFFFE",
+        primaryBg: "#FDFFFE",
+        textPrimary: "#121212",
+        orange: "#ED6237",
+        textgray: "#454545",
       },
     },
   },
+  plugins: [],
 };

@@ -6,17 +6,17 @@ import Icon from "../../../../assets/images/restaurant.png";
 
 const Bookmarks = () => {
   return (
-    <View style={tw`p-[4%] `}>
-      <Text style={tw`text-xl font-bold my-6`}>Bookmarks</Text>
+    <View style={tw`flex-1 bg-[#FDFFFE] `}>
+      <Text style={tw`text-xl font-bold p-4`}>Bookmarks</Text>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* bookMark full content wrapper  */}
         <View
-          style={tw`flex-col gap-4 mt-0 mb-10  justify-between items-center`}
+          style={tw`flex-col gap-4 mt-0 p-[4%] justify-between items-center`}
         >
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => (
             <TouchableOpacity
               key={index}
-              style={tw` flex-1 flex-row gap-4 bg-[rgba(213, 213, 213, 0.10)] p-2 rounded-2xl items-center `}
+              style={tw` flex-1  flex-row gap-4 bg-[#D5D5D51A]  p-2 rounded-2xl items-center `}
             >
               {/* Image */}
               {/* <Link  
@@ -25,7 +25,7 @@ const Bookmarks = () => {
                 ququery: { props: JSON.stringify(item) },
               }}
               > */}
-        
+
               {/* Image */}
               <Image source={foodImage} style={tw`w-18 h-18 rounded-[8px]`} />
 
@@ -33,12 +33,12 @@ const Bookmarks = () => {
               <View style={tw`flex-1 px-2`}>
                 {/* Title and Rating */}
                 <View style={tw`flex-row justify-between items-center`}>
-                  <Text style={tw`text-base font-bold text-black`}>
+                  <Text style={tw` font-interblack  text-base  text-black`}>
                     Spaghetti Carbonara
                   </Text>
                   <View style={tw`flex-row items-center`}>
                     <FontAwesome name="star" size={16} color="#facc15" />
-                    <Text style={tw`ml-1 text-black font-medium`}>2.8</Text>
+                    <Text style={tw`ml-1  text-black `}>2.8</Text>
                   </View>
                 </View>
 
@@ -72,7 +72,7 @@ const Bookmarks = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-            {/* </Link> */}
+              {/* </Link> */}
             </TouchableOpacity>
           ))}
         </View>

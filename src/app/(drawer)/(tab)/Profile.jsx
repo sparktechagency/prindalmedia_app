@@ -1,116 +1,86 @@
 // ProfileCard.tsx
 import { Link } from "expo-router";
-import { useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Icons from "react-native-vector-icons/MaterialCommunityIcons";
-import tw from "twrnc";
-import Followers from "../../../components/ui/Followers";
-import Following from "../../../components/ui/Following";
-import Recent from "../../../components/ui/Recent";
+import RecentActivityList from "../../../components/ui/RecentActivityList";
+import tw from "../../../lib/tailwind";
 
 // tabs name and icons
-const tabs = [
-  { label: "Recent", icon: "history" },
-  { label: "Followers", icon: "account-group-outline" },
-  { label: "Following", icon: "account-multiple-outline" },
-];
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState("Recent");
-
   return (
-    <View
-      style={tw`p-[4%] 
-    `}
-    >
-      <Text style={tw`text-4.2 mt-8 text-[#121212] font-bold mb-5.2`}>
-        My Profile
-      </Text>
-      <View style={tw`mb-4`}>
-        {/* Profile image and badge */}
-        <View style={tw`items-center relative`}>
-          <Image
-            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} // Replace with your image
-            style={tw`w-20 h-20 rounded-full`}
-          />
-          <Link
-            style={tw`absolute bottom-0 right-32 bg-blue-500 p-2 rounded-full`}
-            href={"/provers/1"}
-          >
-            <View>
-              <Icon name="edit" size={18} color="#fff" />
-            </View>
-          </Link>
-        </View>
-
-        {/* Name and handle */}
-        <View style={tw`mt-4 items-center`}>
-          <Text style={tw`text-xl font-semibold`}>Mark Phillips</Text>
-          <Text style={tw`text-gray-500`}>@marke_7</Text>
-        </View>
-
-        {/* Bio */}
-        <Text style={tw`text-center text-gray-600 mt-4 leading-6`}>
-          Food lover sharing my journey through bites, sips unforgettable meals 🍕🍔🌮
+    <View style={tw` flex-1  bg-primaryBg`}>
+      <View style={tw` flex-1 px-[4%]`}>
+        <Text style={tw`text-4.2 mt-8 text-[#121212] font-bold mb-5.2`}>
+          My Profile
         </Text>
-
-        {/* Follower stats */}
-        <View style={tw`flex-row mt-4  justify-center gap-2`}>
-          <View
-            style={tw`items-center flex-row gap-1.3 bg-[#D5D5D51A] p-2 rounded-2 px-6 `}
-          >
-            <Icon name="users" size={18} color="gray" />
-            <Text style={tw`mt-1 font-semibold `}>
-              Followers: <Text style={tw`text-black`}>5.1k</Text>
-            </Text>
-          </View>
-          <View
-            style={tw`items-center flex-row gap-1.3 bg-[#D5D5D51A] p-2 rounded-2 px-6 `}
-          >
-            <Icon name="user-plus" size={18} color="gray" />
-            <Text style={tw`mt-1 font-semibold`}>
-              Following: <Text style={tw`text-black`}>1.2k</Text>
-            </Text>
-          </View>
-        </View>
-
-        {/* Tabs */}
-        <View
-          style={tw`flex-row p-[8px] items-center   rounded-full justify-around mt-6 bg-[#8E8E8E] bg-opacity-20 `}
-        >
-          {tabs.map((item, index) => (
-            <Pressable
-              key={item.label}
-              onPress={() => setActiveTab(item.label)}
-              style={tw`flex-row items-center px-4 py-2 rounded-full ${
-                activeTab === item.label ? "bg-blue-600" : ""
-              }`}
+        <View style={tw`mb-4`}>
+          {/* Profile image and badge */}
+          <View style={tw`items-center relative`}>
+            <Image
+              source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} // Replace with your image
+              style={tw`w-20 h-20 rounded-full`}
+            />
+            <Link
+              style={tw`absolute bottom-0 right-32 bg-blue-500 p-2 rounded-full`}
+              href={"/provers/1"}
             >
-              {/* view icons  */}
-              <Icons
-                name={item.icon}
-                size={20}
-                color={activeTab === item.label ? "white" : "#454545"}
-                style={tw`mr-2`}
-              />
-              {/* tabs name and bg change  */}
-              <Text
-                style={tw`${
-                  activeTab === item.label ? "text-white" : "text-[#454545]"
-                } font-medium`}
+              <View>
+                <Icon name="edit" size={18} color="#fff" />
+              </View>
+            </Link>
+          </View>
+
+          {/* Name and handle */}
+          <View style={tw`mt-4 items-center`}>
+            <Text style={tw`text-xl font-inter-700`}>Mark Phillips</Text>
+            <Text style={tw`text-3 text-textgray font-inter-500`}>
+              @marke_7
+            </Text>
+          </View>
+
+          {/* Bio */}
+          <Text style={tw`text-center text-textgray mt-4 leading-6`}>
+            Food lover sharing my journey through bites, sips unforgettable
+            meals 🍕🍔🌮
+          </Text>
+
+          {/* Follower stats */}
+          <View style={tw`flex-row mt-4  justify-center  gap-2`}>
+            <Link href={"/userfollowing"}>
+              <View
+                style={tw`items-center justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
               >
-                {item.label}
-              </Text>
-            </Pressable>
-          ))}
+                <Icon name="users" size={18} color="#121212" />
+                <Text style={tw` font-inter-400 `}>Followers:</Text>
+                <Text style={tw`text-textPrimary font-inter-700`}>5.1k</Text>
+              </View>
+            </Link>
+            {/* Following stats */}
+            <Link href={"/userfollowing/following"}>
+              <View
+                style={tw`items-center justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
+              >
+                <Icon name="users" size={18} color="#121212" />
+                <Text style={tw` font-inter-400 `}>Following:</Text>
+                <Text style={tw`text-textPrimary font-inter-700`}>1.1k</Text>
+              </View>
+            </Link>
+          </View>
         </View>
-      </View>
-      {/* added the all tabs view components */}
-      <View style={tw`mt-2 mb-20`}>
-        {activeTab === "Recent" && <Recent />}
-        {activeTab === "Followers" && <Followers />}
-        {activeTab === "Following" && <Following />}
+
+        {/* */}
+        <View style={tw`flex-1`}>
+          <View style={tw` `}>
+            <View style={tw`flex-row items-center gap-2 my-4`}>
+              <Text style={tw`text-4 text-[#121212] font-inter-700`}>
+                Recent activity list
+              </Text>
+            </View>
+          </View>
+
+          <RecentActivityList />
+        </View>
       </View>
     </View>
   );

@@ -16,30 +16,28 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <View
-      style={tw`flex-row justify-between items-center px-4 py-1.5 bg-white`}
-    >
+    <View style={tw`flex-row justify-between items-center my-5  bg-[#FDFFFE]`}>
       {/* Left - Hamburger and Logo */}
       <View style={tw`flex-row items-center`}>
         <TouchableOpacity onPress={() => setDrawerOpen(true)}>
           <Ionicons name="menu" size={28} style={tw`text-gray-800 mr-3`} />
         </TouchableOpacity>
-        <Text style={tw`text-xl font-bold text-gray-800`}>Kalamari.</Text>
+        <Text style={tw`text-2xl font-bold text-[#4D4D4D]`}>Kalamari.</Text>
       </View>
 
       {/* Right - Icons and Avatar */}
       <View style={tw`flex-row items-center gap-2`}>
-        <TouchableOpacity style={tw`p-2 rounded-full bg-gray-100`}>
+        <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
           <Link href={"/map"}>
             <Feather name="search" size={20} style={tw`text-gray-700`} />
           </Link>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`p-2 rounded-full bg-gray-100`}>
+        <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
           <Link href={"/map"}>
             <Feather name="map" size={20} style={tw`text-gray-700`} />
           </Link>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`p-2 rounded-full bg-gray-100`}>
+        <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
           <Feather name="bell" size={20} style={tw`text-gray-700`} />
         </TouchableOpacity>
         <Link href={"(tab)/Profile"}>
@@ -131,7 +129,7 @@ const Header = () => {
             </View>
 
             {/* Logout  */}
-            
+
             <View>
               <Logout />
             </View>

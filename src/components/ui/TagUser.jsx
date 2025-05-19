@@ -13,24 +13,23 @@ import {
 import { RadioButton } from "react-native-ui-lib";
 import tw from "twrnc";
 
-const TagUser = ({ close }) => {
+const TagUser = ({ close, setuserName }) => {
   const [value, setValue] = useState(false);
   const [searchPepole, setSearchPepole] = useState("");
-  const [userName , setuserName ] = useState('');
-
-  // console.log('new user' , userName);
-  
+  // const [userName , setuserName ] = useState('');
 
   const handlePress = (name) => {
     setValue(!value);
-    setuserName(name)
+    setuserName(name);
   };
 
   return (
     <View style={tw`bg-white rounded-[24px] p-[5%]`}>
       <View style={tw` flex-col gap-[40px] mb-[24px]`}>
         <View style={tw` flex-row items-center justify-between `}>
-          <Text style={tw`text-2xl py-4 font-bold text-[#121212] `}>Tag people</Text>
+          <Text style={tw`text-2xl py-4 font-bold text-[#121212] `}>
+            Tag people
+          </Text>
           <AntDesign onPress={close} name="close" size={24} color="black" />
         </View>
 
@@ -51,14 +50,14 @@ const TagUser = ({ close }) => {
             />
           </View>
         </View>
-       
       </View>
-       <View style={tw` flex-row items-center justify-between `}>
-          <Text style={tw`text-xl py-4 text-[#121212] font-semibold`}>Your Followers</Text>
-        </View>
+      <View style={tw` flex-row items-center justify-between `}>
+        <Text style={tw`text-xl py-4 text-[#121212] font-semibold`}>
+          Your Followers
+        </Text>
+      </View>
 
       <ScrollView showsVerticalScrollIndicator={false} style={{ height: 320 }}>
-        
         {/* user info */}
         <TouchableOpacity
           onPress={() => handlePress("Casey")}
@@ -74,6 +73,60 @@ const TagUser = ({ close }) => {
             />
             <View style={tw`flex-1`}>
               <Text style={tw`font-bold text-black`}>Casey</Text>
+            </View>
+          </View>
+
+          {/* Right: Delete Icon */}
+          <TouchableOpacity>
+            <RadioButton
+              selected={value}
+              onPress={() => setValue(!value)}
+              color="#B0B0B0"
+            />
+          </TouchableOpacity>
+        </TouchableOpacity>
+        {/* user info */}
+        <TouchableOpacity
+          onPress={() => handlePress("Casey")}
+          style={tw`flex-row items-center justify-between p-3 `}
+        >
+          {/* Left: Avatar + Content */}
+          <View style={tw`flex-row flex-1 items-center`}>
+            <Image
+              source={{
+                uri: "https://randomuser.me/api/portraits/men/1.jpg",
+              }}
+              style={tw`w-10 h-10 rounded-full mr-3`}
+            />
+            <View style={tw`flex-1`}>
+              <Text style={tw`font-bold text-black`}>Casey</Text>
+            </View>
+          </View>
+
+          {/* Right: Delete Icon */}
+          <TouchableOpacity>
+            <RadioButton
+              selected={value}
+              onPress={() => setValue(!value)}
+              color="#B0B0B0"
+            />
+          </TouchableOpacity>
+        </TouchableOpacity>
+        {/* user info */}
+        <TouchableOpacity
+          onPress={() => handlePress("jsss")}
+          style={tw`flex-row items-center justify-between p-3 `}
+        >
+          {/* Left: Avatar + Content */}
+          <View style={tw`flex-row flex-1 items-center`}>
+            <Image
+              source={{
+                uri: "https://randomuser.me/api/portraits/men/1.jpg",
+              }}
+              style={tw`w-10 h-10 rounded-full mr-3`}
+            />
+            <View style={tw`flex-1`}>
+              <Text style={tw`font-bold text-black`}>jsss</Text>
             </View>
           </View>
 
@@ -329,62 +382,6 @@ const TagUser = ({ close }) => {
             />
           </TouchableOpacity>
         </TouchableOpacity>
-        {/* user info */}
-        <TouchableOpacity
-          onPress={() => handlePress("Casey")}
-          style={tw`flex-row items-center justify-between p-3 `}
-        >
-          {/* Left: Avatar + Content */}
-          <View style={tw`flex-row flex-1 items-center`}>
-            <Image
-              source={{
-                uri: "https://randomuser.me/api/portraits/men/1.jpg",
-              }}
-              style={tw`w-10 h-10 rounded-full mr-3`}
-            />
-            <View style={tw`flex-1`}>
-              <Text style={tw`font-bold text-black`}>Casey</Text>
-            </View>
-          </View>
-
-          {/* Right: Delete Icon */}
-          <TouchableOpacity>
-            <RadioButton
-              selected={value}
-              onPress={() => setValue(!value)}
-              color="#B0B0B0"
-            />
-          </TouchableOpacity>
-        </TouchableOpacity>
-        {/* user info */}
-        <TouchableOpacity
-          onPress={() => handlePress("Casey")}
-          style={tw`flex-row items-center justify-between p-3 `}
-        >
-          {/* Left: Avatar + Content */}
-          <View style={tw`flex-row flex-1 items-center`}>
-            <Image
-              source={{
-                uri: "https://randomuser.me/api/portraits/men/1.jpg",
-              }}
-              style={tw`w-10 h-10 rounded-full mr-3`}
-            />
-            <View style={tw`flex-1`}>
-              <Text style={tw`font-bold text-black`}>Casey</Text>
-            </View>
-          </View>
-
-          {/* Right: Delete Icon */}
-          <TouchableOpacity>
-            <RadioButton
-              selected={value}
-              onPress={() => setValue(!value)}
-              color="#B0B0B0"
-            />
-          </TouchableOpacity>
-        </TouchableOpacity>
-        
-
       </ScrollView>
 
       {/*  */}

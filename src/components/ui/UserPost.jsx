@@ -1,7 +1,7 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useEffect, useState } from "react";
-import { FlatList, Image, Text, View } from "react-native";
+import { FlatList, Image, Pressable, Text, View } from "react-native";
 import icons from "../../../assets/images/restaurant.png";
 
 import userApi from "../../utils/user.json";
@@ -13,7 +13,7 @@ import ButtomSheet from "./ButtomSheet";
 import ShareButton from "./ShareButton";
 import TacoSlider from "./TacoSlider";
 
-const UserPost = () => {
+const UserPost = ({ isActiveTab }) => {
   const [isHeart, setIsHeart] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -31,25 +31,56 @@ const UserPost = () => {
     });
   };
 
+  // user follow or not follow
+  const [isFollower, setIsFollower] = useState(false);
+
   const renderItem = ({ item }) => (
-    <View style={tw`my-4 flex-col gap-3`}>
+    <View style={tw` my-3 py-2 flex-col gap-3`}>
       <View style={tw` flex-row items-center gap-2`}>
         <Image
           style={tw`w-10 h-10 rounded-full `}
           source={{ uri: item?.user?.avatar }}
         />
         {/* user name and verify icons wrapp */}
-        <View style={tw`flex gap-0.5  `}>
+        <View style={tw`flex gap-0.5 flex-1  `}>
           {/* user name and verify icons wrapp */}
-          <View style={tw`flex-row items-center gap-2`}>
-            <Text style={tw` text-3.5 font-inter-700  text-[#121212] `}>
-              {item?.user?.name}
-            </Text>
-            <MaterialCommunityIcons
-              name="check-decagram"
-              size={16}
-              color="#3b82f6"
-            />
+          <View style={tw`flex-row  items-center justify-between`}>
+            {/* name  */}
+            <View style={tw`flex-row items-center gap-2`}>
+              <Text style={tw` text-3.5 font-inter-700  text-[#121212] `}>
+                {item?.user?.name}
+              </Text>
+              <MaterialCommunityIcons
+                name="check-decagram"
+                size={16}
+                color="#3b82f6"
+              />
+            </View>
+
+            {/* following /  */}
+            {isActiveTab === "Discovery" ? (
+              <View>
+                <Pressable
+                  onPress={() => setIsFollower(!isFollower)}
+                  style={tw`  ${
+                    isFollower ? " border-2 border-[#E53E3E]  " : "bg-orange"
+                  }  py-1 px-5  rounded-full `}
+                >
+                  <Text
+                    style={tw` ${
+                      isFollower
+                        ? "text-[#E53E3E] font-inter-700"
+                        : "text-white font-inter-700"
+                    }  `}
+                  >
+                    {" "}
+                    {isFollower ? "Unfollow" : "follow"}{" "}
+                  </Text>
+                </Pressable>
+              </View>
+            ) : (
+              ""
+            )}
           </View>
           <View style={tw`flex-row gap-1 items-center `}>
             <Image style={tw`w-4 h-4`} source={icons} />
@@ -70,21 +101,25 @@ const UserPost = () => {
         {/* details view wrapp Like comment  */}
         <View style={tw`flex-row gap-4 items-center  justify-between mt-3`}>
           {/*  */}
-          <View style={tw`flex-row gap-4 items-center  `}>
+          <View style={tw`flex-row gap-4 justify-center items-center  `}>
             {/* heart icon */}
-            <View style={tw`flex-row gap-1 items-center `}>
+            <View style={tw`flex-row justify-center gap-1 items-center `}>
               <AntDesign
                 onPress={handleHeart}
                 name="heart"
                 size={20}
                 color={isHeart ? "red" : "black"}
               />
-              <Text>{likeCount}</Text>
+              <Text style={tw` text-3 font-inter-600 text-[#454545] `}>
+                {likeCount}
+              </Text>
             </View>
             {/* message */}
-            <View style={tw`flex-row gap-1 items-center `}>
+            <View style={tw`flex-row gap-1 justify-center items-center `}>
               <ButtomSheet />
-              <Text>{item?.comments}</Text>
+              <Text style={tw` text-3 font-inter-600 text-[#454545] `}>
+                {item?.comments}
+              </Text>
             </View>
             {/* share */}
             <View>
@@ -103,11 +138,15 @@ const UserPost = () => {
           <View style={tw`flex-col gap-1   `}>
             {/* rating */}
             <View style={tw`flex-row justify-between  items-center  `}>
-              <Text style={tw` text-lg font-semibold `}>{item?.title}</Text>
+              <Text style={tw` text-4 font-inter-700 text-textPrimary `}>
+                {item?.title}
+              </Text>
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
                 <FontAwesome name="star" size={20} color="#ffde21" />
-                <Text style={tw` text-[16px]  font-bold `}>{item?.rating}</Text>
+                <Text style={tw` text-[16px]  font-inter-700 `}>
+                  {item?.rating}
+                </Text>
               </View>
             </View>
             {/* past date  */}
@@ -117,7 +156,7 @@ const UserPost = () => {
                 {item?.category?.map((ite, index) => (
                   <Text
                     key={index}
-                    style={tw` text-[12px] font-semibold text-[#454545]  `}
+                    style={tw` text-[12px] font-inter-700 text-[#454545]  `}
                   >
                     {ite}
                   </Text>
@@ -125,7 +164,7 @@ const UserPost = () => {
               </View>
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
-                <Text style={tw` text-[14px] font-medium text-[#454545] `}>
+                <Text style={tw` text-[14px] font-inter-400 text-[#454545] `}>
                   {item?.date}
                 </Text>
               </View>
@@ -142,7 +181,10 @@ const UserPost = () => {
   );
 
   return (
-    <View style={tw`flex-1 p-[4%]`}>
+    <View
+      style={tw`
+     `}
+    >
       {/* view Full Post */}
       <FlatList
         data={user}

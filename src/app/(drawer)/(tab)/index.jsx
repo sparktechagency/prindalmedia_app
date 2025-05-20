@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import tw from "twrnc";
 
 import Header from "../../../components/ui/Header";
 import UserPost from "../../../components/ui/UserPost";
+import tw from "../../../lib/tailwind";
 const Home = () => {
   const tab = ["Following", "Discovery"];
 
@@ -11,33 +11,49 @@ const Home = () => {
 
   //
   return (
-    <View style={tw`flex-1 bg-[#FDFFFE] `}>
+    <View style={tw`flex-1  bg-[#FDFFFE] `}>
       {/* top header */}
-      <View style={tw` p-[4%] `}>
-        <Header />
-        <View style={tw` `}>
-          <View style={tw`flex-row gap-4`}>
-            {tab.map((item, index) => (
-              <Pressable key={index} onPress={() => setIsActiveTab(item)}>
-                <Text
-                  style={tw`
-                  text-[16px] text-[#454545] font-inter-400 px-4 py-1 ${
+      <View style={tw` flex-1 px-[4%] pt-[4%] `}>
+        <View>
+          <Header />
+          <View style={tw`pb-4`}>
+            <View
+              style={tw`flex-row gap-4  ${
+                isActiveTab === "Following"
+                  ? "w-[65%] bg-[#3333331A] p-2 rounded-full ease-in-out "
+                  : ""
+              }  `}
+            >
+              {tab.map((item, index) => (
+                <View key={index} style={tw``}>
+                  <Pressable onPress={() => setIsActiveTab(item)}>
+                    <Text
+                      style={tw`
+                  text-[16px] font-inter-400 px-4 py-1 ${
                     isActiveTab === item
-                      ? "bg-black text-white rounded-full"
-                      : ""
+                      ? ` ${
+                          isActiveTab === "Following"
+                            ? "text-white bg-orange rounded-full"
+                            : "bg-black text-white isActiveTab rounded-full"
+                        } `
+                      : "text-textgray"
                   }
                 `}
-                >
-                  {item}
-                </Text>
-              </Pressable>
-            ))}
+                    >
+                      {item}
+                    </Text>
+                  </Pressable>
+                </View>
+              ))}
+            </View>
           </View>
         </View>
-      </View>
 
-      {/* view all user post  */}
-      <UserPost />
+        {/* view all user post  */}
+        <View style={tw` flex-1 `}>
+          <UserPost isActiveTab={isActiveTab} />
+        </View>
+      </View>
     </View>
   );
 };

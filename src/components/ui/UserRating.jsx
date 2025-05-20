@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import tw from "twrnc";
+import tw from "../../lib/tailwind";
 
 const RatingComponent = ({ Rating }) => {
   const [rating, setRating] = useState();
@@ -14,7 +14,7 @@ const RatingComponent = ({ Rating }) => {
 
   return (
     <View style={tw` flex-row items-center  gap-1 `}>
-      <Text style={tw`text-[16px] font-bold text-[#121212] `}>Rate :</Text>
+      <Text style={tw`text-[16px] font-inter-600 text-[#121212 `}>Rate :</Text>
       <View style={tw`flex-row`}>
         {[1, 2, 3, 4, 5].map((star) => (
           <TouchableOpacity

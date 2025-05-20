@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import tw from "twrnc";
+import tw from "../../lib/tailwind";
 
 const Location = ({ setSelectedLocation }) => {
   const [searchText, setSearchText] = useState("");
@@ -44,7 +44,7 @@ const Location = ({ setSelectedLocation }) => {
     <View style={tw` flex-1`}>
       {/* Search Section */}
       <View style={tw`flex-1`}>
-        <Text style={tw`text-[16px] font-semibold text-[#121212] mb-2`}>
+        <Text style={tw`text-[16px] font-inter-600 text-[#121212 mb-2`}>
           Location
         </Text>
         <View

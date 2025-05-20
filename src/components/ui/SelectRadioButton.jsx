@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { RadioButton } from "react-native-ui-lib";
-import tw from "twrnc";
+import tw from "../../lib/tailwind";
 
 const SelectRadioButton = ({
   setSelectedOption,
@@ -11,7 +11,7 @@ const SelectRadioButton = ({
   return (
     <View style={tw`flex-col  gap-4`}>
       <View style={tw`gap-2`}>
-        <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+        <Text style={tw`text-[16px] font-inter-600 text-[#121212]`}>
           Where did you have it?
         </Text>
         <View style={tw`flex-row gap-6`}>
@@ -33,7 +33,7 @@ const SelectRadioButton = ({
         </View>
       </View>
       <View style={tw`gap-2`}>
-        <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+        <Text style={tw`text-[16px] font-inter-600 text-[#121212`}>
           Food type?
         </Text>
         <View style={tw`flex-row gap-2`}>

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import tw from "twrnc";
 import AddPhoto from "../../../components/ui/AddPhoto";
 import Location from "../../../components/ui/Location";
 import SelectRadioButton from "../../../components/ui/SelectRadioButton";
 import TagManager from "../../../components/ui/TagManager";
 import TagPepoleView from "../../../components/ui/TagPepoleView";
 import UserRating from "../../../components/ui/UserRating";
+import tw from "../../../lib/tailwind";
 
 //  updated and more better code readabel
 
@@ -34,9 +34,11 @@ const Post = () => {
   const [image, setImage] = useState(null);
   // console.log(image);
 
+  console.log(selectedOption);
+
   return (
     <View style={tw`px-[4%] pt-[4%] flex-1 bg-[#FDFFFE]`}>
-      <Text style={tw` text-xl font-bold my-3 text-[#121212]`}>
+      <Text style={tw` text-xl font-inter-700 my-3 text-[#121212]`}>
         Share your meal
       </Text>
 
@@ -47,7 +49,7 @@ const Post = () => {
           <View style={tw` w-full  gap-4 flex-col justify-between mt-3`}>
             {/* dish/drink  input */}
             <View style={tw`flex-col gap-2`}>
-              <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+              <Text style={tw`text-[16px] font-inter-600 text-[#121212]`}>
                 Meal Name
               </Text>
               <View style={tw`bg-[#F3F3F3] rounded-md `}>
@@ -71,12 +73,16 @@ const Post = () => {
 
             {/* Location */}
             <View>
-              <Location setSelectedLocation={setSelectedLocation} />
+              {selectedOption === "home-made" ? (
+                ""
+              ) : (
+                <Location setSelectedLocation={setSelectedLocation} />
+              )}
             </View>
 
             {/* Description */}
             <View style={tw`flex-col gap-2 `}>
-              <Text style={tw`text-[16px] font-semibold text-[#121212]`}>
+              <Text style={tw`text-[16px] font-inter-600 text-[#121212`}>
                 Description
               </Text>
               <View style={tw`bg-[#F3F3F3] rounded-[8px] `}>
@@ -126,7 +132,7 @@ const Post = () => {
             {/* add post button */}
             <View style={tw` items-center justify-center flex-row  `}>
               <Pressable
-                style={tw` items-center justify-center flex-row bg-black px-9 py-3 rounded-full `}
+                style={tw` items-center justify-center flex-row bg-orange px-9 py-3 rounded-full `}
               >
                 <Text
                   style={tw`  text-white  flex items-center justify-center font-bold text-[16px]   `}

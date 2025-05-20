@@ -1,8 +1,7 @@
-import { Feather } from "@expo/vector-icons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import {
-  Image,
   Pressable,
   Text,
   TextInput,
@@ -11,9 +10,12 @@ import {
 } from "react-native";
 
 import tw from "twrnc";
+import AlertBox from "../../components/ui/AlertBox";
+import ProfileAlert from "../../components/ui/ProfileAlert";
 
 const ViewDeatils = () => {
   const navigate = useNavigation();
+  const [isVisible, setIsVisible] = useState();
 
   return (
     <View style={tw`p-[6%] flex-1 flex-col justify-between `}>
@@ -25,17 +27,8 @@ const ViewDeatils = () => {
           </View>
         </TouchableOpacity>
         <View style={tw`items-center relative`}>
-          <Image
-            source={{ uri: "https://randomuser.me/api/portraits/men/32.jpg" }} // Replace with your image
-            style={tw`w-20 h-20 rounded-full`}
-          />
-          <TouchableOpacity>
-            <View
-              style={tw`absolute bottom-0 -right-11 bg-blue-500 p-2 rounded-full`}
-            >
-              <Feather name="camera" size={18} color="white" />
-            </View>
-          </TouchableOpacity>
+          <ProfileAlert />
+          <AlertBox />
         </View>
 
         <View style={tw` mt-10 `}>

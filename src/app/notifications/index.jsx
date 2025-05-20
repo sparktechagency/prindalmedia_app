@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -24,6 +24,8 @@ const Notifications = () => {
 
       setClicked(true); // only once
     }
+
+    router.push("notifications/1");
   };
 
   return (

@@ -80,7 +80,7 @@ const ListButtomSheet = ({ bottomSheetRef }) => {
                       name="close"
                       size={24}
                       //   style={tw`mr-2 text-[#00C49A]`}
-                      color="#121212"
+                      color="#E53E3E"
                       onPress={handlClose}
                     />
                   </View>
@@ -138,13 +138,17 @@ const ListButtomSheet = ({ bottomSheetRef }) => {
                   <View style={tw`flex-col gap-1   `}>
                     {/* rating */}
                     <View style={tw`flex-row justify-between  items-center  `}>
-                      <Text style={tw` text-lg font-semibold `}>
+                      <Text
+                        style={tw` text-4 font-inter-700 text-textPrimary `}
+                      >
                         Spicy taco
                       </Text>
                       {/* star icons */}
                       <View style={tw`flex-row gap-1 items-center`}>
                         <FontAwesome name="star" size={20} color="#ffde21" />
-                        <Text style={tw` text-[16px]  font-bold `}>
+                        <Text
+                          style={tw` text-[16px] text-textPrimary font-inter-600  `}
+                        >
                           4.5
                           {/* {item?.rating} */}
                         </Text>
@@ -162,12 +166,16 @@ const ListButtomSheet = ({ bottomSheetRef }) => {
                           {ite}
                         </Text>
                       ))} */}
-                        <Text>Meal Restaurant</Text>
+                        <Text
+                          style={tw` text-[12px] font-inter-600 text-[#454545]  `}
+                        >
+                          Meal Restaurant
+                        </Text>
                       </View>
                       {/* star icons */}
                       <View style={tw`flex-row gap-1 items-center`}>
                         <Text
-                          style={tw` text-[14px] font-medium text-[#454545] `}
+                          style={tw` text-[14px] font-inter-400 text-[#454545] `}
                         >
                           {/* {item?.date} */}
                           03/15/2026
@@ -178,7 +186,9 @@ const ListButtomSheet = ({ bottomSheetRef }) => {
                   {/* post details  */}
                   <View>
                     {/*  */}
-                    <Text style={tw`items-start leading-5`}>
+                    <Text
+                      style={tw`items-start text-3.5 text-textPrimary font-inter-400 leading-5`}
+                    >
                       {/* {item?.description} */}
                       Indulge in a creamy fettuccine Alfredo, tossed with tender
                       chicken and fresh parsley.

@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import tw from "twrnc";
+import MapView from "../../components/ui/MapView";
 
 const MapPge = () => {
   const navigate = useNavigation();
@@ -100,6 +101,8 @@ const MapPge = () => {
           />
         )}
       </View>
+      {/*  */}
+      <MapView />
     </View>
   );
 };

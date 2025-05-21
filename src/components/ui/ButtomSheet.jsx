@@ -1,4 +1,4 @@
-import { AntDesign, FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import {
   Image,
@@ -10,9 +10,12 @@ import {
   View,
 } from "react-native";
 
+import { IconComment } from "@/assets/Icon";
 import { TextInput } from "react-native-gesture-handler";
 import RBSheet from "react-native-raw-bottom-sheet";
+import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
+
 export default function ButtomSheet() {
   const bottomSheetRef = useRef();
 
@@ -36,7 +39,7 @@ export default function ButtomSheet() {
   return (
     <SafeAreaView>
       <Pressable onPress={openBottomSheet}>
-        <FontAwesome6 name="message" size={14} color="black" />
+        <SvgXml xml={IconComment} />
       </Pressable>
 
       <RBSheet

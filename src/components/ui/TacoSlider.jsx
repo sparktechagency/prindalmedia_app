@@ -66,22 +66,22 @@ const TacoSlider = () => {
       <TouchableOpacity
         onPress={() => scrollToIndex(currentIndex - 1)}
         disabled={currentIndex === 0}
-        style={tw`absolute left-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full  opacity-${
+        style={tw`absolute left-2 top-1/2 -mt-4 bg-[#E2E2E2] p-1 rounded-full  opacity-${
           currentIndex === 0 ? 30 : 100
         }`}
       >
-        <AntDesign name="left" size={20} color="#121212" />
+        <AntDesign name="left" size={15} color="#121212" />
       </TouchableOpacity>
 
       {/* Right Arrow */}
       <TouchableOpacity
         onPress={() => scrollToIndex(currentIndex + 1)}
         disabled={currentIndex === images.length - 1}
-        style={tw`absolute right-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full  opacity-${
+        style={tw`absolute right-2 top-1/2 -mt-4 bg-[#E2E2E2] p-1 rounded-full  opacity-${
           currentIndex === images.length - 1 ? 30 : 100
         }`}
       >
-        <AntDesign name="right" size={20} color="#121212" />
+        <AntDesign name="right" size={15} color="#121212" />
       </TouchableOpacity>
     </View>
   );

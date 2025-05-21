@@ -1,4 +1,4 @@
-import { EvilIcons } from "@expo/vector-icons";
+import { IconLOcation } from "@/assets/Icon";
 import axios from "axios";
 import { useState } from "react";
 import {
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
 
 const Location = ({ setSelectedLocation }) => {
@@ -48,16 +49,16 @@ const Location = ({ setSelectedLocation }) => {
           Location
         </Text>
         <View
-          style={tw`bg-[#F3F3F3] rounded-md flex-row items-center justify-between`}
+          style={tw`bg-[#F3F3F3] rounded-md flex-row items-center justify-between px-2`}
         >
           <TextInput
-            style={tw`px-4 py-4 flex-1`}
+            style={tw` py-4 flex-1`}
             placeholder="What’s the name of your dish/drink?"
             placeholderTextColor="#888888"
             onChangeText={(text) => handleSearchLocation(text)}
             value={searchText}
           />
-          <EvilIcons name="location" size={24} color="black" style={tw`mr-2`} />
+          <SvgXml xml={IconLOcation} />
         </View>
 
         {/* Suggestion List */}

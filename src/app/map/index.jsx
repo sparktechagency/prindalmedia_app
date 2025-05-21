@@ -57,7 +57,7 @@ const MapPge = () => {
       </TouchableOpacity>
 
       {/* Search Section */}
-      <View style={tw`flex-1`}>
+      <View style={tw``}>
         <Text style={tw`text-[16px] font-semibold text-[#121212] mb-2`}>
           Location
         </Text>

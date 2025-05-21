@@ -1,4 +1,18 @@
-import { Feather, Ionicons } from "@expo/vector-icons";
+import {
+  IconClose,
+  IconConditions,
+  IconHome,
+  IconMap,
+  IconMenu,
+  IconMission,
+  IconNotifi,
+  IconPass,
+  IconPost,
+  IconPrivacy,
+  IconProfile,
+  IconSearch,
+  IconSideBookMark,
+} from "@/assets/Icon";
 import { Link } from "expo-router";
 import { useState } from "react";
 import {
@@ -9,7 +23,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import tw from "twrnc";
+import { SvgXml } from "react-native-svg";
+import tw from "../../lib/tailwind";
 import Logout from "./Logout";
 
 const Header = () => {
@@ -18,9 +33,9 @@ const Header = () => {
   return (
     <View style={tw`flex-row justify-between items-center my-5  bg-[#FDFFFE]`}>
       {/* Left - Hamburger and Logo */}
-      <View style={tw`flex-row items-center`}>
+      <View style={tw`flex-row gap-2 items-center`}>
         <TouchableOpacity onPress={() => setDrawerOpen(true)}>
-          <Ionicons name="menu" size={28} style={tw`text-gray-800 mr-3`} />
+          <SvgXml xml={IconMenu} />
         </TouchableOpacity>
         <Text style={tw`text-2xl font-bold text-[#4D4D4D]`}>Kalamari.</Text>
       </View>
@@ -29,17 +44,17 @@ const Header = () => {
       <View style={tw`flex-row items-center gap-2`}>
         <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
           <Link href={"/map"}>
-            <Feather name="search" size={20} style={tw`text-gray-700`} />
+            <SvgXml xml={IconSearch} />
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
           <Link href={"/map"}>
-            <Feather name="map" size={20} style={tw`text-gray-700`} />
+            <SvgXml xml={IconMap} />
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
           <Link href={"/notifications"}>
-            <Feather name="bell" size={20} style={tw`text-gray-700`} />
+            <SvgXml xml={IconNotifi} />
           </Link>
         </TouchableOpacity>
         <Link href={"(tab)/Profile"}>
@@ -63,67 +78,131 @@ const Header = () => {
               {/* tab Navigation */}
               {/* Left - Hamburger and Logo */}
               <View style={tw`flex-row items-center justify-between mb-10`}>
-                <Text style={tw`text-9 font-bold text-[#121212]`}>
+                <Text style={tw`text-9 font-inter-700 text-[#121212]`}>
                   Kalamari.
                 </Text>
                 <TouchableOpacity onPress={() => setDrawerOpen(false)}>
-                  <Ionicons
-                    name="close"
-                    size={24}
-                    style={tw`text-gray-800 mr-3`}
-                  />
+                  <SvgXml xml={IconClose} />
                 </TouchableOpacity>
               </View>
               {/* Navigation  */}
 
-              <View style={tw` flex-col gap-6`}>
-                <View style={tw` flex-col gap-4`}>
+              <View style={tw`flex-col gap-6`}>
+                {/* Navigation Section */}
+                <View style={tw`flex-col gap-4`}>
                   <Text
                     onPress={() => setDrawerOpen(false)}
-                    style={tw`text-lg font-semibold `}
+                    style={tw`text-4 font-inter-700 text-textPrimary`}
                   >
                     Navigation
                   </Text>
-                  <View style={tw` flex-col gap-2`}>
-                    <Text style={tw`mb-2 text-4 text-[#454545]`}> Home</Text>
-                    <Link href={"/(drawer)/Post"}>
-                      <Text style={tw`mb-2 text-4 text-[#454545]`}> Post</Text>
+                  <View style={tw`flex-col gap-2`}>
+                    <TouchableOpacity>
+                      <View style={tw`flex-row items-center gap-2`}>
+                        <SvgXml xml={IconHome} />
+                        <Text style={tw`text-4 font-inter-400 text-[#454545]`}>
+                          Home
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+
+                    <Link href={"/(drawer)/Post"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2`}>
+                          <SvgXml xml={IconPost} />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Post
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </Link>
-                    <Link href={"/(drawer)/Bookmarks"}>
-                      <Text style={tw`mb-2 text-4 text-[#454545]`}>
-                        {" "}
-                        Bookmarks
-                      </Text>
+
+                    <Link href={"/(drawer)/Bookmarks"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2`}>
+                          <SvgXml xml={IconSideBookMark} />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Bookmarks
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </Link>
-                    <Link href={"/(drawer)/Profile"}>
-                      <Text style={tw`mb-2 text-4 text-[#454545]`}>
-                        {" "}
-                        Profile
-                      </Text>
+
+                    <Link href={"/(drawer)/Profile"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2`}>
+                          <SvgXml xml={IconProfile} />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Profile
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </Link>
                   </View>
                 </View>
-                {/* Account Navigation  */}
-                <View style={tw` flex-col gap-4`}>
-                  <Text style={tw`text-lg font-semibold `}>Account</Text>
-                  <View style={tw` flex-col gap-2`}>
-                    <Link href={"/(drawer)/ChangePassword"}>
-                      <Text style={tw` text-4 text-[#454545]`}>
-                        {" "}
-                        Change password
-                      </Text>
+
+                {/* Account Section */}
+                <View style={tw`flex-col gap-4`}>
+                  <Text style={tw`text-4 font-inter-700 text-textPrimary`}>
+                    Account
+                  </Text>
+                  <View style={tw`flex-col gap-2`}>
+                    <Link href={"/(drawer)/ChangePassword"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2`}>
+                          <SvgXml xml={IconPass} />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Change password
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </Link>
-                    <Link href={"/(drawer)/TermsAndConditions"}>
-                      <Text style={tw`text-4 text-[#454545]`}>
-                        {" "}
-                        Terms & Conditions
-                      </Text>
+
+                    <Link href={"/(drawer)/TermsAndConditions"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2`}>
+                          <SvgXml xml={IconConditions} />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Terms & Conditions
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </Link>
-                    <Link href={"/(drawer)/PrivacyPolicy"}>
-                      <Text style={tw` text-4 text-[#454545]`}>
-                        {" "}
-                        Privacy policy
-                      </Text>
+
+                    <Link href={"/(drawer)/PrivacyPolicy"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2`}>
+                          <SvgXml xml={IconPrivacy} />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Privacy policy
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </Link>
+
+                    <Link href={"/(drawer)/PrivacyPolicy"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2`}>
+                          <SvgXml xml={IconMission} />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Our Mission
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
                     </Link>
                   </View>
                 </View>

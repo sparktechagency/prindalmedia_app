@@ -11,7 +11,9 @@ const RatingComponent = ({ Rating }) => {
     setRating(value);
     Rating(value);
   };
-
+  {
+    /* <AntDesign name="staro" size={24} color="black" /> */
+  }
   return (
     <View style={tw` flex-row items-center  gap-1 `}>
       <Text style={tw`text-[16px] font-inter-600 text-[#121212 `}>Rate :</Text>
@@ -26,7 +28,7 @@ const RatingComponent = ({ Rating }) => {
             <Icon
               name={star <= (hover || rating) ? "star" : "staro"}
               size={24}
-              color={star <= (hover || rating) ? "#00000" : "gray"}
+              color={star <= (hover || rating) ? "#FFC107" : "gray"}
               style={tw`mx-1`}
             />
           </TouchableOpacity>

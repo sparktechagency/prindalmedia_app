@@ -20,7 +20,7 @@ const Home = () => {
             <View
               style={tw`flex-row gap-4  ${
                 isActiveTab === "Following"
-                  ? "w-[65%] bg-[#3333331A] p-2 rounded-full ease-in-out "
+                  ? "w-[65%] bg-[#3333331A] p-2 rounded-full "
                   : ""
               }  `}
             >
@@ -34,7 +34,7 @@ const Home = () => {
                       ? ` ${
                           isActiveTab === "Following"
                             ? "text-white bg-orange rounded-full"
-                            : "bg-black text-white isActiveTab rounded-full"
+                            : "bg-black text-white  rounded-full"
                         } `
                       : "text-textgray"
                   }

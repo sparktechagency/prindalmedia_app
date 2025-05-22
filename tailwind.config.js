@@ -18,6 +18,9 @@ module.exports = {
         orange: "#ED6237",
         textgray: "#454545",
       },
+      boxShadow: {
+        "custom-light": "0px 4px 4px 0px rgba(244, 244, 244, 0.25)",
+      },
     },
   },
   plugins: [],

@@ -1,5 +1,6 @@
-import { MaterialIcons } from "@expo/vector-icons";
+import { IconTagUser } from "@/assets/Icon";
 import { Text, TouchableOpacity, View } from "react-native";
+import { SvgXml } from "react-native-svg";
 import { Dialog, PanningProvider } from "react-native-ui-lib";
 import tw from "twrnc";
 import TagUser from "./TagUser";
@@ -17,11 +18,7 @@ const TagPepoleView = ({ isVisible, setIsVisible, setuserName }) => {
             onPress={() => setIsVisible(true)}
           >
             <View style={tw` `}>
-              <MaterialIcons
-                name="add-photo-alternate"
-                size={20}
-                color="#B0B0B0"
-              />
+              <SvgXml xml={IconTagUser} />
             </View>
             <Text style={tw`text-[16px] font-bold text-[#121212] `}>
               Tag people

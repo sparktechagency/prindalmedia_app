@@ -1,8 +1,13 @@
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import { ActivityIndicator, Image, View } from "react-native";
-
+import {
+  ActivityIndicator,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
@@ -30,10 +35,28 @@ export default function App() {
 
   return (
     <View style={tw`flex-1 justify-center items-center bg-white pb-[25%]`}>
-      <Image
-        source={require("@/assets/images/logo.png")}
-        style={tw` `}
-      />
+      <View style={tw`items-end`}>
+        <View style={tw`mb-1`}>
+          {/* Replace this with your logo image */}
+          <View style={tw` justify-center flex-row items-center gap-2`}>
+            <Image
+              source={require("@/assets/images/appIcons.png")}
+              style={tw` w-16 h-16 `}
+            />
+            <Image source={require("@/assets/images/logo.png")} style={tw` `} />
+          </View>
+        </View>
+        <Text style={tw`text-3 font-inter-500 text-textgray`}>
+          Share your taste.
+        </Text>
+      </View>
+
+      <TouchableOpacity style={tw`absolute bottom-6`}>
+        <Text style={tw`text-[#ED6237] underline font-inter-600 text-sm`}>
+          Our Mission
+        </Text>
+      </TouchableOpacity>
+
       <ActivityIndicator
         size="large"
         color="black"

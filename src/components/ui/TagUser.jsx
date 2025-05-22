@@ -86,8 +86,7 @@ const TagUser = ({ close, setuserName }) => {
             <RadioButton
               selected={value}
               onPress={() => setValue(!value)}
-              uncheckedColor="#B0B0B0"
-              checkedColor="#0063E5"
+              color="#B0B0B0"
             />
           </TouchableOpacity>
         </TouchableOpacity>
@@ -95,7 +94,10 @@ const TagUser = ({ close, setuserName }) => {
 
       {/*  */}
       <View style={tw` mt-[67px]`}>
-        <Pressable style={tw` bg-black flex items-center p-3 rounded-full `}>
+        <Pressable
+          onPress={close}
+          style={tw` bg-[#ED6237] flex items-center p-3 rounded-full `}
+        >
           <Text style={tw` text-white text-xl`}>Add</Text>
         </Pressable>
       </View>

@@ -1,12 +1,24 @@
-import AntDesign from "@expo/vector-icons/AntDesign";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useEffect, useState } from "react";
-import { FlatList, Image, Pressable, Text, View } from "react-native";
-import icons from "../../../assets/images/restaurant.png";
+import {
+  FlatList,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
+import {
+  IconHeart,
+  IconLove,
+  IconRestruernt,
+  IconStar,
+  IconVerify,
+} from "@/assets/Icon";
 import userApi from "../../utils/user.json";
 
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
 import BookMark from "./BookMark";
 import ButtomSheet from "./ButtomSheet";
@@ -15,7 +27,7 @@ import TacoSlider from "./TacoSlider";
 
 const UserPost = ({ isActiveTab }) => {
   const [isHeart, setIsHeart] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+  // const [likeCount, setLikeCount] = useState(0);
 
   const [user, setUser] = useState(userApi);
 
@@ -23,24 +35,32 @@ const UserPost = ({ isActiveTab }) => {
     setUser(userApi);
   }, []);
 
-  const handleHeart = (id) => {
-    setIsHeart((pre) => {
-      const newState = !pre;
-      setLikeCount((count) => (newState ? count + 1 : count - 1));
-      return newState;
-    });
-  };
+  // const handleHeart = (id) => {
+  //   setIsHeart((pre) => {
+  //     const newState = !pre;
+  //     setLikeCount((count) => (newState ? count + 1 : count - 1));
+  //     return newState;
+  //   });
+  // };
 
   // user follow or not follow
   const [isFollower, setIsFollower] = useState(false);
 
+  // profile navigate
+  const handleNavigate = () => {
+    console.log("asdfg");
+    router.push(`/randomuser/${1}`);
+  };
   const renderItem = ({ item }) => (
     <View style={tw` my-3 py-2 flex-col gap-3`}>
-      <View style={tw` flex-row items-center gap-2`}>
-        <Image
-          style={tw`w-10 h-10 rounded-full `}
-          source={{ uri: item?.user?.avatar }}
-        />
+      <View style={tw` flex-row items-center  gap-2`}>
+        {/* navigate profile */}
+        <TouchableOpacity onPress={handleNavigate}>
+          <Image
+            style={tw`w-10 h-10 rounded-full `}
+            source={{ uri: item?.user?.avatar }}
+          />
+        </TouchableOpacity>
         {/* user name and verify icons wrapp */}
         <View style={tw`flex gap-0.5 flex-1  `}>
           {/* user name and verify icons wrapp */}
@@ -50,11 +70,7 @@ const UserPost = ({ isActiveTab }) => {
               <Text style={tw` text-3.5 font-inter-700  text-[#121212] `}>
                 {item?.user?.name}
               </Text>
-              <MaterialCommunityIcons
-                name="check-decagram"
-                size={16}
-                color="#3b82f6"
-              />
+              <SvgXml xml={IconVerify} />
             </View>
 
             {/* following /  */}
@@ -83,7 +99,7 @@ const UserPost = ({ isActiveTab }) => {
             )}
           </View>
           <View style={tw`flex-row gap-1 items-center `}>
-            <Image style={tw`w-4 h-4`} source={icons} />
+            <SvgXml xml={IconRestruernt} />
             <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
               {item?.user?.location}
             </Text>
@@ -104,14 +120,17 @@ const UserPost = ({ isActiveTab }) => {
           <View style={tw`flex-row gap-4 justify-center items-center  `}>
             {/* heart icon */}
             <View style={tw`flex-row justify-center gap-1 items-center `}>
-              <AntDesign
-                onPress={handleHeart}
-                name="heart"
-                size={20}
-                color={isHeart ? "red" : "black"}
-              />
+              <TouchableOpacity onPress={() => setIsHeart(!isHeart)}>
+                {/* <SvgXml xml={IconLove} /> */}
+                {isHeart ? (
+                  <SvgXml xml={IconLove} />
+                ) : (
+                  <SvgXml xml={IconHeart} />
+                )}
+              </TouchableOpacity>
+
               <Text style={tw` text-3 font-inter-600 text-[#454545] `}>
-                {likeCount}
+                1111
               </Text>
             </View>
             {/* message */}
@@ -143,7 +162,7 @@ const UserPost = ({ isActiveTab }) => {
               </Text>
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
-                <FontAwesome name="star" size={20} color="#ffde21" />
+                <SvgXml xml={IconStar} />
                 <Text style={tw` text-[16px]  font-inter-700 `}>
                   {item?.rating}
                 </Text>

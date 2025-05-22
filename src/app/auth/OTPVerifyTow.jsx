@@ -45,13 +45,13 @@ const OTPVerifyTow = () => {
             {/* navigation */}
             <Link
               href=""
-              style={tw`text-[#0063E5] text-sm font-semibold underline `}
+              style={tw`text-[#ED6237] text-sm font-semibold underline `}
             >
               Send again?
             </Link>
           </View>
 
-          <View style={tw`w-full flex-col rounded-full bg-[#121212] mt-10 `}>
+          <View style={tw`w-full flex-col rounded-full bg-[#ED6237] mt-10 `}>
             <Pressable onPress={handleNavigate} style={tw`py-4`}>
               <Text style={tw`text-center text-white text-xl`}>Verify</Text>
             </Pressable>

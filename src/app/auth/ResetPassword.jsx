@@ -1,4 +1,4 @@
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { Iconlock } from "@/assets/Icon";
 import Feather from "@expo/vector-icons/Feather";
 import { router } from "expo-router";
 import { Formik } from "formik";
@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { SvgXml } from "react-native-svg";
 import tw from "twrnc";
 import * as Yup from "yup";
 import AuthHeading from "../../components/ui/AuthHeading";
@@ -69,12 +70,8 @@ export default function ResetPassword() {
                   <View
                     style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
                   >
-                    <AntDesign
-                      name="lock"
-                      size={20}
-                      color="black"
-                      style={tw`mr-2 text-[#888888]`}
-                    />
+                    <SvgXml xml={Iconlock} />
+
                     <TextInput
                       style={tw`flex-1 text-base text-black dark:text-white`}
                       secureTextEntry={!showPassword}
@@ -103,12 +100,7 @@ export default function ResetPassword() {
                   <View
                     style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
                   >
-                    <AntDesign
-                      name="lock"
-                      size={20}
-                      color="black"
-                      style={tw`mr-2 text-[#888888]`}
-                    />
+                    <SvgXml xml={Iconlock} />
                     <TextInput
                       style={tw`flex-1 text-base text-black dark:text-white`}
                       secureTextEntry={!showConfirmPassword}
@@ -134,7 +126,7 @@ export default function ResetPassword() {
                 </View>
 
                 {/* Submit Button */}
-                <View style={tw`w-full mt-10 rounded-full bg-[#121212]`}>
+                <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
                   <Pressable onPress={handleSubmit} style={tw`py-4`}>
                     <Text style={tw`text-center text-white text-xl`}>
                       Update

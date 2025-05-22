@@ -45,14 +45,14 @@ const OTPOne = () => {
           {/* navigation */}
           <Link
             href=""
-            style={tw`text-[#0063E5] text-sm font-semibold underline `}
+            style={tw`text-[#ED6237] text-sm font-semibold underline `}
           >
             Send again?
           </Link>
         </View>
 
         <View
-          style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#121212] `}
+          style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#ED6237] `}
         >
           <Pressable onPress={handleNavigate} style={tw`py-4`}>
             <Text style={tw`text-center text-white text-xl`}>Verify</Text>

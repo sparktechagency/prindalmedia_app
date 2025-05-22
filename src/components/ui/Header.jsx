@@ -1,13 +1,13 @@
 import {
   IconClose,
   IconConditions,
-  IconHome,
+  IconDHome,
+  IconDPost,
   IconMap,
   IconMenu,
   IconMission,
   IconNotifi,
   IconPass,
-  IconPost,
   IconPrivacy,
   IconProfile,
   IconSearch,
@@ -90,16 +90,13 @@ const Header = () => {
               <View style={tw`flex-col gap-6`}>
                 {/* Navigation Section */}
                 <View style={tw`flex-col gap-4`}>
-                  <Text
-                    onPress={() => setDrawerOpen(false)}
-                    style={tw`text-4 font-inter-700 text-textPrimary`}
-                  >
+                  <Text style={tw`text-4 font-inter-700 text-textPrimary`}>
                     Navigation
                   </Text>
                   <View style={tw`flex-col gap-2`}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => setDrawerOpen(false)}>
                       <View style={tw`flex-row items-center gap-2`}>
-                        <SvgXml xml={IconHome} />
+                        <SvgXml xml={IconDHome} />
                         <Text style={tw`text-4 font-inter-400 text-[#454545]`}>
                           Home
                         </Text>
@@ -109,7 +106,7 @@ const Header = () => {
                     <Link href={"/(drawer)/Post"} asChild>
                       <TouchableOpacity>
                         <View style={tw`flex-row items-center gap-2`}>
-                          <SvgXml xml={IconPost} />
+                          <SvgXml xml={IconDPost} />
                           <Text
                             style={tw`text-4 font-inter-400 text-[#454545]`}
                           >
@@ -192,7 +189,7 @@ const Header = () => {
                       </TouchableOpacity>
                     </Link>
 
-                    <Link href={"/(drawer)/PrivacyPolicy"} asChild>
+                    <Link href={"/(drawer)/Mission"} asChild>
                       <TouchableOpacity>
                         <View style={tw`flex-row items-center gap-2`}>
                           <SvgXml xml={IconMission} />

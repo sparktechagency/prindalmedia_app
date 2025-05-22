@@ -15,11 +15,22 @@ export default function RootLayout() {
     >
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{}} />
-        <Stack.Screen name="auth/EmailVerify" options={{}} />
-        <Stack.Screen name="auth/OTPOne" options={{}} />
-        <Stack.Screen name="auth/OTPVerifyTow" options={{}} />
-        <Stack.Screen name="auth/ResetPassword" options={{}} />
-        <Stack.Screen name="auth/SingUp" options={{}} />
+        <Stack.Screen name="auth" options={{}} />
+        <Stack.Screen name="map/index" options={{}} />
+        <Stack.Screen name="notifications/index" options={{}} />
+        <Stack.Screen name="notifications/[id]" options={{}} />
+        <Stack.Screen name="provers/[id]" options={{}} />
+        <Stack.Screen name="randomuser/[id]" options={{}} />
+        <Stack.Screen name="userfollowing/following" options={{}} />
+        <Stack.Screen name="userfollowing/index" options={{}} />
+        <Stack.Screen name="viewpost/[id]" options={{}} />
+        <Stack.Screen
+          name="post_details_modal"
+          options={{
+            presentation: "formSheet",
+            sheetAllowedDetents: "fitToContents",
+          }}
+        />
         <Stack.Screen name="(drawer)" options={{}} />
       </Stack>
     </SafeAreaView>

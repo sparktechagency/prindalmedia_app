@@ -1,9 +1,10 @@
+import { FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { Text, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import tw from "twrnc";
 
 export default function UserProfileGallery({ image, setImage }) {
-  console.log(image);
+  // console.log(image);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -23,17 +24,11 @@ export default function UserProfileGallery({ image, setImage }) {
 
   return (
     <TouchableOpacity onPress={pickImage}>
-      {/* {image ? (
-        <Image source={{ uri: image }} style={styles.image} />
-      ) : ( */}
-      <>
-        <View
-          style={tw` items-center justify-center flex-row bg-black  rounded-2 w-full py-2  `}
-        >
-          <Text style={tw`  text-white  font-medium text-lg    `}>Gallery</Text>
-        </View>
-      </>
-      {/* )} */}
+      <View
+        style={tw` items-center justify-center flex-row   rounded-2 w-full py-2  `}
+      >
+        <FontAwesome name="photo" size={40} color="#B0B0B0" />
+      </View>
     </TouchableOpacity>
   );
 }

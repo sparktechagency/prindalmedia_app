@@ -1,9 +1,11 @@
-import { FontAwesome, Fontisto } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useRef } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import foodImage from "../../../assets/images/food-image.png";
 import Icon from "../../../assets/images/restaurant.png";
 import tw from "../../lib/tailwind";
+import BookMark from "./BookMark";
 import ListButtomSheet from "./ListButtomSheet";
 
 const DATA = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -23,7 +25,11 @@ const Recent = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={tw`pb-6`}
         renderItem={({ item, index }) => (
-          <TouchableOpacity onPress={openBottomSheet}>
+          <TouchableOpacity
+            onPress={() => {
+              router?.push("/notifications/1");
+            }}
+          >
             <View style={tw`flex-col my-2 justify-between items-center`}>
               <View
                 style={tw`flex-row gap-4 bg-[#D5D5D51A] p-2 rounded-2xl items-center`}
@@ -77,7 +83,8 @@ const Recent = () => {
                         Restaurant
                       </Text>
                     </View>
-                    <Fontisto name="favorite" size={22} color="#0063E5" />
+                    {/* <Fontisto name="favorite" size={22} color="#0063E5" /> */}
+                    <BookMark />
                   </View>
                 </View>
               </View>

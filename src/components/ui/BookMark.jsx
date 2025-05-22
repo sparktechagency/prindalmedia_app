@@ -1,17 +1,21 @@
 import { IconBookMark, IconBookMarkFull } from "@/assets/Icon";
 import { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
-import AwesomeAlert from "react-native-awesome-alerts";
+import { Alert, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import tw from "twrnc";
 
 const BookMark = () => {
   const [isBookMark, setIsBookMark] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
 
   const handleBookmark = () => {
-    setIsBookMark(!isBookMark);
-    setShowAlert(true);
+    const newStatus = !isBookMark;
+    setIsBookMark(newStatus);
+
+    Alert.alert(
+      "Bookmark",
+      newStatus ? "Added to bookmarks!" : "Removed from bookmarks.",
+      [{ text: "OK" }]
+    );
   };
 
   return (
@@ -25,23 +29,6 @@ const BookMark = () => {
           )}
         </TouchableOpacity>
       </View>
-
-      <AwesomeAlert
-        show={showAlert}
-        showProgress={false}
-        title={isBookMark ? "Bookmark Added" : "Bookmark Removed"}
-        message={
-          isBookMark
-            ? "This item was removed from your bookmarks."
-            : "This item was added to your bookmarks."
-        }
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={false}
-        showConfirmButton={true}
-        confirmText="OK"
-        confirmButtonColor="#0063E5"
-        onConfirmPressed={() => setShowAlert(false)}
-      />
     </View>
   );
 };

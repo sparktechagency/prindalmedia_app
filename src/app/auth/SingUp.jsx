@@ -1,14 +1,20 @@
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { Iconlock, IconMail, user } from "@/assets/Icon";
 import Feather from "@expo/vector-icons/Feather";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import Fontisto from "@expo/vector-icons/Fontisto";
 import Checkbox from "expo-checkbox";
+import { ImageBackground } from "expo-image";
 import { Formik } from "formik";
 import { useState } from "react";
-import { Pressable, SafeAreaView, Text, TextInput, View } from "react-native";
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { SvgXml } from "react-native-svg";
 import tw from "twrnc";
 import * as Yup from "yup";
-import AuthHeading from "../../components/ui/AuthHeading";
 
 const validationSchema = Yup.object().shape({
   fullname: Yup.string().required("Full name is required"),
@@ -36,210 +42,222 @@ export default function SingUp() {
   };
 
   return (
-    <View style={tw`p-[4%] bg-[#FDFFFE]`}>
-      <SafeAreaView
-        style={tw` h-full dark:bg-black flex-col gap-1 items-center justify-center`}
-      >
-        <Formik
-          initialValues={{
-            fullname: "",
-            userName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            checkbox: false,
-          }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+    <ImageBackground
+      source={require("@/assets/images/Loginscreen.png")}
+      resizeMode="cover"
+      style={tw`flex-1`}
+    >
+      <SafeAreaView style={tw`flex-1`}>
+        <ScrollView
+          contentContainerStyle={tw`flex-grow pt-[170px]`}
+          showsVerticalScrollIndicator={false}
         >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-            setFieldValue,
-          }) => (
-            <>
-              {/* top hading  */}
-              <AuthHeading Heading={"Create an account"} />
-
-              {/* full  name  */}
-              <View style={tw`flex-col gap-2 w-full`}>
-                <Text style={tw`text-4 text-[#121212] font-medium`}>
-                  Full Name
-                </Text>
-                <View
-                  style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                >
-                  <FontAwesome5
-                    name="user"
-                    size={20}
-                    color="black"
-                    style={tw`mr-2`}
-                  />
-                  <TextInput
-                    style={tw`flex-1 text-base text-black dark:text-white`}
-                    onChangeText={handleChange("fullname")}
-                    onBlur={handleBlur("fullname")}
-                    value={values.fullname}
-                  />
-                </View>
-                {touched.fullname && errors.fullname && (
-                  <Text style={tw`text-red-500`}>{errors.fullname}</Text>
-                )}
-              </View>
-
-              {/* user name  */}
-              <View style={tw`flex-col gap-2 w-full`}>
-                <Text style={tw`text-4 text-[#121212] font-medium`}>
-                  Username
-                </Text>
-                <View
-                  style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                >
-                  <FontAwesome5
-                    name="user"
-                    size={20}
-                    color="black"
-                    style={tw`mr-2`}
-                  />
-                  <TextInput
-                    style={tw`flex-1 text-base text-black dark:text-white`}
-                    onChangeText={handleChange("userName")}
-                    onBlur={handleBlur("userName")}
-                    value={values.userName}
-                  />
-                </View>
-                {touched.userName && errors.userName && (
-                  <Text style={tw`text-red-500`}>{errors.userName}</Text>
-                )}
-              </View>
-
-              {/* Email */}
-              <View style={tw`flex-col gap-1 w-full`}>
-                <Text style={tw`text-4 text-[#121212] font-medium`}>Email</Text>
-                <View
-                  style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                >
-                  <Fontisto
-                    name="email"
-                    size={20}
-                    color="black"
-                    style={tw`mr-2`}
-                  />
-                  <TextInput
-                    style={tw`flex-1 text-base text-black dark:text-white`}
-                    onChangeText={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
-                  />
-                </View>
-                {touched.email && errors.email && (
-                  <Text style={tw`text-red-500`}>{errors.email}</Text>
-                )}
-              </View>
-
-              {/* Password */}
-              <View style={tw`flex-col gap-1 w-full`}>
-                <Text style={tw`text-4 text-[#121212] font-medium`}>
-                  Password
-                </Text>
-                <View
-                  style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                >
-                  <AntDesign
-                    name="lock"
-                    size={20}
-                    color="black"
-                    style={tw`mr-2`}
-                  />
-                  <TextInput
-                    style={tw`flex-1 text-base text-black dark:text-white`}
-                    secureTextEntry={!showPassword}
-                    onChangeText={handleChange("password")}
-                    onBlur={handleBlur("password")}
-                    value={values.password}
-                  />
-                  <Feather
-                    onPress={() => setShowPassword(!showPassword)}
-                    name={showPassword ? "eye-off" : "eye"}
-                    size={18}
-                    color="black"
-                  />
-                </View>
-                {touched.password && errors.password && (
-                  <Text style={tw`text-red-500`}>{errors.password}</Text>
-                )}
-              </View>
-
-              {/* Confirm Password */}
-              <View style={tw`flex-col gap-1 w-full`}>
-                <Text style={tw`text-4 text-[#121212] font-medium`}>
-                  Confirm Password
-                </Text>
-                <View
-                  style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                >
-                  <AntDesign
-                    name="lock"
-                    size={20}
-                    color="black"
-                    style={tw`mr-2`}
-                  />
-                  <TextInput
-                    style={tw`flex-1 text-base text-black dark:text-white`}
-                    secureTextEntry={!showConfirm}
-                    onChangeText={handleChange("confirmPassword")}
-                    onBlur={handleBlur("confirmPassword")}
-                    value={values.confirmPassword}
-                  />
-                  <Feather
-                    onPress={() => setShowConfirm(!showConfirm)}
-                    name={showConfirm ? "eye-off" : "eye"}
-                    size={18}
-                    color="black"
-                  />
-                </View>
-                {touched.confirmPassword && errors.confirmPassword && (
-                  <Text style={tw`text-red-500`}>{errors.confirmPassword}</Text>
-                )}
-              </View>
-
-              {/* Checkbox */}
-              <View style={tw`flex-row items-start mt-2 w-full`}>
-                <Checkbox
-                  value={values.checkbox}
-                  onValueChange={(val) => setFieldValue("checkbox", val)}
-                  color="#888888"
-                  style={tw`mt-1 mr-2 w-4 h-4`}
-                />
-                <Text style={tw`flex-1 text-sm text-[#888888]`}>
-                  By creating this account, you agree to the
-                  <Text style={tw`text-[#0063E5]`}> Terms of Use </Text>&
-                  <Text style={tw`text-[#0063E5]`}> Privacy Policy</Text>.
-                </Text>
-              </View>
-              {/* check box error  */}
-              <View style={tw`w-full flex-row items-start justify-start  `}>
-                {touched.checkbox && errors.checkbox && (
-                  <Text style={tw`text-red-500  `}>{errors.checkbox}</Text>
-                )}
-              </View>
-
-              {/* Submit Button */}
-              <View style={tw`w-full mt-10 rounded-full bg-[#121212]`}>
-                <Pressable onPress={handleSubmit} style={tw`py-4`}>
-                  <Text style={tw`text-center text-white text-xl`}>
-                    Register
+          <View
+            style={[
+              tw`bg-white rounded-t-3xl px-6 pt-8 pb-12`,
+              {
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: -4 },
+                shadowOpacity: 0.1,
+                shadowRadius: 6,
+                elevation: 10,
+              },
+            ]}
+          >
+            <Formik
+              initialValues={{
+                fullname: "",
+                userName: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                checkbox: false,
+              }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+                setFieldValue,
+              }) => (
+                <>
+                  <Text
+                    style={tw`mt-2 text-7  text-textPrimary font-inter-700 mb-3 text-center`}
+                  >
+                    Create an account
                   </Text>
-                </Pressable>
-              </View>
-            </>
-          )}
-        </Formik>
+                  <View style={tw`flex-col gap-2 w-full`}>
+                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                      Full Name
+                    </Text>
+                    <View
+                      style={tw`flex-row  items-center bg-[#F3F3F3] px-0.5 py-2 rounded-md`}
+                    >
+                      <SvgXml xml={user} />
+
+                      <TextInput
+                        style={tw`flex-1 text-base text-black dark:text-white`}
+                        onChangeText={handleChange("fullname")}
+                        onBlur={handleBlur("fullname")}
+                        value={values.fullname}
+                      />
+                    </View>
+                    {touched.fullname && errors.fullname && (
+                      <Text style={tw`text-red-500`}>{errors.fullname}</Text>
+                    )}
+                  </View>
+
+                  {/* user name  */}
+                  <View style={tw`flex-col gap-2 w-full`}>
+                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                      Username
+                    </Text>
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] px-0.5 py-2 rounded-md`}
+                    >
+                      <SvgXml xml={user} />
+
+                      <TextInput
+                        style={tw`flex-1 text-base text-black dark:text-white`}
+                        onChangeText={handleChange("userName")}
+                        onBlur={handleBlur("userName")}
+                        value={values.userName}
+                      />
+                    </View>
+                    {touched.userName && errors.userName && (
+                      <Text style={tw`text-red-500`}>{errors.userName}</Text>
+                    )}
+                  </View>
+
+                  {/* Email */}
+                  <View style={tw`flex-col gap-1 w-full`}>
+                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                      Email
+                    </Text>
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
+                    >
+                      {/* <Fontisto
+                        name="email"
+                        size={20}
+                        color="black"
+                        style={tw`mr-2`}
+                      /> */}
+
+                      <SvgXml xml={IconMail} />
+
+                      <TextInput
+                        style={tw`flex-1 text-base text-black dark:text-white`}
+                        onChangeText={handleChange("email")}
+                        onBlur={handleBlur("email")}
+                        value={values.email}
+                      />
+                    </View>
+                    {touched.email && errors.email && (
+                      <Text style={tw`text-red-500`}>{errors.email}</Text>
+                    )}
+                  </View>
+
+                  {/* Password */}
+                  <View style={tw`flex-col gap-1 w-full`}>
+                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                      Password
+                    </Text>
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
+                    >
+                      <SvgXml xml={Iconlock} />
+
+                      <TextInput
+                        style={tw`flex-1 text-base text-black dark:text-white`}
+                        secureTextEntry={!showPassword}
+                        onChangeText={handleChange("password")}
+                        onBlur={handleBlur("password")}
+                        value={values.password}
+                      />
+                      <Feather
+                        onPress={() => setShowPassword(!showPassword)}
+                        name={showPassword ? "eye-off" : "eye"}
+                        size={18}
+                        color="#888888"
+                      />
+                    </View>
+                    {touched.password && errors.password && (
+                      <Text style={tw`text-red-500`}>{errors.password}</Text>
+                    )}
+                  </View>
+
+                  {/* Confirm Password */}
+                  <View style={tw`flex-col gap-1 w-full`}>
+                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                      Confirm Password
+                    </Text>
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
+                    >
+                      <SvgXml xml={Iconlock} />
+
+                      <TextInput
+                        style={tw`flex-1 text-base text-black dark:text-white`}
+                        secureTextEntry={!showConfirm}
+                        onChangeText={handleChange("confirmPassword")}
+                        onBlur={handleBlur("confirmPassword")}
+                        value={values.confirmPassword}
+                      />
+                      <Feather
+                        onPress={() => setShowConfirm(!showConfirm)}
+                        name={showConfirm ? "eye-off" : "eye"}
+                        size={18}
+                        color="#888888"
+                      />
+                    </View>
+                    {touched.confirmPassword && errors.confirmPassword && (
+                      <Text style={tw`text-red-500`}>
+                        {errors.confirmPassword}
+                      </Text>
+                    )}
+                  </View>
+
+                  {/* Checkbox */}
+                  <View style={tw`flex-row items-start mt-2 w-full`}>
+                    <Checkbox
+                      value={values.checkbox}
+                      onValueChange={(val) => setFieldValue("checkbox", val)}
+                      color="#888888"
+                      style={tw`mt-1 mr-2 w-4 h-4`}
+                    />
+                    <Text style={tw`flex-1 text-sm text-[#888888]`}>
+                      By creating this account, you agree to the
+                      <Text style={tw`text-[#ED6237]`}> Terms of Use </Text>&
+                      <Text style={tw`text-[#ED6237]`}> Privacy Policy</Text>.
+                    </Text>
+                  </View>
+                  {/* check box error  */}
+                  <View style={tw`w-full flex-row items-start justify-start  `}>
+                    {touched.checkbox && errors.checkbox && (
+                      <Text style={tw`text-red-500  `}>{errors.checkbox}</Text>
+                    )}
+                  </View>
+
+                  {/* Submit Button */}
+                  <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
+                    <Pressable onPress={handleSubmit} style={tw`py-4`}>
+                      <Text style={tw`text-center text-white text-xl`}>
+                        Register
+                      </Text>
+                    </Pressable>
+                  </View>
+                </>
+              )}
+            </Formik>
+          </View>
+        </ScrollView>
       </SafeAreaView>
-    </View>
+    </ImageBackground>
   );
 }

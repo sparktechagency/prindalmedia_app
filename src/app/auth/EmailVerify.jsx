@@ -73,7 +73,7 @@ const EmailVerify = () => {
 
               {/* Submit button */}
               <View
-                style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#121212]`}
+                style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#ED6237]`}
               >
                 <Pressable onPress={handleSubmit} style={tw`py-4`}>
                   <Text style={tw`text-center text-white text-xl`}>Submit</Text>

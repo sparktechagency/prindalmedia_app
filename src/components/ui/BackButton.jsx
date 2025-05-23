@@ -6,12 +6,12 @@ import tw from "../../lib/tailwind";
 const BackButton = ({ title, onPress }) => {
   return (
     <View style={tw`px-[4%] pt-4  mb-6`}>
-      <TouchableOpacity onPress={onPress}>
-        <View style={tw`flex-row items-center gap-2 my-4`}>
+      <View style={tw`flex-row items-center gap-2 my-4`}>
+        <TouchableOpacity onPress={onPress}>
           <SvgXml xml={IconBackButton} />
-          <Text style={tw`text-5 text-[#121212] font-inter-700`}>{title}</Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+        <Text style={tw`text-5 text-[#121212] font-inter-700`}>{title}</Text>
+      </View>
     </View>
   );
 };

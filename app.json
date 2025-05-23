@@ -4,7 +4,7 @@
     "slug": "Kalamari",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/appIcons.png",
+    "icon": "./assets/images/play_store_512.png",
     "scheme": "projecttwo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -14,7 +14,7 @@
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/appIcons.png",
+        "foregroundImage": "./assets/images/play_store_512.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -28,7 +28,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/appIcons.png"
+      "favicon": "./assets/images/play_store_512.png"
     },
     "plugins": [
       "expo-router",
@@ -45,7 +45,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/appIcons.png",
-          "imageWidth": 200,
+          "imageWidth": 64,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }

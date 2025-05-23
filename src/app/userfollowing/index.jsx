@@ -1,4 +1,5 @@
 // app/(drawer)/userfollowing/index.jsx
+import { router } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import BackButton from "../../components/ui/BackButton";
@@ -12,7 +13,12 @@ export default function UserFollowing() {
   return (
     <View style={tw`  flex-1 bg-primaryBg `}>
       {/* when the api changes ScrollView and adds flatList  */}
-      <BackButton title={"Followers "} />
+      <BackButton
+        onPress={() => {
+          router?.back();
+        }}
+        title={"Followers "}
+      />
       {/*  */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={tw`flex-col gap-4 `}>

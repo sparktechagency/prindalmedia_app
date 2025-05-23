@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import BackButton from "../../components/ui/BackButton";
@@ -12,7 +13,12 @@ const Following = () => {
     <View style={tw`flex-1 bg-primaryBg`}>
       {/* when the api changes ScrollView and adds flatList  */}
 
-      <BackButton title={"Following"} />
+      <BackButton
+        onPress={() => {
+          router?.back();
+        }}
+        title={"Following"}
+      />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={tw`p-[4%] flex-col gap-4`}>

@@ -45,7 +45,7 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/appIcons.png",
-          "imageWidth": 64,
+          "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }

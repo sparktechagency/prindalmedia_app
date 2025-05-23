@@ -53,7 +53,7 @@ const Location = ({ setSelectedLocation }) => {
         >
           <TextInput
             style={tw` py-4 flex-1`}
-            placeholder="What’s the name of your dish/drink?"
+            placeholder="Search by location"
             placeholderTextColor="#888888"
             onChangeText={(text) => handleSearchLocation(text)}
             value={searchText}

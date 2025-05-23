@@ -66,12 +66,15 @@ const UserPost = ({ isActiveTab }) => {
           {/* user name and verify icons wrapp */}
           <View style={tw`flex-row  items-center justify-between`}>
             {/* name  */}
-            <View style={tw`flex-row items-center gap-2`}>
+            <TouchableOpacity
+              onPress={handleNavigate}
+              style={tw`flex-row items-center gap-2`}
+            >
               <Text style={tw` text-3.5 font-inter-700  text-[#121212] `}>
                 {item?.user?.name}
               </Text>
               <SvgXml xml={IconVerify} />
-            </View>
+            </TouchableOpacity>
 
             {/* following /  */}
             {isActiveTab === "Discovery" ? (

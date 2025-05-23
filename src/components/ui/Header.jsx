@@ -13,6 +13,7 @@ import {
   IconSearch,
   IconSideBookMark,
 } from "@/assets/Icon";
+import Feather from "@expo/vector-icons/Feather";
 import { Link } from "expo-router";
 import { useState } from "react";
 import {
@@ -59,7 +60,7 @@ const Header = () => {
         </TouchableOpacity>
         <Link href={"(tab)/Profile"}>
           <Image
-            source={{ uri: "https://randomuser.me/api/portraits/men/75.jpg" }}
+            source={require("@/assets/images/image.png")}
             style={tw`w-8 h-8 rounded-full`}
           />
         </Link>
@@ -197,6 +198,22 @@ const Header = () => {
                             style={tw`text-4 font-inter-400 text-[#454545]`}
                           >
                             Our Mission
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </Link>
+                    <Link href={"/(drawer)/Faq"} asChild>
+                      <TouchableOpacity>
+                        <View style={tw`flex-row items-center gap-2 mb-4`}>
+                          <Feather
+                            name="message-square"
+                            size={18}
+                            color="#454545"
+                          />
+                          <Text
+                            style={tw`text-4 font-inter-400 text-[#454545]`}
+                          >
+                            Faq
                           </Text>
                         </View>
                       </TouchableOpacity>

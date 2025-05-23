@@ -1,5 +1,5 @@
 import { AntDesign } from "@expo/vector-icons";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import tw from "twrnc";
 
+// Dummy image data
 const images = [
   { uri: "https://i.ibb.co/vvqhJ5qD/Rectangle-5040-1.png" },
   { uri: "https://i.ibb.co/vvqhJ5qD/Rectangle-5040-1.png" },
@@ -23,7 +24,6 @@ const TacoSlider = () => {
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Function to scroll and update index
   const scrollToIndex = (newIndex) => {
     if (newIndex >= 0 && newIndex < images.length) {
       flatListRef.current?.scrollToIndex({ animated: true, index: newIndex });
@@ -31,33 +31,39 @@ const TacoSlider = () => {
     }
   };
 
-  // Auto update currentIndex on scroll
   const onScroll = (event) => {
     const offsetX = event.nativeEvent.contentOffset.x;
-
     const index = Math.round(offsetX / width);
-
     setCurrentIndex(index);
   };
 
-  // console.log(width);
-
   return (
-    <View style={tw`relative items-center`}>
-      {/* FlatList with scroll tracking */}
+    <View style={tw`relative items-center justify-center flex-1`}>
+      {/* Image Slider */}
       <FlatList
-        style={{ borderRadius: 8 }} // IMAGE  rounded
         ref={flatListRef}
         horizontal
-        data={images}
         pagingEnabled
         onScroll={onScroll}
-        scrollEventThrottle={16}
+        scrollEventThrottle={10}
         showsHorizontalScrollIndicator={false}
+        decelerationRate="fast"
+        snapToInterval={width}
+        snapToAlignment="center"
         keyExtractor={(_, index) => index.toString()}
+        data={images}
         renderItem={({ item }) => (
-          <TouchableOpacity>
-            <Image source={{ uri: item.uri }} style={{ width, height: 300 }} />
+          <TouchableOpacity style={{ width }}>
+            <Image
+              source={{ uri: item.uri }}
+              resizeMode="cover"
+              style={{
+                width: width - 32,
+                height: 300,
+                marginHorizontal: 16,
+                borderRadius: 12,
+              }}
+            />
           </TouchableOpacity>
         )}
       />
@@ -66,22 +72,24 @@ const TacoSlider = () => {
       <TouchableOpacity
         onPress={() => scrollToIndex(currentIndex - 1)}
         disabled={currentIndex === 0}
-        style={tw`absolute left-2 top-1/2 -mt-4 bg-[#E2E2E2] p-1 rounded-full  opacity-${
-          currentIndex === 0 ? 30 : 100
-        }`}
+        style={[
+          tw`absolute left-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full`,
+          { opacity: currentIndex === 0 ? 0.3 : 1 },
+        ]}
       >
-        <AntDesign name="left" size={15} color="#121212" />
+        <AntDesign name="left" size={18} color="#121212" />
       </TouchableOpacity>
 
       {/* Right Arrow */}
       <TouchableOpacity
         onPress={() => scrollToIndex(currentIndex + 1)}
         disabled={currentIndex === images.length - 1}
-        style={tw`absolute right-2 top-1/2 -mt-4 bg-[#E2E2E2] p-1 rounded-full  opacity-${
-          currentIndex === images.length - 1 ? 30 : 100
-        }`}
+        style={[
+          tw`absolute right-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full`,
+          { opacity: currentIndex === images.length - 1 ? 0.3 : 1 },
+        ]}
       >
-        <AntDesign name="right" size={15} color="#121212" />
+        <AntDesign name="right" size={18} color="#121212" />
       </TouchableOpacity>
     </View>
   );

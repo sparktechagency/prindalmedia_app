@@ -11,7 +11,7 @@ const TagPepoleView = ({ isVisible, setIsVisible, setuserName }) => {
       <Text>
         {/* Tag people */}
         <View
-          style={tw`flex-row items-center w-41 justify-center gap-2 border-[1px] border-[#B0B0B0]  rounded-md  py-1.8  `}
+          style={tw`flex-row items-center px-4 justify-center gap-2 border-[1px] border-[#B0B0B0]  rounded-md  py-1.8  `}
         >
           <TouchableOpacity
             style={tw`  flex-row  items-center gap-1.5`}

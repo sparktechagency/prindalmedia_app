@@ -102,6 +102,12 @@ const CustomDrawerContant = (props) => {
           router.push("/Mission");
         }}
       />
+      <DrawerItem
+        label={"FAQ"}
+        onPress={() => {
+          router.push("/Faq");
+        }}
+      />
     </DrawerContentScrollView>
   );
 };

@@ -1,6 +1,7 @@
-import { MaterialIcons } from "@expo/vector-icons";
+import { IconAddPhoto } from "@/assets/Icon";
 import * as ImagePicker from "expo-image-picker";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SvgXml } from "react-native-svg";
 import tw from "twrnc";
 
 export default function AddPhoto({ image, setImage }) {
@@ -29,14 +30,10 @@ export default function AddPhoto({ image, setImage }) {
       ) : (
         <>
           <View
-            style={tw`flex-row items-center w-41 justify-center gap-2 border-[1px] border-[#B0B0B0]  rounded-md  py-1.8  `}
+            style={tw`flex-row px-4 items-center justify-center gap-2 border-[1px] border-[#B0B0B0]  rounded-md  py-1.8  `}
           >
             <View style={tw` `}>
-              <MaterialIcons
-                name="add-photo-alternate"
-                size={20}
-                color="#B0B0B0"
-              />
+              <SvgXml xml={IconAddPhoto} />
             </View>
             <Text style={tw`text-[16px] font-bold text-[#121212] `}>
               Add photo

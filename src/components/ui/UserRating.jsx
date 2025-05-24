@@ -1,15 +1,10 @@
-import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import tw from "../../lib/tailwind";
 
-const RatingComponent = ({ Rating }) => {
-  const [rating, setRating] = useState();
-  const [hover, setHover] = useState();
-
+const RatingComponent = ({ hover, setHover, rating, setRating }) => {
   const handlePress = (value) => {
     setRating(value);
-    Rating(value);
   };
   {
     /* <AntDesign name="staro" size={24} color="black" /> */

@@ -5,16 +5,18 @@ import { ImageBackground } from "expo-image";
 import { Formik } from "formik";
 import { useState } from "react";
 import {
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
-  SafeAreaView,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
 import { SvgXml } from "react-native-svg";
-import tw from "twrnc";
 import * as Yup from "yup";
+import tw from "../../lib/tailwind";
 
 const validationSchema = Yup.object().shape({
   fullname: Yup.string().required("Full name is required"),
@@ -42,21 +44,24 @@ export default function SingUp() {
   };
 
   return (
-    <ImageBackground
-      source={require("@/assets/images/Loginscreen.png")}
-      resizeMode="cover"
-      style={tw`flex-1`}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+      // keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
     >
-      <SafeAreaView style={tw`flex-1`}>
+      <ImageBackground
+        source={require("@/assets/images/Loginscreen.png")}
+        resizeMode="cover"
+        style={tw`flex-1`}
+      >
         <ScrollView
           contentContainerStyle={tw`flex-grow pt-[170px]`}
           showsVerticalScrollIndicator={false}
         >
           <View
             style={[
-              tw`bg-white rounded-t-3xl px-6 pt-8 pb-12`,
+              tw`bg-primaryBg rounded-t-3xl px-6 pt-8 pb-12`,
               {
-                shadowColor: "#000",
                 shadowOffset: { width: 0, height: -4 },
                 shadowOpacity: 0.1,
                 shadowRadius: 6,
@@ -91,12 +96,12 @@ export default function SingUp() {
                   >
                     Create an account
                   </Text>
-                  <View style={tw`flex-col gap-2 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                  <View style={tw`flex-col gap-2   w-full`}>
+                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
                       Full Name
                     </Text>
                     <View
-                      style={tw`flex-row  items-center bg-[#F3F3F3] px-0.5 py-2 rounded-md`}
+                      style={tw`flex-row  items-center bg-[#F3F3F3] px-4 py-2 rounded-1.5`}
                     >
                       <SvgXml xml={user} />
 
@@ -114,11 +119,11 @@ export default function SingUp() {
 
                   {/* user name  */}
                   <View style={tw`flex-col gap-2 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
                       Username
                     </Text>
                     <View
-                      style={tw`flex-row items-center bg-[#F3F3F3] px-0.5 py-2 rounded-md`}
+                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
                     >
                       <SvgXml xml={user} />
 
@@ -136,7 +141,7 @@ export default function SingUp() {
 
                   {/* Email */}
                   <View style={tw`flex-col gap-1 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
                       Email
                     </Text>
                     <View
@@ -165,7 +170,7 @@ export default function SingUp() {
 
                   {/* Password */}
                   <View style={tw`flex-col gap-1 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
                       Password
                     </Text>
                     <View
@@ -194,7 +199,7 @@ export default function SingUp() {
 
                   {/* Confirm Password */}
                   <View style={tw`flex-col gap-1 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-medium`}>
+                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
                       Confirm Password
                     </Text>
                     <View
@@ -257,7 +262,13 @@ export default function SingUp() {
             </Formik>
           </View>
         </ScrollView>
-      </SafeAreaView>
-    </ImageBackground>
+      </ImageBackground>
+    </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

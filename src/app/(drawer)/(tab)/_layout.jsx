@@ -1,12 +1,19 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  IconActive,
+  IconHome,
+  IconListActive,
+  IconListinActive,
+  IconPostActive,
+  IconPostinActive,
+  IconProfileActive,
+  IconProfileinActive,
+} from "@/assets/Icon";
 import { Tabs } from "expo-router";
+import { SvgXml } from "react-native-svg";
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{ headerShown: false  }} >
+    <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{
@@ -14,8 +21,12 @@ export default function TabLayout() {
           title: "Home",
           tabBarActiveTintColor: "#C3570E",
           tabBarInactiveTintColor: "#454545",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome name="home" size={28} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <SvgXml
+              xml={focused ? IconActive : IconHome}
+              width={28}
+              height={28}
+            />
           ),
         }}
       />
@@ -25,19 +36,27 @@ export default function TabLayout() {
           title: "Post",
           tabBarActiveTintColor: "#C3570E",
           tabBarInactiveTintColor: "#454545",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome6 name="add" size={24} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <SvgXml
+              xml={focused ? IconPostinActive : IconPostActive}
+              width={28}
+              height={28}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="Bookmarks"
         options={{
-          title: "Bookmarks",
+          title: "Lists",
           tabBarActiveTintColor: "#C3570E",
           tabBarInactiveTintColor: "#454545",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="bookmarks-outline" size={24} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <SvgXml
+              xml={focused ? IconListActive : IconListinActive}
+              width={28}
+              height={28}
+            />
           ),
         }}
       />
@@ -48,13 +67,15 @@ export default function TabLayout() {
           title: "Profile",
           tabBarActiveTintColor: "#C3570E",
           tabBarInactiveTintColor: "#454545",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="user" size={24} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <SvgXml
+              xml={focused ? IconProfileActive : IconProfileinActive}
+              width={28}
+              height={28}
+            />
           ),
         }}
       />
-
-      
     </Tabs>
   );
 }

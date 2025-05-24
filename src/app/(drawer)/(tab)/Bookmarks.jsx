@@ -17,7 +17,7 @@ const Bookmarks = () => {
   return (
     <View style={tw`flex-1 bg-[#FDFFFE] `}>
       <View style={tw`flex-1 p-[4%]  `}>
-        <Text style={tw`text-xl font-bold p-4`}>Bookmarks</Text>
+        <Text style={tw`text-xl font-inter-700 p-4`}>Lists</Text>
 
         {/* added the all tabs view components */}
         <View style={tw`flex-1 `}>
@@ -28,19 +28,18 @@ const Bookmarks = () => {
         {/* Tabs */}
         <View style={tw` mt-2 flex-row  items-center justify-center `}>
           <View
-            style={tw` flex-row p-2 items-center w-[70%] justify-center  bg-[#3333331A] rounded-full `}
+            style={tw` flex-row  items-center p-2 justify-center  bg-[#3333331A] rounded-full `}
           >
             {tabs.map((item, index) => (
               <Pressable
                 key={item.label}
                 onPress={() => setActiveTab(item.label)}
-                style={tw`flex-row items-center px-4 py-2 rounded-full ${
+                style={tw`flex-row items-center px-2 py-2 rounded-full ${
                   activeTab === item.label ? "bg-orange" : ""
                 }`}
               >
                 {/* view icons  */}
                 <Icons
-                  name={item.icon}
                   size={20}
                   color={activeTab === item.label ? "white" : "#454545"}
                   style={tw`mr-2`}

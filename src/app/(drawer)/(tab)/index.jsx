@@ -20,7 +20,7 @@ const Home = () => {
             <View
               style={tw`flex-row gap-4  ${
                 isActiveTab === "Following"
-                  ? "w-[65%] bg-[#3333331A] p-2 rounded-full "
+                  ? " w-60  bg-[#3333331A] p-2 rounded-full "
                   : ""
               }  `}
             >

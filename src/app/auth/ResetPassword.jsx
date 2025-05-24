@@ -5,8 +5,11 @@ import { Formik } from "formik";
 import { useState } from "react";
 import {
   Alert,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   SafeAreaView,
+  StyleSheet,
   Text,
   TextInput,
   View,
@@ -37,107 +40,118 @@ export default function ResetPassword() {
   };
 
   return (
-    <View
-      style={tw` p-[4%] bg-[#FDFFFE] flex-1 justify-center overflow-hidden`}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
     >
-      <SafeAreaView>
-        <View style={tw`dark:bg-black flex-col  `}>
-          {/*  */}
-          <AuthHeading
-            Heading={"Reset your password"}
-            SubHeading={"You have to create new password to continue"}
-          />
+      <View
+        style={tw` p-[4%] bg-[#FDFFFE] flex-1 justify-center overflow-hidden`}
+      >
+        <SafeAreaView>
+          <View style={tw`dark:bg-black flex-col  `}>
+            {/*  */}
+            <AuthHeading
+              Heading={"Reset your password"}
+              SubHeading={"You have to create new password to continue"}
+            />
 
-          <Formik
-            initialValues={{ password: "", confirmPassword: "" }}
-            validationSchema={ResetPasswordSchema}
-            onSubmit={handleFormSubmit}
-          >
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-            }) => (
-              <>
-                {/* Password Input */}
-                <View style={tw`w-full flex-col gap-2`}>
-                  <Text style={tw`text-4 text-[#121212] font-semibold`}>
-                    Password
-                  </Text>
-                  <View
-                    style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
-                  >
-                    <SvgXml xml={Iconlock} />
-
-                    <TextInput
-                      style={tw`flex-1 text-base text-black dark:text-white`}
-                      secureTextEntry={!showPassword}
-                      onChangeText={handleChange("password")}
-                      onBlur={handleBlur("password")}
-                      value={values.password}
-                    />
-                    <Feather
-                      name={showPassword ? "eye-off" : "eye"}
-                      size={18}
-                      color="black"
-                      style={tw`ml-2 text-[#888888]`}
-                      onPress={() => setShowPassword(!showPassword)}
-                    />
-                  </View>
-                  {touched.password && errors.password && (
-                    <Text style={tw`text-red-500`}>{errors.password}</Text>
-                  )}
-                </View>
-
-                {/* Confirm Password Input */}
-                <View style={tw`w-full flex-col gap-2 mt-4`}>
-                  <Text style={tw`text-4 text-[#121212] font-semibold`}>
-                    Confirm Password
-                  </Text>
-                  <View
-                    style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
-                  >
-                    <SvgXml xml={Iconlock} />
-                    <TextInput
-                      style={tw`flex-1 text-base text-black dark:text-white`}
-                      secureTextEntry={!showConfirmPassword}
-                      onChangeText={handleChange("confirmPassword")}
-                      onBlur={handleBlur("confirmPassword")}
-                      value={values.confirmPassword}
-                    />
-                    <Feather
-                      name={showConfirmPassword ? "eye-off" : "eye"}
-                      size={18}
-                      color="black"
-                      style={tw`ml-2 text-[#888888]`}
-                      onPress={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
-                    />
-                  </View>
-                  {touched.confirmPassword && errors.confirmPassword && (
-                    <Text style={tw`text-red-500`}>
-                      {errors.confirmPassword}
+            <Formik
+              initialValues={{ password: "", confirmPassword: "" }}
+              validationSchema={ResetPasswordSchema}
+              onSubmit={handleFormSubmit}
+            >
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => (
+                <>
+                  {/* Password Input */}
+                  <View style={tw`w-full flex-col gap-2`}>
+                    <Text style={tw`text-4 text-[#121212] font-semibold`}>
+                      Password
                     </Text>
-                  )}
-                </View>
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
+                    >
+                      <SvgXml xml={Iconlock} />
 
-                {/* Submit Button */}
-                <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
-                  <Pressable onPress={handleSubmit} style={tw`py-4`}>
-                    <Text style={tw`text-center text-white text-xl`}>
-                      Update
+                      <TextInput
+                        style={tw`flex-1 text-base text-black dark:text-white`}
+                        secureTextEntry={!showPassword}
+                        onChangeText={handleChange("password")}
+                        onBlur={handleBlur("password")}
+                        value={values.password}
+                      />
+                      <Feather
+                        name={showPassword ? "eye-off" : "eye"}
+                        size={18}
+                        color="black"
+                        style={tw`ml-2 text-[#888888]`}
+                        onPress={() => setShowPassword(!showPassword)}
+                      />
+                    </View>
+                    {touched.password && errors.password && (
+                      <Text style={tw`text-red-500`}>{errors.password}</Text>
+                    )}
+                  </View>
+
+                  {/* Confirm Password Input */}
+                  <View style={tw`w-full flex-col gap-2 mt-4`}>
+                    <Text style={tw`text-4 text-[#121212] font-semibold`}>
+                      Confirm Password
                     </Text>
-                  </Pressable>
-                </View>
-              </>
-            )}
-          </Formik>
-        </View>
-      </SafeAreaView>
-    </View>
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] rounded-md px-4 py-2`}
+                    >
+                      <SvgXml xml={Iconlock} />
+                      <TextInput
+                        style={tw`flex-1 text-base text-black dark:text-white`}
+                        secureTextEntry={!showConfirmPassword}
+                        onChangeText={handleChange("confirmPassword")}
+                        onBlur={handleBlur("confirmPassword")}
+                        value={values.confirmPassword}
+                      />
+                      <Feather
+                        name={showConfirmPassword ? "eye-off" : "eye"}
+                        size={18}
+                        color="black"
+                        style={tw`ml-2 text-[#888888]`}
+                        onPress={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                      />
+                    </View>
+                    {touched.confirmPassword && errors.confirmPassword && (
+                      <Text style={tw`text-red-500`}>
+                        {errors.confirmPassword}
+                      </Text>
+                    )}
+                  </View>
+
+                  {/* Submit Button */}
+                  <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
+                    <Pressable onPress={handleSubmit} style={tw`py-4`}>
+                      <Text style={tw`text-center text-white text-xl`}>
+                        Update
+                      </Text>
+                    </Pressable>
+                  </View>
+                </>
+              )}
+            </Formik>
+          </View>
+        </SafeAreaView>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

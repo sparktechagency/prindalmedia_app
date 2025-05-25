@@ -1,13 +1,7 @@
 import { IconLOcation } from "@/assets/Icon";
 import axios from "axios";
 import { useState } from "react";
-import {
-  FlatList,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
 
@@ -61,35 +55,21 @@ const Location = ({ setSelectedLocation }) => {
           <SvgXml xml={IconLOcation} />
         </View>
 
-        {/* Suggestion List */}
-        {locationSuggestions.length > 0 && (
-          <FlatList
-            data={locationSuggestions}
-            keyExtractor={(item, index) => item.place_id || index.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedLocation(item);
-                  setSearchText(item.name);
-                  setLocationSuggestions([]); // hide suggestions after selecting
-                }}
-              >
-                <View style={tw`py-2 border-b border-gray-300`}>
-                  <Text style={tw`font-bold text-black`}>{item.name}</Text>
-                  <Text style={tw`text-gray-600`}>
-                    {item.formatted_address}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-            keyboardShouldPersistTaps="handled"
-            ListEmptyComponent={
-              <Text style={tw`text-gray-500 text-center mt-10`}>
-                No location suggestions found.
-              </Text>
-            }
-          />
-        )}
+        {locationSuggestions.map((item, index) => (
+          <TouchableOpacity
+            key={item.place_id || index}
+            onPress={() => {
+              setSelectedLocation(item);
+              setSearchText(item.name);
+              setLocationSuggestions([]);
+            }}
+          >
+            <View style={tw`py-2 border-b border-gray-300`}>
+              <Text style={tw`font-bold text-black`}>{item.name}</Text>
+              <Text style={tw`text-gray-600`}>{item.formatted_address}</Text>
+            </View>
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );

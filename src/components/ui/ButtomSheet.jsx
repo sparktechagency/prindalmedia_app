@@ -1,39 +1,70 @@
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { IconComment, IconDelete, IconsBlue } from "@/assets/Icon";
+import { Ionicons } from "@expo/vector-icons";
 import { useRef, useState } from "react";
 import {
+  Alert,
   Image,
   Pressable,
   SafeAreaView,
   ScrollView,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-
-import { IconComment } from "@/assets/Icon";
-import { TextInput } from "react-native-gesture-handler";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
 
 export default function ButtomSheet() {
   const bottomSheetRef = useRef();
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([
+    { id: 1, user: "Casey", text: "It's a nice food. Very tasty & sweet." },
+    { id: 2, user: "Alex", text: "Loved it!" },
+    { id: 3, user: "Mia", text: "Not bad." },
+    { id: 4, user: "Mia", text: "Not bad." },
+    { id: 5, user: "Mia", text: "Not bad." },
+  ]);
 
   const openBottomSheet = () => {
     bottomSheetRef.current.open();
   };
 
-  const [comment, setComment] = useState("");
-  //   console.log(comment);
-
-  // commment and  close buttom sheet
   const handleComment = () => {
+    if (comment.trim() === "") return;
+
+    const newComment = {
+      id: Date.now(),
+      user: "You",
+      text: comment.trim(),
+    };
+
+    setComments([newComment, ...comments]);
     setComment("");
     bottomSheetRef.current.close();
   };
-  // close buttom sheet
+
   const handlClose = () => {
     bottomSheetRef.current.close();
+  };
+
+  const handleDelete = (id) => {
+    Alert.alert(
+      "Delete Comment",
+      "Are you sure you want to delete this comment?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+          onPress: () =>
+            setComments((prevComments) =>
+              prevComments.filter((c) => c.id !== id)
+            ),
+        },
+      ]
+    );
   };
 
   return (
@@ -58,47 +89,45 @@ export default function ButtomSheet() {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             paddingTop: 15,
-            paddingStart: 20,
-            paddingEnd: 20,
+            paddingHorizontal: 20,
           },
         }}
       >
-        <View style={tw``}>
-          <View style={tw` flex-row justify-between items-center`}>
-            <Text style={tw`text-lg font-inter-700  py-3`}>Comment</Text>
+        <View style={tw`flex-1`}>
+          {/* Header */}
+          <View style={tw`flex-row justify-between items-center`}>
+            <Text style={tw`text-lg font-inter-700 py-3`}>Comment</Text>
             <Ionicons
               name="close"
               size={24}
-              //   style={tw`mr-2 text-[#00C49A]`}
               color="#121212"
               onPress={handlClose}
             />
           </View>
 
+          {/* Comment List */}
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ height: 280 }}
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-              <View key={index}>
-                {/* user info */}
-                <View style={tw`flex-row items-start justify-between my-2 `}>
-                  {/* Left: Avatar + Content */}
+            {comments.map((item) => (
+              <View key={item.id}>
+                <View style={tw`flex-row items-start justify-between my-2`}>
                   <View style={tw`flex-row flex-1`}>
                     <Image
                       source={{
                         uri: "https://randomuser.me/api/portraits/men/1.jpg",
                       }}
                       style={tw`w-10.5 h-10.5 rounded-full mr-3`}
-                    />{" "}
+                    />
                     <View style={tw`flex-1`}>
-                      <Text style={tw` text-textgray font-inter-600 text-3`}>
-                        Casey
+                      <Text style={tw`text-textgray font-inter-600 text-3`}>
+                        {item.user}
                       </Text>
                       <Text
                         style={tw`text-textPrimary text-4 font-inter-400 mt-0.5`}
                       >
-                        Its a nice food. Very tasty & sweet.
+                        {item.text}
                       </Text>
                       <View style={tw`flex-row mt-1`}>
                         <TouchableOpacity>
@@ -118,45 +147,37 @@ export default function ButtomSheet() {
                       </View>
                     </View>
                   </View>
-
-                  {/* Right: Delete Icon */}
-                  <TouchableOpacity>
-                    <AntDesign name="delete" size={16} color="#666" />
+                  <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                    <SvgXml xml={IconDelete} />
                   </TouchableOpacity>
                 </View>
               </View>
             ))}
           </ScrollView>
-          {/* User Comment  */}
-          <View style={tw`  `}>
+
+          {/* Compact Input Section */}
+          <View style={tw`mt-3`}>
             <View
-              style={tw`flex-row justify-between items-center bg-[#F3F3F3] rounded-full mt-15 p-4`}
+              style={tw`flex-row items-center bg-[#F3F3F3] rounded-full px-3 py-2`}
             >
-              {/* Lock icon + Input */}
-              <View style={tw`flex-row items-center flex-1`}>
-                <Image
-                  source={{
-                    uri: "https://randomuser.me/api/portraits/men/1.jpg",
-                  }}
-                  style={tw`w-6 h-6 rounded-full `}
-                />
-
-                <TextInput
-                  style={tw`flex-1  text-textPrimary dark:text-white `}
-                  placeholder="Write a comment...."
-                  placeholderTextColor={"#121212"}
-                  onChangeText={(text) => setComment(text)}
-                />
-              </View>
-
-              {/* Eye icon */}
-              <Ionicons
-                name="send-sharp"
-                size={20}
-                //   style={tw`mr-2 text-[#00C49A]`}
-                color="#ED6237"
-                onPress={handleComment}
+              <Image
+                source={{
+                  uri: "https://randomuser.me/api/portraits/men/1.jpg",
+                }}
+                style={tw`w-5 h-5 rounded-full mr-2`}
               />
+              <TextInput
+                style={tw`flex-1 text-textPrimary text-sm py-1`}
+                placeholder="Write a comment..."
+                placeholderTextColor="#888"
+                value={comment}
+                onChangeText={setComment}
+                onSubmitEditing={handleComment}
+                returnKeyType="send"
+              />
+              <TouchableOpacity onPress={handleComment}>
+                <SvgXml xml={IconsBlue} />
+              </TouchableOpacity>
             </View>
           </View>
         </View>

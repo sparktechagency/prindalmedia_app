@@ -126,9 +126,9 @@ const UserPost = ({ isActiveTab }) => {
               <TouchableOpacity onPress={() => setIsHeart(!isHeart)}>
                 {/* <SvgXml xml={IconLove} /> */}
                 {isHeart ? (
-                  <SvgXml xml={IconLove} />
-                ) : (
                   <SvgXml xml={IconHeart} />
+                ) : (
+                  <SvgXml xml={IconLove} />
                 )}
               </TouchableOpacity>
 

@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import tw from "../../lib/tailwind";
 
-const TagManager = ({ newTag, setNewTag }) => {
-  const [tags, setTags] = useState([]);
-
+const TagManager = ({ newTag, setNewTag, tags, setTags }) => {
   useEffect(() => {
     if (newTag && !tags.includes(newTag)) {
       setTags((prev) => [...prev, newTag]);
@@ -28,19 +26,20 @@ const TagManager = ({ newTag, setNewTag }) => {
       )}
 
       <ScrollView horizontal contentContainerStyle={tw`flex-row gap-2`}>
-        {tags.map((tag, index) => (
-          <View
-            key={index}
-            style={tw`flex-row items-center px-3 py-1 border border-[#0063E5] rounded-2 bg-gray-100`}
-          >
-            <Text style={tw`text-3 font-inter-600 text-[#888888] mr-2`}>
-              {tag}
-            </Text>
-            <Pressable onPress={() => removeTag(tag)}>
-              <Text style={tw`text-[#888888] text-lg`}>×</Text>
-            </Pressable>
-          </View>
-        ))}
+        {tags.length > 0 &&
+          tags?.map((tag, index) => (
+            <View
+              key={index}
+              style={tw`flex-row items-center px-3 py-1 border border-[#0063E5] rounded-2 bg-gray-100`}
+            >
+              <Text style={tw`text-3 font-inter-600 text-[#888888] mr-2`}>
+                {tag}
+              </Text>
+              <Pressable onPress={() => removeTag(tag)}>
+                <Text style={tw`text-[#888888] text-lg`}>×</Text>
+              </Pressable>
+            </View>
+          ))}
       </ScrollView>
     </View>
   );

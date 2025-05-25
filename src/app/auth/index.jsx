@@ -47,7 +47,7 @@ export default function Index() {
         resizeMode="cover"
         style={tw`flex-1 justify-end`}
       >
-        <View style={tw`bg-white rounded-t-3xl px-4 pt-10 pb-12`}>
+        <View style={tw` bg-primaryBg rounded-t-3xl px-4 py-5 `}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Formik
               initialValues={{

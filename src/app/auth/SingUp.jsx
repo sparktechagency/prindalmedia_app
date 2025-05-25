@@ -50,17 +50,16 @@ export default function SingUp() {
       // keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
     >
       <ImageBackground
-        source={require("@/assets/images/Loginscreen.png")}
-        resizeMode="cover"
+        source={require("@/assets/images/Signupscreen.png")}
         style={tw`flex-1`}
       >
         <ScrollView
-          contentContainerStyle={tw`flex-grow pt-[170px]`}
+          contentContainerStyle={tw`flex-grow flex-1 justify-end`}
           showsVerticalScrollIndicator={false}
         >
           <View
             style={[
-              tw`bg-primaryBg rounded-t-3xl px-6 pt-8 pb-12`,
+              tw`bg-primaryBg  rounded-t-3xl px-6 pt-2 pb-5`,
               {
                 shadowOffset: { width: 0, height: -4 },
                 shadowOpacity: 0.1,
@@ -90,9 +89,9 @@ export default function SingUp() {
                 touched,
                 setFieldValue,
               }) => (
-                <>
+                <View>
                   <Text
-                    style={tw`mt-2 text-7  text-textPrimary font-inter-700 mb-3 text-center`}
+                    style={tw`mt-2 text-7  text-textPrimary font-inter-700 mb-2 text-center`}
                   >
                     Create an account
                   </Text>
@@ -250,14 +249,14 @@ export default function SingUp() {
                   </View>
 
                   {/* Submit Button */}
-                  <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
+                  <View style={tw`w-full mt-3 rounded-full bg-[#ED6237]`}>
                     <Pressable onPress={handleSubmit} style={tw`py-4`}>
                       <Text style={tw`text-center text-white text-xl`}>
                         Register
                       </Text>
                     </Pressable>
                   </View>
-                </>
+                </View>
               )}
             </Formik>
           </View>

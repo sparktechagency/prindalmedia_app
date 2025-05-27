@@ -10,7 +10,7 @@ const FAQItem = ({ question, answer }) => {
   const [collapsed, setCollapsed] = useState(true);
 
   return (
-    <View style={tw`mb-4 bg-[4%] bg-primaryBg`}>
+    <View style={tw`mb-4 bg-primaryBg`}>
       <TouchableOpacity
         style={tw`flex-row justify-between items-center bg-[#F3F3F3] p-4 rounded`}
         onPress={() => setCollapsed(!collapsed)}

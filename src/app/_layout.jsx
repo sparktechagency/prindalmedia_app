@@ -24,6 +24,7 @@ export default function RootLayout() {
         <Stack.Screen name="userfollowing/following" options={{}} />
         <Stack.Screen name="userfollowing/index" options={{}} />
         <Stack.Screen name="viewpost/[id]" options={{}} />
+        <Stack.Screen name="userSearch/index" options={{}} />
         <Stack.Screen
           name="post_details_modal"
           options={{

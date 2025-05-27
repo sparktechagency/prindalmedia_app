@@ -13,19 +13,23 @@ const TermsAndConditions = () => {
         title={"Terms & Conditions"}
       />
 
-      <Text style={tw`px-4 leading-5 font-inter-400`}>
-        Lorem ipsum dolor sit amet consectetur. Pretium aliquam diam sed neque
-        purus. Sed risus et turpis laoreet aliquet facilisis. Viverra urna arcu
-        faucibus at ut orci velit. Velit pellentesque lacus eu tortor eget
-        cursus suspendisse imperdiet. Lorem ipsum dolor sit amet consectetur.
-        Pretium aliquam diam sed neque purus. Sed risus et turpis laoreet
-        aliquet facilisis. Viverra urna arcu faucibus at ut orci velit. Velit
-        pellentesque lacus eu tortor eget cursus suspendisse imperdiet. Lorem
-        ipsum dolor sit amet consectetur. Pretium aliquam diam sed neque purus.
-        Sed risus et turpis laoreet aliquet facilisis. Viverra urna arcu
-        faucibus at ut orci velit. Velit pellentesque lacus eu tortor eget
-        cursus suspendisse imperdiet.
-      </Text>
+      <View style={tw` p-[4%] flex-col gap-4 `}>
+        <Text
+          style={tw` leading-6 text-4 font-inter-500 text-wrap text-[#454545]`}
+        >
+          Lorem ipsum dolor sit amet consectetur. Pretium aliquam diam sed neque
+          purus. Sed risus et turpis laoreet aliquet facilisis. Viverra urna
+          arcu faucibus at ut orci velit. Velit pellentesque lacus eu tortor
+          eget cursus suspendisse imperdiet. Lorem ipsum dolor sit amet
+          consectetur. Pretium aliquam diam sed neque purus. Sed risus et turpis
+          laoreet aliquet facilisis. Viverra urna arcu faucibus at ut orci
+          velit. Velit pellentesque lacus eu tortor eget cursus suspendisse
+          imperdiet. Lorem ipsum dolor sit amet consectetur. Pretium aliquam
+          diam sed neque purus. Sed risus et turpis laoreet aliquet facilisis.
+          Viverra urna arcu faucibus at ut orci velit. Velit pellentesque lacus
+          eu tortor eget cursus suspendisse imperdiet.
+        </Text>
+      </View>
     </View>
   );
 };

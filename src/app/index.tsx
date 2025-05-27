@@ -1,13 +1,7 @@
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import {
-  ActivityIndicator,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
@@ -34,32 +28,32 @@ export default function App() {
   }, [route]);
 
   return (
-    <View style={tw`flex-1 justify-center items-center bg-white pb-[25%]`}>
-      <View style={tw`items-end`}>
-        <View style={tw`mb-1`}>
-          {/* Replace this with your logo image */}
-          <View style={tw` justify-center flex-row items-center gap-2`}>
+    <View style={tw`flex-1   justify-center items-center bg-primaryBg pb-[25%]`}>
+      <View style={tw`   flex-1 justify-center flex items-end`}>
+        {/* Logo and Title */}
+        <View style={tw`justify-center items-center`}>
+          <View style={tw`flex-row items-center gap-1.5`}>
             <Image
               source={require("@/assets/images/appIcons.png")}
-              style={tw` w-16 h-16 `}
+              style={tw`w-16 h-16`}
             />
-            <Image source={require("@/assets/images/logo.png")} style={tw` `} />
+            <Text style={tw`text-10.5 font-inter-700 text-[#141A47]`}>
+              Kalamari
+            </Text>
+          </View>
+          <View style={tw` relative`}>
+          <Text style={tw`text-sm   flex-1 absolute  font-inter-500 text-textgray mt-1`}>
+          Share your taste.   
+        </Text>
           </View>
         </View>
-        <Text style={tw`text-3 font-inter-500 text-textgray`}>
-          Share your taste.
-        </Text>
+          
       </View>
 
-      <TouchableOpacity style={tw`absolute bottom-6`}>
-        <Text style={tw`text-[#ED6237] underline font-inter-600 text-sm`}>
-          Our Mission
-        </Text>
-      </TouchableOpacity>
-
+      {/* Loader */}
       <ActivityIndicator
         size="large"
-        color="black"
+        color="#ED6237"
         style={tw`absolute bottom-16`}
       />
     </View>

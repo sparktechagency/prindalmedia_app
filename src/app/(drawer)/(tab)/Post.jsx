@@ -3,10 +3,10 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
@@ -39,12 +39,14 @@ const Post = () => {
   // console.log( 'view new   {"lat": 23.7520933, "lng": 90.4246379} ' ,selectedLocation?.geometry?.location);
 
   // user Rating
-  const [rating, setRating] = useState();
-  const [restaurant, setRestaurant] = useState();
-  console.log(restaurant);
+  const [rating, setRating] = useState("");
+  const [restaurant, setRestaurant] = useState("");
+  // console.log(restaurant);
 
   //
   const [tags, setTags] = useState([]);
+
+  // console.log(userName);
 
   //get image url
   const [image, setImage] = useState(null);
@@ -104,134 +106,109 @@ const Post = () => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
     >
-      <View style={tw`px-[4%] pt-[4%]  flex-1 bg-[#FDFFFE]`}>
-        <Text style={tw` text-xl font-inter-700 my-3 text-[#121212]`}>
+      <View style={tw`px-4 pt-4 flex-1 bg-white`}>
+        <Text style={tw`text-xl font-bold my-3 text-textPrimary`}>
           Share your meal
         </Text>
 
-        {/* Login input  */}
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {/*  */}
-          <View style={tw` flex-col justify-between gap-8`}>
-            <View style={tw` w-full  gap-4 flex-col justify-between mt-3`}>
-              {/* dish/drink  input */}
-              <View style={tw`flex-col gap-2`}>
-                <Text style={tw`text-[16px] font-inter-600 text-[#121212]`}>
-                  Meal Name
-                </Text>
-                <View style={tw`bg-[#F3F3F3] rounded-md text-[#121212]`}>
-                  <TextInput
-                    placeholder="What’s the name of your dish/drink?"
-                    style={tw`px-4 py-4`}
-                    placeholderTextColor={"#888888"}
-                    onChangeText={(text) => setMealName(text)}
-                    value={mealName}
-                  />
-                </View>
-              </View>
-
-              {/* Where did you have it?   SelectRadioButton */}
-              <SelectRadioButton
-                setSelectedOption={setSelectedOption}
-                selectedOption={selectedOption}
-                selectedOptionFood={selectedOptionFood}
-                setSelectedOptionFood={setSelectedOptionFood}
-                setRestaurant={setRestaurant}
-              />
-
-              {/* Food type? */}
-
-              {/* Location */}
-              <View>
-                {selectedOption === "home-made" ? (
-                  ""
-                ) : (
-                  <Location setSelectedLocation={setSelectedLocation} />
-                )}
-              </View>
-
-              {/* Description */}
-              <View style={tw`flex-col gap-2 `}>
-                <Text style={tw`text-[16px] font-inter-600 text-[#121212`}>
-                  {selectedOption === "home-made" ? "Reciepe" : "Description"}
-                </Text>
-                <View style={tw`bg-[#F3F3F3] rounded-[8px] `}>
-                  <TextInput
-                    style={tw`h-30 top-0 px-4 w-full  flex items-start `}
-                    placeholder="What did you think of it? How was the experience?"
-                    multiline
-                    numberOfLines={6}
-                    verticalAlign="top"
-                    textAlignVertical="top"
-                    textAlign="left"
-                    placeholderTextColor={"#888888"}
-                    onChange={(text) => setDescription(text)}
-                    value={description}
-                  />
-                </View>
-              </View>
-
-              {/* user rating  */}
-              <View>
-                {selectedOption === "home-made" ? (
-                  ""
-                ) : (
-                  <UserRating
-                    hover={hover}
-                    setHover={setHover}
-                    setRating={setRating}
-                    rating={rating}
-                  />
-                )}
-              </View>
-              {/* <View style={tw``}>
-                
-              </View> */}
-
-              {/* tage user */}
-              <View>
-                <TagManager
-                  tags={tags}
-                  setTags={setTags}
-                  newTag={userName}
-                  setNewTag={setuserName}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={tw`pb-4`}
+        >
+          <View style={tw`flex-col  gap-2`}>
+            {/* Meal Name Input */}
+            <View style={tw`flex-col gap-2`}>
+              <Text style={tw`text-base font-semibold text-textPrimary`}>
+                Meal Name
+              </Text>
+              <View style={tw`bg-[#F3F3F3] rounded-md`}>
+                <TextInput
+                  placeholder="What's the name of your dish/drink?"
+                  style={tw`px-4 py-3 text-textPrimary`}
+                  placeholderTextColor="#888888"
+                  onChangeText={(text) => setMealName(text)}
+                  value={mealName}
+                  selectionColor="#888888"
                 />
               </View>
+            </View>
 
-              {/* add Photo  / tag user  */}
-              <View
-                style={tw`flex-row  items-center justify-center gap-4 rounded-md `}
-              >
-                <View>
-                  <AddPhoto image={image} setImage={setImage} />
-                </View>
+            {/* Location Type Selector */}
+            <SelectRadioButton
+              setSelectedOption={setSelectedOption}
+              selectedOption={selectedOption}
+              selectedOptionFood={selectedOptionFood}
+              setSelectedOptionFood={setSelectedOptionFood}
+              setRestaurant={setRestaurant}
+            />
 
-                {/* tag pepole  */}
-                <View>
-                  <TagPepoleView
-                    setuserName={setuserName}
-                    isVisible={isVisible}
-                    setIsVisible={setIsVisible}
-                  />
-                </View>
+            {/* Location Input (Conditional) */}
+            {selectedOption !== "home-made" && (
+              <Location setSelectedLocation={setSelectedLocation} />
+            )}
+
+            {/* Description/Recipe Input */}
+            <View style={tw`flex-col gap-2`}>
+              <Text style={tw`text-base font-semibold text-textPrimary`}>
+                {selectedOption === "home-made" ? "Recipe" : "Description"}
+              </Text>
+              <View style={tw`bg-[#F3F3F3] rounded-lg h-30`}>
+                <TextInput
+                  style={tw`p-4 text-textPrimary h-full text-left`}
+                  placeholder="What did you think of it? How was the experience?"
+                  multiline
+                  numberOfLines={6}
+                  textAlignVertical="top"
+                  placeholderTextColor="#888888"
+                  onChangeText={(text) => setDescription(text)}
+                  value={description}
+                  selectionColor="#888888"
+                />
               </View>
             </View>
-            {/*  */}
-            <View style={tw` pb-1  `}>
-              {/* add post button */}
-              <View style={tw` items-center justify-center flex-row   `}>
-                <Pressable
-                  onPress={handleSubmit}
-                  style={tw` items-center justify-center flex-row bg-orange px-9 py-3 rounded-full `}
+
+            {/* Rating (Conditional) */}
+            {selectedOption !== "home-made" && (
+              <UserRating
+                hover={hover}
+                setHover={setHover}
+                setRating={setRating}
+                rating={rating}
+              />
+            )}
+
+            {/* Tag Management */}
+            <TagManager
+              tags={tags}
+              setTags={setTags}
+              newTag={userName}
+              setNewTag={setuserName}
+            />
+
+            {/* Photo and People Tagging */}
+            <View style={tw`flex-row items-center justify-around`}>
+              <AddPhoto image={image} setImage={setImage} />
+              <TagPepoleView
+                setuserName={setuserName}
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+              />
+            </View>
+
+            {/* Submit Button */}
+            <View style={tw` items-center justify-center flex-row   `}>
+              <TouchableOpacity
+                onPress={handleSubmit}
+                style={tw` items-center justify-center flex-row bg-orange px-9 py-3 rounded-full `}
+              >
+                <Text
+                  style={tw`  text-white  flex items-center justify-center font-bold text-[16px]   `}
                 >
-                  <Text
-                    style={tw`  text-white  flex items-center justify-center font-bold text-[16px]   `}
-                  >
-                    Post
-                  </Text>
-                </Pressable>
-              </View>
+                  Post
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -243,6 +220,7 @@ const Post = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FDFFFE",
   },
 });
 

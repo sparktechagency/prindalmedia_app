@@ -7,11 +7,11 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { SvgXml } from "react-native-svg";
@@ -134,11 +134,11 @@ export default function ResetPassword() {
 
                   {/* Submit Button */}
                   <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
-                    <Pressable onPress={handleSubmit} style={tw`py-4`}>
+                    <TouchableOpacity onPress={handleSubmit} style={tw`py-4`}>
                       <Text style={tw`text-center text-white text-xl`}>
                         Update
                       </Text>
-                    </Pressable>
+                    </TouchableOpacity>
                   </View>
                 </>
               )}

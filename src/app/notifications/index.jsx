@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { router, useNavigation } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -12,15 +12,13 @@ import {
 import tw from "../../lib/tailwind";
 
 const Notifications = () => {
-  const navigate = useNavigation();
-
   const [setIsFollowing, setIsFollowingsetIsFollowing] = useState(false);
 
   const [clicked, setClicked] = useState(false);
 
   const handlePress = () => {
     if (!clicked) {
-      console.log(clicked);
+      // console.log(clicked);
 
       setClicked(true); // only once
     }
@@ -33,14 +31,18 @@ const Notifications = () => {
       <View
         style={tw`px-[4%] pt-4  mb-6 flex-row items-center justify-between`}
       >
-        <TouchableOpacity onPress={() => navigate.goBack()}>
-          <View style={tw`flex-row items-center gap-2 my-4`}>
+        <View style={tw`flex-row items-center gap-2 my-4`}>
+          <TouchableOpacity
+            onPress={() => {
+              router?.back();
+            }}
+          >
             <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-            <Text style={tw`text-5 text-[#121212] font-inter-700`}>
-              Notifications
-            </Text>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+          <Text style={tw`text-5 text-[#121212] font-inter-700`}>
+            Notifications
+          </Text>
+        </View>
         {/*  */}
         {/* Submit Button */}
         <Pressable

@@ -9,11 +9,11 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { SvgXml } from "react-native-svg";
@@ -93,6 +93,7 @@ export default function Index() {
                       value={values.email}
                       placeholder="Enter your email"
                       placeholderTextColor="#888"
+                      selectionColor={"#888"}
                     />
                   </View>
                   {touched.email && errors.email && (
@@ -115,6 +116,7 @@ export default function Index() {
                       value={values.password}
                       placeholder="Enter your password"
                       placeholderTextColor="#888"
+                      selectionColor={"#888"}
                     />
                     <Feather
                       onPress={() => setShowPassword((prev) => !prev)}
@@ -151,10 +153,10 @@ export default function Index() {
                   </View>
 
                   {/* Sign in button */}
-                  <Pressable
+                  <TouchableOpacity
                     onPress={() => {
                       // handleSubmit()
-                      router.push("/(tab)");
+                      router.push("auth/phone");
                     }}
                     style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
                   >
@@ -163,7 +165,7 @@ export default function Index() {
                     >
                       Sign in
                     </Text>
-                  </Pressable>
+                  </TouchableOpacity>
 
                   {/* Sign up link */}
                   <Text style={tw`text-center text-[#121212] mt-4`}>

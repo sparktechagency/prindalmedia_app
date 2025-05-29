@@ -18,11 +18,7 @@ const Home = () => {
           <Header />
           <View style={tw`pb-4`}>
             <View
-              style={tw`flex-row gap-4  ${
-                isActiveTab === "Following"
-                  ? " w-60  bg-[#3333331A] p-2 rounded-full "
-                  : ""
-              }  `}
+              style={tw`flex-row gap-4  w-60  bg-[#3333331A] p-2 rounded-full `}
             >
               {tab.map((item, index) => (
                 <View key={index} style={tw``}>
@@ -31,11 +27,7 @@ const Home = () => {
                       style={tw`
                   text-[16px] font-inter-400 px-4 py-1 ${
                     isActiveTab === item
-                      ? ` ${
-                          isActiveTab === "Following"
-                            ? "text-white bg-orange rounded-full"
-                            : "bg-black text-white  rounded-full"
-                        } `
+                      ? ` text-white bg-orange rounded-full `
                       : "text-textgray"
                   }
                 `}

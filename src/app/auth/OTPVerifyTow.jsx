@@ -4,10 +4,10 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
@@ -65,9 +65,9 @@ const OTPVerifyTow = () => {
             </View>
 
             <View style={tw`w-full flex-col rounded-full bg-[#ED6237] mt-10 `}>
-              <Pressable onPress={handleNavigate} style={tw`py-4`}>
+              <TouchableOpacity onPress={handleNavigate} style={tw`py-4`}>
                 <Text style={tw`text-center text-white text-xl`}>Verify</Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </View>
         </SafeAreaView>

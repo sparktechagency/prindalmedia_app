@@ -5,11 +5,11 @@ import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import tw from "twrnc";
@@ -88,11 +88,11 @@ const EmailVerify = () => {
                 <View
                   style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#ED6237]`}
                 >
-                  <Pressable onPress={handleSubmit} style={tw`py-4`}>
+                  <TouchableOpacity onPress={handleSubmit} style={tw`py-4`}>
                     <Text style={tw`text-center text-white text-xl`}>
                       Submit
                     </Text>
-                  </Pressable>
+                  </TouchableOpacity>
                 </View>
               </>
             )}

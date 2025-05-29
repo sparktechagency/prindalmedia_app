@@ -15,8 +15,10 @@ export default function RootLayout() {
     >
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{}} />
-        <Stack.Screen name="auth" options={{}} />
-        <Stack.Screen name="map/index" options={{}} />
+        {/* <Stack.Screen name="auth" options={{}} /> */}
+        <Stack.Screen name="map/index" options={{
+          keyboardHandlingEnabled : false
+        }} />
         <Stack.Screen name="notifications/index" options={{}} />
         <Stack.Screen name="notifications/[id]" options={{}} />
         <Stack.Screen name="provers/[id]" options={{}} />

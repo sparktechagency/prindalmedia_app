@@ -71,11 +71,11 @@ const ViewDeatils = () => {
               <View style={tw`bg-[#F3F3F3] rounded-md`}>
                 <TextInput
                   placeholder="Enter your name"
+                  placeholderTextColor="#888"
+                  selectionColor={"#888"}
                   style={tw`px-4 py-4.5 text-base`}
                   onChange={(value) => setName(value)}
                   value={name}
-                  placeholderTextColor="#888"
-                  selectionColor={"#888"}
                 />
               </View>
             </View>
@@ -91,11 +91,10 @@ const ViewDeatils = () => {
                   numberOfLines={6}
                   textAlignVertical="top"
                   placeholder="Write about yourself.."
+                  placeholderTextColor="#888888"
                   style={tw`h-30 px-4 pt-4 text-base`}
                   onChange={(value) => setBio(value)}
                   value={bio}
-                  placeholderTextColor="#888"
-                  selectionColor={"#888"}
                 />
               </View>
             </View>

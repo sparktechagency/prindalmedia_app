@@ -1,8 +1,10 @@
 // ProfileCard.tsx
-import { IconRecents, IconUserProfile, Iconsfollower } from "@/assets/Icon";
-import { Link } from "expo-router";
-import { Image, Text, View } from "react-native";
+import { IconRecents, Iconsfollower } from "@/assets/Icon";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Link, router } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
+import ProfileViewImage from "../../../components/ui/ProfileViewImage";
 import RecentActivityList from "../../../components/ui/RecentActivityList";
 import tw from "../../../lib/tailwind";
 
@@ -11,26 +13,25 @@ import tw from "../../../lib/tailwind";
 const Profile = () => {
   return (
     <View style={tw` flex-1  bg-primaryBg`}>
+      
       <View style={tw` flex-1 px-[4%]`}>
-        <Text style={tw`text-4.2 mt-8 text-[#121212] font-bold mb-5.2`}>
-          My Profile
-        </Text>
-        <View style={tw`mb-4`}>
-          {/* Profile image and badge */}
-          <View style={tw`items-center relative`}>
-            <Image
-              source={require("@/assets/images/image.png")} // Replace with your image
-              style={tw`w-20 h-20 rounded-full`}
-            />
-            <Link
-              style={tw`absolute bottom-0 right-32 bg-blue-500 p-2 rounded-full`}
-              href={"/provers/1"}
+        <View style={tw`flex-row items-center gap-2 my-6`}>
+            <TouchableOpacity
+              onPress={() => {
+                router?.back();
+              }}
             >
-              <View>
-                {/* <Icon name="edit" size={18} color="#fff" /> */}
-                <SvgXml xml={IconUserProfile} />
-              </View>
-            </Link>
+              <MaterialIcons name="arrow-back-ios" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={tw`text-4.2 text-[#121212] font-bold`}> My Profile</Text>
+          </View>
+        {/* <Text style={tw`text-4.2 mt-8 text-[#121212] font-bold mb-5.2`}>
+          My Profile
+        </Text> */}
+        <View style={tw`mb-3`}>
+          {/* Profile image and badge */}
+          <View style={tw``}>
+           <ProfileViewImage />
           </View>
 
           {/* Name and handle */}
@@ -49,7 +50,8 @@ const Profile = () => {
 
           {/* Follower stats */}
           <View style={tw`flex-row mt-4  justify-center  gap-2`}>
-            <Link href={"/userfollowing"}>
+            <TouchableOpacity>
+              <Link href={"/userfollowing"}>
               <View
                 style={tw`items-center  justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
               >
@@ -58,8 +60,10 @@ const Profile = () => {
                 <Text style={tw`text-textPrimary font-inter-700`}>5.1k</Text>
               </View>
             </Link>
+            </TouchableOpacity>
             {/* Following stats */}
-            <Link href={"/userfollowing/following"}>
+            <TouchableOpacity>
+              <Link href={"/userfollowing/following"}>
               <View
                 style={tw`items-center justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
               >
@@ -68,16 +72,17 @@ const Profile = () => {
                 <Text style={tw`text-textPrimary font-inter-700`}>1.1k</Text>
               </View>
             </Link>
+            </TouchableOpacity>
           </View>
         </View>
 
         {/* */}
         <View style={tw`flex-1`}>
           <View style={tw` `}>
-            <View style={tw`flex-row items-center gap-2 my-4`}>
+            <View style={tw`flex-row items-center gap-2 my-2`}>
               <SvgXml xml={IconRecents} />
               <Text style={tw`text-4 text-[#121212] font-inter-700`}>
-                Recent activity list
+                Recents
               </Text>
             </View>
           </View>

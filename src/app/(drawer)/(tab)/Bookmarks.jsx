@@ -4,7 +4,7 @@ import { Pressable, Text, View } from "react-native";
 import {
   IconsListRecipes,
   IconsListRestaurants,
-  IconsSearch
+  IconsSearch,
 } from "@/assets/Icon";
 import { TextInput } from "react-native-gesture-handler";
 import { SvgXml } from "react-native-svg";
@@ -41,6 +41,7 @@ const Bookmarks = () => {
                   style={tw` py-4 flex-1 text-textPrimary`}
                   placeholder="Search by user name or food name"
                   placeholderTextColor="#888888"
+                  selectionColor="#888888"
                   // onChangeText={(text) => handleSearchLocation(text)}
                   // value={searchText}
                 />
@@ -49,12 +50,12 @@ const Bookmarks = () => {
 
             {/* Tabs */}
             <View style={tw`flex-row items-center justify-between `}>
-              <View style={tw` flex-row  items-center gap-2 justify-center   `}>
+              <View style={tw` flex-row  items-center  justify-center   `}>
                 {tabs.map((item, index) => (
                   <Pressable
                     key={item.label}
                     onPress={() => setActiveTab(item.label)}
-                    style={tw`flex-row items-center gap-2  rounded-full ${
+                    style={tw`flex-row items-center  rounded-full ${
                       activeTab === item.label ? " text-orange" : ""
                     }`}
                   >
@@ -70,14 +71,14 @@ const Bookmarks = () => {
                         activeTab === item.label
                           ? "text-orange underline "
                           : "text-[#454545] "
-                      }  text-4 font-inter-600 gap-2`}
+                      }  text-4 font-inter-600`}
                     >
                       {item.label}
                     </Text>
                   </Pressable>
                 ))}
               </View>
-              <View style={tw`flex-row items-center  ml-3 gap-2 `}>
+              <View style={tw`flex-row items-center  gap-2 `}>
                 <SvgXml
                   xml={
                     activeTab === "Restaurants"
@@ -95,7 +96,7 @@ const Bookmarks = () => {
             {/* {activeTab === "Restaurants" && <Recent />}
             {activeTab === "Recipes" && <Recent />} */}
             {activeTab === "Restaurants" && <MyList />}
-            {activeTab === "Recipes" && <MyList />}
+            {activeTab === "Home-Made" && <MyList />}
           </View>
         </View>
       </View>

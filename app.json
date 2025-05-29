@@ -47,14 +47,7 @@
           "recordAudioAndroid": true
         }
       ],
-       [
-        "react-native-vision-camera",
-        {
-          "enableMicrophonePermission": true,
-          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
-          "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone."
-        }
-      ],
+      
       [
         "expo-media-library",
         {
@@ -79,8 +72,8 @@
           "locationPermission": "Allow $(PRODUCT_NAME) to use your location"
         }
       ],
-      "expo-font",
-      "react-native-vision-camera"
+      "expo-font"
+  
     ],
     "experiments": {
       "typedRoutes": true

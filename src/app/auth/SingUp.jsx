@@ -7,11 +7,11 @@ import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { SvgXml } from "react-native-svg";
@@ -109,6 +109,8 @@ export default function SingUp() {
                         onChangeText={handleChange("fullname")}
                         onBlur={handleBlur("fullname")}
                         value={values.fullname}
+                        placeholderTextColor="#888"
+                        selectionColor={"#888"}
                       />
                     </View>
                     {touched.fullname && errors.fullname && (
@@ -160,6 +162,8 @@ export default function SingUp() {
                         onChangeText={handleChange("email")}
                         onBlur={handleBlur("email")}
                         value={values.email}
+                        placeholderTextColor="#888"
+                        selectionColor={"#888"}
                       />
                     </View>
                     {touched.email && errors.email && (
@@ -183,6 +187,8 @@ export default function SingUp() {
                         onChangeText={handleChange("password")}
                         onBlur={handleBlur("password")}
                         value={values.password}
+                        placeholderTextColor="#888"
+                        selectionColor={"#888"}
                       />
                       <Feather
                         onPress={() => setShowPassword(!showPassword)}
@@ -212,6 +218,8 @@ export default function SingUp() {
                         onChangeText={handleChange("confirmPassword")}
                         onBlur={handleBlur("confirmPassword")}
                         value={values.confirmPassword}
+                        placeholderTextColor="#888"
+                        selectionColor={"#888"}
                       />
                       <Feather
                         onPress={() => setShowConfirm(!showConfirm)}
@@ -250,11 +258,11 @@ export default function SingUp() {
 
                   {/* Submit Button */}
                   <View style={tw`w-full mt-3 rounded-full bg-[#ED6237]`}>
-                    <Pressable onPress={handleSubmit} style={tw`py-4`}>
+                    <TouchableOpacity onPress={handleSubmit} style={tw`py-4`}>
                       <Text style={tw`text-center text-white text-xl`}>
                         Register
                       </Text>
-                    </Pressable>
+                    </TouchableOpacity>
                   </View>
                 </View>
               )}

@@ -70,14 +70,14 @@ export default function Phone() {
         >
           <View style={tw`p-[4%]  justify-center flex-1 `}>
             <Text
-              style={tw`text-7 text-[#121212] font-inter-700 text-center mb-11 `}
+              style={tw`text-7 text-[#121212] font-inter-700 dark:text-white text-center mb-11 `}
             >
               Enter your phone
             </Text>
 
             {/* Country Selector */}
             <TouchableOpacity
-              style={tw`flex-row items-center mb-4 bg-[#F3F3F3]  rounded-md p-3`}
+              style={tw`flex-row items-center mb-4 border border-gray-300 rounded-md p-3`}
               onPress={() => setModalVisible(true)}
             >
               <Text style={tw`text-2xl mr-3`}>{selectedCountry.flag}</Text>
@@ -88,21 +88,19 @@ export default function Phone() {
 
             {/* Phone Input */}
             <View
-              style={tw`flex-row items-center bg-[#F3F3F3] rounded-md p-1 px-2 mb-2`}
+              style={tw`flex-row items-center border border-gray-300 rounded-md p-1 mb-2`}
             >
-              <View style={tw` flex-row  gap-3`}>
+              <View style={tw`flex-1 flex-row items-center gap-3`}>
                 <View>
                   <Text style={tw`text-lg text-gray-800`}>
                     {selectedCountry.dial_code}
                   </Text>
                 </View>
-                <View style={tw`h-6 border-r `} />
+                <View style={tw`h-6 border-r border-gray-300`} />
               </View>
               <TextInput
                 style={tw`flex-1 text-base`}
                 placeholder="Phone number"
-                placeholderTextColor={"#888888"}
-                selectTextOnFocus={"#888888"}
                 keyboardType="phone-pad"
                 value={phoneNumber}
                 onChangeText={(text) =>

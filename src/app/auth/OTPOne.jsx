@@ -4,10 +4,10 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
@@ -67,9 +67,9 @@ const OTPOne = () => {
           <View
             style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#ED6237] `}
           >
-            <Pressable onPress={handleNavigate} style={tw`py-4`}>
+            <TouchableOpacity onPress={handleNavigate} style={tw`py-4`}>
               <Text style={tw`text-center text-white text-xl`}>Verify</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
       </View>

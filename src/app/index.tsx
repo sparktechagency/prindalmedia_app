@@ -23,12 +23,16 @@ export default function App() {
     });
     SplashScreen.hideAsync();
     setTimeout(() => {
+      // route?.dismissAll()
+      // route?.replace("/map");
       route?.replace("/auth");
+      // route?.replace("/");
+
     }, 1000);
   }, [route]);
 
   return (
-    <View style={tw`flex-1   justify-center items-center bg-primaryBg pb-[25%]`}>
+    <View style={tw`flex-1 justify-center items-center bg-primaryBg pb-[25%]`}>
       <View style={tw`   flex-1 justify-center flex items-end`}>
         {/* Logo and Title */}
         <View style={tw`justify-center items-center`}>

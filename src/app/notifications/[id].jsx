@@ -2,7 +2,7 @@ import {
   IconHeart,
   IconLove,
   // IconRestruernt,
-  // IconStar,
+  IconStar,
   IconVerify,
 } from "@/assets/Icon";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -116,7 +116,8 @@ const TacoPostCard = () => {
                     Spicy taco
                   </Text>
                   <View style={tw`flex-row items-center`}>
-                    <Text style={tw`text-yellow-500 font-bold`}>★</Text>
+                    {/* <Text style={tw`text-yellow-500 font-bold`}>★</Text> */}
+                    <SvgXml xml={IconStar} />
                     <Text style={tw`ml-1 text-black font-semibold`}>4.0</Text>
                   </View>
                 </View>

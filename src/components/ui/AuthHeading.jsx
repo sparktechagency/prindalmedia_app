@@ -1,11 +1,11 @@
 import { Text, View } from 'react-native'
-import tw from 'twrnc'
+import tw from '../../lib/tailwind'
 
 const AuthHeading = ({Heading , SubHeading}) => {
   return (
     <View>
       <View style={tw` w-full flex-col gap-3 mb-16`}>
-            <Text style={tw`text-7 text-[#121212] font-bold dark:text-white text-center `}>
+            <Text style={tw`text-7 text-[#121212] font-inter-700 dark:text-white text-center `}>
               {Heading}
             </Text>
 

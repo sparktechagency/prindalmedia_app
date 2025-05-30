@@ -11,7 +11,9 @@ const RatingComponent = ({ hover, setHover, rating, setRating }) => {
   }
   return (
     <View style={tw` flex-row items-center  gap-1 `}>
-      <Text style={tw`text-[16px] font-inter-600 text-[#121212 `}>Rate :</Text>
+      <Text style={tw`text-[16px] font-inter-600 text-textPrimary `}>
+        Rate :
+      </Text>
       <View style={tw`flex-row`}>
         {[1, 2, 3, 4, 5].map((star) => (
           <TouchableOpacity

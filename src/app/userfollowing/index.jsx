@@ -17,11 +17,11 @@ export default function UserFollowing() {
         onPress={() => {
           router?.back();
         }}
-        title={"Followers "}
+        title={"Followers"}
       />
       {/*  */}
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={tw`flex-col gap-4 `}>
+        <View style={tw`flex-col gap-4 p-[4%] `}>
           {/* tah;a */}
           <View
             style={tw` bg-[#D5D5D51A]  flex-row justify-between items-center  p-2 rounded-2 `}

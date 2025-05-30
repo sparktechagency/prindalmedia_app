@@ -1,6 +1,6 @@
-// import { Feather } from "@expo/vector-icons";
+// import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
 // import { useState } from "react";
-// import { Image, Text, TouchableOpacity, View } from "react-native";
+// import { Image, Modal, TouchableOpacity, View } from "react-native";
 // import { Dialog, PanningProvider } from "react-native-ui-lib";
 // import tw from "twrnc";
 
@@ -8,13 +8,13 @@
 // import UserProfileGallery from "./UserProfileGallery";
 
 // const ProfileAlert = () => {
-//   const [isVisible, setIsVisible] = useState();
-//   const [image, setImage] = useState();
-//   // console.log(image.length);
+//   const [isVisible, setIsVisible] = useState(false);
+//   const [isCameraVisible, setIsCameraVisible] = useState(false);
+//   const [image, setImage] = useState(null);
 
 //   return (
 //     <View>
-//       {/* Profile Image or Placeholder */}
+//       {/* Profile image or placeholder */}
 //       {image ? (
 //         <Image source={{ uri: image }} style={tw`w-20 h-20 rounded-full`} />
 //       ) : (
@@ -24,6 +24,7 @@
 //           <Feather name="user" size={32} color="#888" />
 //         </View>
 //       )}
+
 //       <TouchableOpacity onPress={() => setIsVisible(true)}>
 //         <View
 //           style={tw`absolute bottom-0 -right-0 bg-blue-500 p-2 rounded-full`}
@@ -32,31 +33,47 @@
 //         </View>
 //       </TouchableOpacity>
 
+//       {/* Gallery + options dialog */}
 //       <Dialog
 //         visible={isVisible}
 //         onDismiss={() => setIsVisible(false)}
 //         panDirection={PanningProvider.Directions.DOWN}
 //         containerStyle={{
 //           width: 300,
-//           // height: 200,
 //           alignSelf: "center",
 //           justifyContent: "center",
 //           backgroundColor: "white",
 //           borderRadius: 16,
-//           padding: 24,
+//           padding: 20,
 //         }}
 //       >
-//         <View style={tw`  flex-col  gap-4  `}>
-//           <View>
+//         <View>
+//           <View style={tw` flex-row  justify-end `}>
+//             <TouchableOpacity onPress={() => setIsVisible(false)}>
+//               <AntDesign name="close" size={24} color="black" />
+//             </TouchableOpacity>
+//           </View>
+//           <View style={tw` flex-row items-baseline `}>
 //             <UserProfileGallery image={image} setImage={setImage} />
+
+//             {/* Button to open camera */}
+//             <TouchableOpacity
+//               style={tw``}
+//               onPress={() => {
+//                 setIsVisible(false);
+//                 setIsCameraVisible(true);
+//               }}
+//             >
+//               <EvilIcons name="camera" size={65} color="#B0B0B0" />
+//             </TouchableOpacity>
 //           </View>
-//           {/*  */}
-//           <View style={tw`  `}>
-//             <Text>fhd</Text>
-//           </View>
-//           <UserCamera />
 //         </View>
 //       </Dialog>
+
+//       {/* Full screen camera modal */}
+//       <Modal visible={isCameraVisible} animationType="slide">
+//         <UserCamera onClose={() => setIsCameraVisible(false)} />
+//       </Modal>
 //     </View>
 //   );
 // };
@@ -66,7 +83,6 @@
 import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
 import { useState } from "react";
 import { Image, Modal, TouchableOpacity, View } from "react-native";
-import { Dialog, PanningProvider } from "react-native-ui-lib";
 import tw from "twrnc";
 
 import UserCamera from "./UserCamera";
@@ -78,8 +94,8 @@ const ProfileAlert = () => {
   const [image, setImage] = useState(null);
 
   return (
-    <View>
-      {/* Profile image or placeholder */}
+    <View style={tw`items-center justify-center`}>
+      {/* Profile Image */}
       {image ? (
         <Image source={{ uri: image }} style={tw`w-20 h-20 rounded-full`} />
       ) : (
@@ -90,50 +106,48 @@ const ProfileAlert = () => {
         </View>
       )}
 
+      {/* Camera Icon */}
       <TouchableOpacity onPress={() => setIsVisible(true)}>
         <View
-          style={tw`absolute bottom-0 -right-0 bg-blue-500 p-2 rounded-full`}
+          style={tw`absolute bottom-0  left-2 bg-blue-500 p-1.5 rounded-full`}
         >
           <Feather name="camera" size={18} color="white" />
         </View>
       </TouchableOpacity>
 
-      {/* Gallery + options dialog */}
-      <Dialog
+      {/* Custom Modal for options */}
+      <Modal
         visible={isVisible}
-        onDismiss={() => setIsVisible(false)}
-        panDirection={PanningProvider.Directions.DOWN}
-        containerStyle={{
-          width: 300,
-          alignSelf: "center",
-          justifyContent: "center",
-          backgroundColor: "white",
-          borderRadius: 16,
-          padding: 20,
-        }}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setIsVisible(false)}
       >
-        <View>
-          <View style={tw` flex-row  justify-end `}>
-            <TouchableOpacity onPress={() => setIsVisible(false)}>
-              <AntDesign name="close" size={24} color="black" />
-            </TouchableOpacity>
-          </View>
-          <View style={tw` flex-row items-baseline `}>
-            <UserProfileGallery image={image} setImage={setImage} />
+        <View style={tw`flex-1 justify-center items-center bg-black/40`}>
+          <View style={tw`bg-white w-72 rounded-2xl p-5`}>
+            {/* Close Button */}
+            <View style={tw`items-end`}>
+              <TouchableOpacity onPress={() => setIsVisible(false)}>
+                <AntDesign name="close" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
 
-            {/* Button to open camera */}
-            <TouchableOpacity
-              style={tw``}
-              onPress={() => {
-                setIsVisible(false);
-                setIsCameraVisible(true);
-              }}
-            >
-              <EvilIcons name="camera" size={65} color="#B0B0B0" />
-            </TouchableOpacity>
+            {/* Gallery + Camera options */}
+            <View style={tw`flex-row items-center justify-center gap-7 `}>
+              <UserProfileGallery image={image} setImage={setImage} />
+              <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    setIsVisible(false);
+                    setIsCameraVisible(true);
+                  }}
+                >
+                  <EvilIcons name="camera" size={65} color="#B0B0B0" />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </View>
-      </Dialog>
+      </Modal>
 
       {/* Full screen camera modal */}
       <Modal visible={isCameraVisible} animationType="slide">

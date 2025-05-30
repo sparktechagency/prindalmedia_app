@@ -1,5 +1,6 @@
-import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import React, { useRef, useState } from "react";
+
 import {
   Dimensions,
   FlatList,
@@ -47,24 +48,20 @@ const TacoSlider = () => {
         onScroll={onScroll}
         scrollEventThrottle={10}
         showsHorizontalScrollIndicator={false}
-        decelerationRate="fast"
-        snapToInterval={width}
         snapToAlignment="center"
         keyExtractor={(_, index) => index.toString()}
         data={images}
         renderItem={({ item }) => (
-          <TouchableOpacity style={{ width }}>
-            <Image
-              source={{ uri: item.uri }}
-              resizeMode="cover"
-              style={{
-                width: width - 32,
-                height: 300,
-                marginHorizontal: 16,
-                borderRadius: 12,
-              }}
-            />
-          </TouchableOpacity>
+          <Image
+            source={{ uri: item.uri }}
+            resizeMode="cover"
+            style={{
+              width: width - 33,
+              height: 300,
+              marginRight: 6,
+              borderRadius: 8,
+            }}
+          />
         )}
       />
 
@@ -73,11 +70,11 @@ const TacoSlider = () => {
         onPress={() => scrollToIndex(currentIndex - 1)}
         disabled={currentIndex === 0}
         style={[
-          tw`absolute left-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full`,
-          { opacity: currentIndex === 0 ? 0.3 : 1 },
+          tw`absolute left-2 top-1/2 -mt-4 bg-[#E2E2E2]  rounded-full`,
+          { opacity: currentIndex === 0 ? 0.5 : 1 },
         ]}
       >
-        <AntDesign name="left" size={18} color="#121212" />
+        <MaterialIcons name="keyboard-arrow-left" size={26} color="black" />
       </TouchableOpacity>
 
       {/* Right Arrow */}
@@ -85,11 +82,11 @@ const TacoSlider = () => {
         onPress={() => scrollToIndex(currentIndex + 1)}
         disabled={currentIndex === images.length - 1}
         style={[
-          tw`absolute right-2 top-1/2 -mt-4 bg-[#E2E2E2] p-2 rounded-full`,
-          { opacity: currentIndex === images.length - 1 ? 0.3 : 1 },
+          tw`absolute right-2 top-1/2 -mt-4 bg-[#E2E2E2]  rounded-full`,
+          { opacity: currentIndex === images.length - 1 ? 0.5 : 1 },
         ]}
       >
-        <AntDesign name="right" size={18} color="#121212" />
+        <MaterialIcons name="keyboard-arrow-right" size={26} color="black" />
       </TouchableOpacity>
     </View>
   );

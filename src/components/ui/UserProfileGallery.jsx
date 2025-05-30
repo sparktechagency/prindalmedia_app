@@ -24,9 +24,7 @@ export default function UserProfileGallery({ image, setImage }) {
 
   return (
     <TouchableOpacity onPress={pickImage}>
-      <View
-        style={tw` items-center justify-center flex-row   rounded-2 w-full py-2  `}
-      >
+      <View style={tw` mt-3.8 `}>
         <FontAwesome name="photo" size={40} color="#B0B0B0" />
       </View>
     </TouchableOpacity>

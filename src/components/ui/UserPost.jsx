@@ -10,6 +10,7 @@ import {
 
 import {
   IconHeart,
+  IconLOcation,
   IconLove,
   IconRestruernt,
   IconStar,
@@ -17,9 +18,11 @@ import {
 } from "@/assets/Icon";
 import userApi from "../../utils/user.json";
 
+import { Entypo } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
+import SimplifyDate from "../../utils/SimplifyDate";
 import BookMark from "./BookMark";
 import ButtomSheet from "./ButtomSheet";
 import ShareButton from "./ShareButton";
@@ -45,7 +48,24 @@ const UserPost = ({ isActiveTab }) => {
 
   // user follow or not follow
   const [isFollower, setIsFollower] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false); // toggle state
 
+  const [visible, setVisible] = useState(false);
+
+  const togglePopup = () => {
+    setVisible(!visible);
+  };
+
+  const closePopup = () => {
+    setVisible(false);
+  };
+
+  const handleFollowToggle = () => {
+    setIsFollowing((prev) => !prev); // toggle follow/unfollow
+    closePopup();
+    console.log(isFollowing ? "Unfollowed" : "Followed");
+  };
   // profile navigate
   const handleNavigate = () => {
     console.log("asdfg");
@@ -77,35 +97,52 @@ const UserPost = ({ isActiveTab }) => {
             </TouchableOpacity>
 
             {/* following /  */}
-            {isActiveTab === "Discovery" ? (
-              <View>
-                <Pressable
-                  onPress={() => setIsFollower(!isFollower)}
-                  style={tw`  ${
-                    isFollower ? " border-2 border-[#E53E3E]  " : "bg-orange"
-                  }  py-1 px-5  rounded-full `}
-                >
-                  <Text
-                    style={tw` ${
-                      isFollower
-                        ? "text-[#E53E3E] font-inter-700"
-                        : "text-white font-inter-700"
-                    }  `}
+            <TouchableOpacity>
+              <View style={tw`relative`}>
+                {/* 3-dot icon */}
+                <TouchableOpacity onPress={togglePopup}>
+                  <Entypo name="dots-three-vertical" size={16} color="black" />
+                </TouchableOpacity>
+
+                {/* Click-outside overlay */}
+                {visible && (
+                  <Pressable
+                    onPress={closePopup}
+                    style={tw`absolute top-0 left-0 right-0 bottom-0 z-10`}
+                  />
+                )}
+
+                {/* Popup box (Top & Left of 3-dot) */}
+                {visible && (
+                  <View
+                    style={tw`absolute flex-1 -left-22 -top-4 z-20 bg-orange rounded-lg shadow-md p-1 w-22 items-center`}
                   >
-                    {" "}
-                    {isFollower ? "Unfollow" : "follow"}{" "}
-                  </Text>
-                </Pressable>
+                    <TouchableOpacity
+                      onPress={handleFollowToggle}
+                      style={tw`py-1 px-3`}
+                    >
+                      <Text style={tw`text-white font-semibold`}>
+                        {isFollowing ? "Unfollow" : "Follow"}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
               </View>
-            ) : (
-              ""
-            )}
+            </TouchableOpacity>
           </View>
-          <View style={tw`flex-row gap-1 items-center `}>
-            <SvgXml xml={IconRestruernt} />
-            <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
-              {item?.user?.location}
-            </Text>
+          <View style={tw`flex-row gap-2 items-center `}>
+            <View style={tw`flex-row gap-1 items-center `}>
+              <SvgXml xml={IconRestruernt} />
+              <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+                Pizzaburg
+              </Text>
+            </View>
+            <View style={tw`flex-row gap-1 items-center `}>
+              <SvgXml xml={IconLOcation} />
+              <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+                {item?.user?.location}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -187,7 +224,9 @@ const UserPost = ({ isActiveTab }) => {
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
                 <Text style={tw` text-[14px] font-inter-400 text-[#454545] `}>
-                  {item?.date}
+                  {/* {new Date(item?.date).toDateString()} */}
+                  {/* {item?.date}  */}
+                  <SimplifyDate date={item?.date} />
                 </Text>
               </View>
             </View>

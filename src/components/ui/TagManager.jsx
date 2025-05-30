@@ -9,8 +9,27 @@ const TagManager = ({ newTag, setNewTag, tags, setTags }) => {
     }
   }, [newTag]);
 
+  const userMap = Array.isArray(tags)
+    ? tags.flatMap((tag) =>
+        tag
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean)
+      )
+    : [];
+
   const removeTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
+    const updatedTags = tags
+      .map((tag) =>
+        tag
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t && t !== tagToRemove)
+          .join(", ")
+      )
+      .filter(Boolean); // remove empty strings
+
+    setTags(updatedTags);
 
     if (newTag === tagToRemove && setNewTag) {
       setNewTag("");
@@ -27,10 +46,10 @@ const TagManager = ({ newTag, setNewTag, tags, setTags }) => {
 
       <ScrollView horizontal contentContainerStyle={tw`flex-row gap-2`}>
         {tags.length > 0 &&
-          tags?.map((tag, index) => (
+          userMap.map((tag, index) => (
             <View
               key={index}
-              style={tw`flex-row items-center px-3 py-1 border border-[#0063E5] rounded-2 bg-gray-100`}
+              style={tw`flex-row items-center px-3 py-1 border border-[#0063E5] rounded-2`}
             >
               <Text style={tw`text-3 font-inter-600 text-[#888888] mr-2`}>
                 {tag}

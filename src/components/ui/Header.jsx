@@ -14,7 +14,7 @@ import {
   IconSideBookMark,
 } from "@/assets/Icon";
 import Feather from "@expo/vector-icons/Feather";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import {
   Image,
@@ -32,38 +32,51 @@ const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <View style={tw`flex-row justify-between items-center my-5  bg-[#FDFFFE]`}>
+    <View style={tw`flex-row justify-between items-center my-4  bg-[#FDFFFE]`}>
       {/* Left - Hamburger and Logo */}
       <View style={tw`flex-row gap-2 items-center`}>
         <TouchableOpacity onPress={() => setDrawerOpen(true)}>
           <SvgXml xml={IconMenu} />
         </TouchableOpacity>
-        <Text style={tw`text-2xl font-bold text-[#4D4D4D]`}>Kalamari.</Text>
+        <Text style={tw`text-2xl font-bold text-[#141A47]`}>Kalamari</Text>
       </View>
 
       {/* Right - Icons and Avatar */}
       <View style={tw`flex-row items-center gap-2`}>
-        <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
-          <Link href={"/map"}>
-            <SvgXml xml={IconSearch} />
-          </Link>
+        <TouchableOpacity
+          onPress={() => router.push("/userSearch")}
+          style={tw`p-2 rounded-full bg-[#3333331A]`}
+          activeOpacity={0.7}
+        >
+          <SvgXml xml={IconSearch} width={20} height={20} />
         </TouchableOpacity>
-        <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
-          <Link href={"/map"}>
-            <SvgXml xml={IconMap} />
-          </Link>
+
+        {/* Map Button */}
+        <TouchableOpacity
+          onPress={() => router.push("/map")}
+          style={tw`p-2 rounded-full bg-[#3333331A]`}
+          activeOpacity={0.7}
+        >
+          <SvgXml xml={IconMap} width={20} height={20} />
         </TouchableOpacity>
-        <TouchableOpacity style={tw`p-2 rounded-full bg-[#3333331A]`}>
-          <Link href={"/notifications"}>
-            <SvgXml xml={IconNotifi} />
-          </Link>
+
+        {/* Notifications Button */}
+        <TouchableOpacity
+          onPress={() => router.push("/notifications")}
+          style={tw`p-2 rounded-full bg-[#3333331A]`}
+          activeOpacity={0.7}
+        >
+          <SvgXml xml={IconNotifi} width={20} height={20} />
         </TouchableOpacity>
-        <Link href={"(tab)/Profile"}>
+        <TouchableOpacity
+          onPress={() => router.push("/(tab)/Profile")}
+          activeOpacity={0.7}
+        >
           <Image
             source={require("@/assets/images/image.png")}
             style={tw`w-8 h-8 rounded-full`}
           />
-        </Link>
+        </TouchableOpacity>
       </View>
 
       {/* Drawer (Mock) */}
@@ -158,7 +171,7 @@ const Header = () => {
                           <Text
                             style={tw`text-4 font-inter-400 text-[#454545]`}
                           >
-                            Change password
+                            Change Password
                           </Text>
                         </View>
                       </TouchableOpacity>
@@ -184,7 +197,7 @@ const Header = () => {
                           <Text
                             style={tw`text-4 font-inter-400 text-[#454545]`}
                           >
-                            Privacy policy
+                            Privacy Policy
                           </Text>
                         </View>
                       </TouchableOpacity>

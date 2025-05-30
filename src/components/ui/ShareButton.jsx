@@ -1,9 +1,8 @@
 import { IconSherd } from "@/assets/Icon";
+import tw from "@/src/lib/tailwind";
 import { Alert, Share, TouchableOpacity } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { SvgXml } from "react-native-svg";
-
-import tw from "twrnc";
 
 const ShareButton = () => {
   const onShare = async () => {
@@ -18,7 +17,7 @@ const ShareButton = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView>
-        <TouchableOpacity onPress={onShare} title="Share" style={tw`w-10`}>
+        <TouchableOpacity onPress={onShare} title="Share" style={tw``}>
           {/* <EvilIcons name="share-google" size={25} color="black" /> */}
           <SvgXml xml={IconSherd} />
         </TouchableOpacity>

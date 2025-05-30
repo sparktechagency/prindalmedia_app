@@ -10,12 +10,13 @@ import { TextInput } from "react-native-gesture-handler";
 import { SvgXml } from "react-native-svg";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import MyList from "../../../components/ui/MyList";
+import MyRecipesList from "../../../components/ui/MyRecipesList";
 import tw from "../../../lib/tailwind";
 
 // tabs name and icons
 const tabs = [
   { label: "Restaurants", icon: "history" },
-  { label: "Home-Made", icon: "account-group-outline" },
+  { label: "Recipes", icon: "account-group-outline" },
 ];
 
 const Bookmarks = () => {
@@ -96,7 +97,7 @@ const Bookmarks = () => {
             {/* {activeTab === "Restaurants" && <Recent />}
             {activeTab === "Recipes" && <Recent />} */}
             {activeTab === "Restaurants" && <MyList />}
-            {activeTab === "Home-Made" && <MyList />}
+            {activeTab === "Recipes" && <MyRecipesList />}
           </View>
         </View>
       </View>

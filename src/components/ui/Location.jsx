@@ -43,14 +43,15 @@ const Location = ({ setSelectedLocation }) => {
           Location
         </Text>
         <View
-          style={tw`bg-[#F3F3F3] rounded-md flex-row items-center justify-between px-2`}
+          style={tw`bg-[#F3F3F3] rounded-md flex-row items-center justify-between px-4`}
         >
           <TextInput
-            style={tw` py-4 flex-1`}
             placeholder="Search by location"
-            placeholderTextColor="#888888"
+            style={tw`py-4`}
+            placeholderTextColor={"#888888"}
             onChangeText={(text) => handleSearchLocation(text)}
             value={searchText}
+            selectionColor="#888888"
           />
           <SvgXml xml={IconLOcation} />
         </View>

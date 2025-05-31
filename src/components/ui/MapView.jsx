@@ -155,6 +155,7 @@ import {
   View,
 } from "react-native";
 import tw from "../../lib/tailwind";
+import { newMarker } from "../../utils/marker";
 
 export default function MapView({ latitude, longitude }) {
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -327,7 +328,7 @@ export default function MapView({ latitude, longitude }) {
         style={styles.map}
         cameraPosition={{
           coordinates: currentLocation,
-          zoom: 18,
+          zoom: 16,
           heading: 0,
           pitch: 0,
         }}
@@ -343,18 +344,31 @@ export default function MapView({ latitude, longitude }) {
             : []
         }
         markers={[
-          {
-            coordinates: currentLocation,
-            title: "Your Location",
-            snippet: "You are here",
-            pinColor: "#ED6237",
-          },
+          // {
+          //   coordinates: currentLocation,
+          //   title: "Your Location",
+          //   snippet: "You are here",
+          //   pinColor: "#ED6237",
+          // },
           {
             coordinates: destination,
             title: "Destination",
             snippet: "Your destination",
             pinColor: "#ED6237",
           },
+          // {
+          //   coordinates: newMarker,
+          //   title: "Destination",
+          //   snippet: "Your destination",
+          //   pinColor: "#ED6237",
+          // },
+          ...newMarker.map((marker) => ({
+            coordinates: {
+              latitude: marker.latitude,
+              longitude: marker.longitude,
+            },
+            pinColor: "#007AFF",
+          })),
         ]}
         onMarkerClick={() => {
           Alert.alert(

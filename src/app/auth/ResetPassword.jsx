@@ -85,6 +85,8 @@ export default function ResetPassword() {
                         onChangeText={handleChange("password")}
                         onBlur={handleBlur("password")}
                         value={values.password}
+                        placeholderTextColor="#888"
+                        selectionColor={"#888"}
                       />
                       <Feather
                         name={showPassword ? "eye-off" : "eye"}
@@ -114,6 +116,8 @@ export default function ResetPassword() {
                         onChangeText={handleChange("confirmPassword")}
                         onBlur={handleBlur("confirmPassword")}
                         value={values.confirmPassword}
+                        placeholderTextColor="#888"
+                        selectionColor={"#888"}
                       />
                       <Feather
                         name={showConfirmPassword ? "eye-off" : "eye"}

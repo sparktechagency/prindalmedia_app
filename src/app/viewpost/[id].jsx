@@ -1,17 +1,16 @@
+import { IconLOcation, IconRestruernt } from "@/assets/Icon";
 import {
   Feather,
   FontAwesome,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { router, useLocalSearchParams } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { SvgXml } from "react-native-svg";
 import tw from "twrnc";
 
 const ViewSinglePost = () => {
-  const navigate = useNavigation();
-
   const { index } = useLocalSearchParams();
   console.log(index);
 
@@ -47,9 +46,20 @@ const ViewSinglePost = () => {
                 color="#3b82f6"
               />
             </View>
-            <Text style={tw`text-gray-500 text-sm`}>
-              🍴 45 Portland, Oregon
-            </Text>
+            <View style={tw`flex-row gap-2 items-center `}>
+              <View style={tw`flex-row gap-1 items-center `}>
+                <SvgXml xml={IconRestruernt} />
+                <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+                  Pizzaburg
+                </Text>
+              </View>
+              <View style={tw`flex-row gap-1 items-center `}>
+                <SvgXml xml={IconLOcation} />
+                <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+                  dhaka,
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
 

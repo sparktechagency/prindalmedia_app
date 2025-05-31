@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   FlatList,
   Image,
   Pressable,
+  RefreshControl,
   Text,
   TouchableOpacity,
   View,
@@ -46,6 +47,15 @@ const UserPost = ({ isActiveTab }) => {
   //   });
   // };
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   // user follow or not follow
   const [isFollower, setIsFollower] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -71,6 +81,7 @@ const UserPost = ({ isActiveTab }) => {
     console.log("asdfg");
     router.push(`/randomuser/${1}`);
   };
+
   const renderItem = ({ item }) => (
     <View style={tw` my-3 py-2 flex-col gap-3`}>
       <View style={tw` flex-row items-center  gap-2`}>
@@ -242,17 +253,21 @@ const UserPost = ({ isActiveTab }) => {
   );
 
   return (
-    <View
-      style={tw`
-     `}
-    >
-      {/* view Full Post */}
+    <View style={tw``}>
       <FlatList
         data={user}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        scrollEnabled={true} // important!
+        scrollEnabled={true}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={["#ff0000"]} // Android
+            tintColor="#ff0000" // iOS
+          />
+        }
       />
     </View>
   );

@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <View style={tw`flex-1  bg-[#FDFFFE] `}>
       {/* top header */}
-      <View style={tw` flex-1 px-[4%] pt-[4%] `}>
+      <View style={tw` flex-1 px-[4%] `}>
         <View>
           <Header />
           <View style={tw`pb-4`}>

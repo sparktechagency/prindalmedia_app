@@ -77,6 +77,8 @@ const EmailVerify = () => {
                       value={values.email}
                       keyboardType="email-address"
                       autoCapitalize="none"
+                      placeholderTextColor="#888"
+                      selectionColor={"#888"}
                     />
                   </View>
                   {touched.email && errors.email && (

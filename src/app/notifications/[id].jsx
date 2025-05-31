@@ -1,7 +1,8 @@
 import {
   IconHeart,
+  IconLOcation,
   IconLove,
-  // IconRestruernt,
+  IconRestruernt,
   IconStar,
   IconVerify,
 } from "@/assets/Icon";
@@ -51,13 +52,19 @@ const TacoPostCard = () => {
                   </Text>
                   <SvgXml xml={IconVerify} />
                 </View>
-                <View style={tw`flex-row items-center gap-1 mt-0.5`}>
-                  <Text style={tw`text-xs text-gray-500`}>Pizzaburg</Text>
-                  <Text style={tw`text-gray-400`}>·</Text>
-                  <SvgXml xml={IconLocation} />
-                  <Text style={tw`text-xs text-gray-500 ml-1`}>
-                    45 Portland, Oregon
-                  </Text>
+                <View style={tw`flex-row gap-2 items-center `}>
+                  <View style={tw`flex-row gap-1 items-center `}>
+                    <SvgXml xml={IconRestruernt} />
+                    <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+                      Pizzaburg
+                    </Text>
+                  </View>
+                  <View style={tw`flex-row gap-1 items-center `}>
+                    <SvgXml xml={IconLOcation} />
+                    <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+                      Portland, Oregon
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>

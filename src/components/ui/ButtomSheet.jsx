@@ -77,7 +77,7 @@ export default function ButtomSheet() {
         height={500}
         customStyles={{
           wrapper: {
-            backgroundColor: "rgba(0,0,0,0.5)",
+            backgroundColor: "transparent",
           },
           draggableIcon: {
             backgroundColor: "#000",
@@ -85,14 +85,19 @@ export default function ButtomSheet() {
           container: {
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
-            paddingTop: 15,
-            paddingHorizontal: 20,
           },
         }}
+        customModalProps={{
+          animationType: "slide",
+          statusBarTranslucent: true,
+        }}
+        customAvoidingViewProps={{
+          enabled: false,
+        }}
       >
-        <View style={tw`flex-1`}>
+        <View style={tw`flex-1 p-[4%]`}>
           {/* Header */}
-          <View style={tw`flex-row justify-between items-center`}>
+          <View style={tw`flex-row justify-between items-center `}>
             <Text style={tw`text-lg font-inter-700 py-3`}>Comment</Text>
             <Ionicons
               name="close"
@@ -109,7 +114,7 @@ export default function ButtomSheet() {
           >
             {comments.map((item) => (
               <View key={item.id}>
-                <View style={tw`flex-row items-start justify-between my-2`}>
+                <View style={tw`flex-row  items-start justify-between my-2`}>
                   <View style={tw`flex-row flex-1`}>
                     <Image
                       source={{

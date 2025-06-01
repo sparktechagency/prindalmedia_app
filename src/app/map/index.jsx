@@ -43,7 +43,7 @@ export default function MapPge() {
       );
       setLocationSuggestions(response?.data?.results || []);
     } catch (error) {
-      console.log("Error fetching locations:", error);
+      // console.log("Error fetching locations:", error);
     }
   };
 

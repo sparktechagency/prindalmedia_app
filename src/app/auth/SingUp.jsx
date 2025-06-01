@@ -36,10 +36,10 @@ export default function SingUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  console.log(email);
+  // console.log(email);
 
   const handleSubmit = (values) => {
-    console.log("Submitted data", values);
+    // console.log("Submitted data", values);
     // Handle API call or navigation
   };
 

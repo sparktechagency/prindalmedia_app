@@ -6,7 +6,7 @@
 import { View } from "react-native";
 
 const MapViewAlert = ({ isVisible }) => {
-  console.log(isVisible);
+  // console.log(isVisible);
 
   return (
     // <View style={tw`flex-1 justify-center items-center`}>

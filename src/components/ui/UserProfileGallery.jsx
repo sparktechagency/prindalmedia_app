@@ -15,7 +15,7 @@ export default function UserProfileGallery({ image, setImage }) {
       quality: 1,
     });
 
-    console.log(result?.assets[0]);
+    // console.log(result?.assets[0]);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);

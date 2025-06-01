@@ -12,7 +12,7 @@ import tw from "twrnc";
 
 const ViewSinglePost = () => {
   const { index } = useLocalSearchParams();
-  console.log(index);
+  // console.log(index);
 
   return (
     <View style={tw`p-[4%]`}>

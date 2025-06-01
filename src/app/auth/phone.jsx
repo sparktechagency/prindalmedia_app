@@ -88,25 +88,28 @@ export default function Phone() {
 
             {/* Phone Input */}
             <View
-              style={tw`flex-row items-center border border-gray-300 rounded-md p-1 mb-2`}
+              style={tw`flex-row items-center border border-gray-300 rounded-md p-2 mb-2`}
             >
-              <View style={tw`flex-1 flex-row items-center gap-3`}>
-                <View>
-                  <Text style={tw`text-lg text-gray-800`}>
-                    {selectedCountry.dial_code}
-                  </Text>
-                </View>
-                <View style={tw`h-6 border-r border-gray-300`} />
+              {/* Country Code */}
+              <View style={tw`flex-row items-center gap-2`}>
+                <Text style={tw`text-lg text-gray-800`}>
+                  {selectedCountry.dial_code}
+                </Text>
+                <View style={tw`h-6 w-px bg-gray-300 mx-2`} />
               </View>
+
+              {/* Phone Number Input */}
               <TextInput
-                style={tw`flex-1 text-base`}
+                style={tw`flex-1 text-base text-gray-900`}
                 placeholder="Phone number"
                 keyboardType="phone-pad"
-                value={phoneNumber}
+                placeholderTextColor={"#888"}
+                // value={phoneNumber}
                 onChangeText={(text) =>
                   setPhoneNumber(text.replace(/[^0-9]/g, ""))
                 }
                 maxLength={14}
+                selectionColor={"#888888"}
               />
             </View>
 

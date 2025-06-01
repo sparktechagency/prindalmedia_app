@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import {
   FlatList,
   Image,
-  Pressable,
   RefreshControl,
   Text,
   TouchableOpacity,
@@ -29,7 +28,7 @@ import ButtomSheet from "./ButtomSheet";
 import ShareButton from "./ShareButton";
 import TacoSlider from "./TacoSlider";
 
-const UserPost = ({ isActiveTab }) => {
+const UserPost = ({ isActiveTab, openModal }) => {
   const [isHeart, setIsHeart] = useState(false);
   // const [likeCount, setLikeCount] = useState(0);
 
@@ -57,8 +56,6 @@ const UserPost = ({ isActiveTab }) => {
   }, []);
 
   // user follow or not follow
-  const [isFollower, setIsFollower] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false); // toggle state
 
   const [visible, setVisible] = useState(false);
@@ -74,11 +71,11 @@ const UserPost = ({ isActiveTab }) => {
   const handleFollowToggle = () => {
     setIsFollowing((prev) => !prev); // toggle follow/unfollow
     closePopup();
-    console.log(isFollowing ? "Unfollowed" : "Followed");
+    // console.log(isFollowing ? "Unfollowed" : "Followed");
   };
   // profile navigate
   const handleNavigate = () => {
-    console.log("asdfg");
+    // console.log("asdfg");
     router.push(`/randomuser/${1}`);
   };
 
@@ -109,35 +106,14 @@ const UserPost = ({ isActiveTab }) => {
 
             {/* following /  */}
             <TouchableOpacity>
-              <View style={tw`relative`}>
+              <View style={tw``}>
                 {/* 3-dot icon */}
-                <TouchableOpacity onPress={togglePopup}>
+                <TouchableOpacity onPress={openModal}>
                   <Entypo name="dots-three-vertical" size={16} color="black" />
                 </TouchableOpacity>
+                {/*  */}
 
-                {/* Click-outside overlay */}
-                {visible && (
-                  <Pressable
-                    onPress={closePopup}
-                    style={tw`absolute top-0 left-0 right-0 bottom-0 z-10`}
-                  />
-                )}
-
-                {/* Popup box (Top & Left of 3-dot) */}
-                {visible && (
-                  <View
-                    style={tw`absolute flex-1 -left-22 -top-4 z-20 bg-orange rounded-lg shadow-md p-1 w-22 items-center`}
-                  >
-                    <TouchableOpacity
-                      onPress={handleFollowToggle}
-                      style={tw`py-1 px-3`}
-                    >
-                      <Text style={tw`text-white font-semibold`}>
-                        {isFollowing ? "Unfollow" : "Follow"}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
+                {/* <ProfileBlockBottomSheet /> */}
               </View>
             </TouchableOpacity>
           </View>

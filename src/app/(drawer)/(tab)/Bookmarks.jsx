@@ -15,12 +15,12 @@ import tw from "../../../lib/tailwind";
 
 // tabs name and icons
 const tabs = [
-  { label: "Restaurants", icon: "history" },
-  { label: "Recipes", icon: "account-group-outline" },
+  { label: "Restaurants to Try", icon: "history" },
+  { label: "Recipes to Try", icon: "account-group-outline" },
 ];
 
 const Bookmarks = () => {
-  const [activeTab, setActiveTab] = useState("Restaurants");
+  const [activeTab, setActiveTab] = useState("Restaurants to Try");
   //
 
   return (
@@ -82,22 +82,22 @@ const Bookmarks = () => {
               <View style={tw`flex-row items-center  gap-2 `}>
                 <SvgXml
                   xml={
-                    activeTab === "Restaurants"
+                    activeTab === "Restaurants to Try"
                       ? IconsListRestaurants
                       : IconsListRecipes
                   }
                 />
-                <Text>{activeTab === "Restaurants" ? 257 : 258} </Text>
+                <Text>{activeTab === "Restaurants to Try" ? 257 : 258} </Text>
               </View>
             </View>
           </View>
 
           {/* added the all tabs view components */}
           <View style={tw`flex-1 `}>
-            {/* {activeTab === "Restaurants" && <Recent />}
+            {/* {activeTab === "Restaurants to Try" && <Recent />}
             {activeTab === "Recipes" && <Recent />} */}
-            {activeTab === "Restaurants" && <MyList />}
-            {activeTab === "Recipes" && <MyRecipesList />}
+            {activeTab === "Restaurants to Try" && <MyList />}
+            {activeTab === "Recipes to Try" && <MyRecipesList />}
           </View>
         </View>
       </View>

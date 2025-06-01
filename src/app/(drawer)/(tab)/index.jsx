@@ -1,15 +1,59 @@
-import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { useCallback, useMemo, useRef, useState } from "react";
+import {
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
+import { Octicons, SimpleLineIcons } from "@expo/vector-icons";
+import BlockModal from "../../../components/ui/BlockModal";
 import Header from "../../../components/ui/Header";
 import UserPost from "../../../components/ui/UserPost";
 import tw from "../../../lib/tailwind";
+
 const Home = () => {
   const tab = ["Following", "Discovery"];
 
   const [isActiveTab, setIsActiveTab] = useState("Following");
 
-  //
+  const bottomSheetRef = useRef(null);
+
+  // Snap points (height of the sheet)
+  const snapPoints = useMemo(() => ["25%", "50%"], []);
+
+  // Sheet change handler
+  const handleSheetChanges = useCallback((index) => {
+    // console.log("Sheet position changed to:", index);
+  }, []);
+
+  // Open bottom sheet manually
+  const openSheet = () => {
+    bottomSheetRef.current?.snapToIndex(0); // Open at 25%
+  };
+
+  const [isVisible, setIsVisible] = useState(false);
+  const openModal = () => {
+    setIsVisible(true);
+  };
+  const closeModal = () => setIsVisible(false);
+  // console.log(is);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalName, setmodalName] = useState("");
+
+  const handleViewMode = (name) => {
+    if (modalVisible) {
+      setIsVisible(!isVisible);
+    } else {
+      setModalVisible(true);
+    }
+    setmodalName(name);
+  };
+
+  const [isFollower, setIsFollower] = useState(false);
+
   return (
     <View style={tw`flex-1  bg-[#FDFFFE] `}>
       {/* top header */}
@@ -43,11 +87,122 @@ const Home = () => {
 
         {/* view all user post  */}
         <View style={tw` flex-1 `}>
-          <UserPost isActiveTab={isActiveTab} />
+          <UserPost openModal={openModal} isActiveTab={isActiveTab} />
         </View>
+        {/*  j */}
       </View>
+
+      {/* <BottomSheet
+        style={{ backgroundColor: "#fffff" }}
+        ref={bottomSheetRef}
+        index={-1} // initially closed
+        snapPoints={snapPoints}
+        onChange={handleSheetChanges}
+        enablePanDownToClose={true} // optional: allows swiping down to close
+      >
+        <BottomSheetView style={styles.sheetContent}>
+          <Text style={styles.sheetText}>Awesome 🎉</Text>
+        </BottomSheetView>
+      </BottomSheet> */}
+      {/* <TouchableOpacity onPress={openModal}>
+        <Entypo name="dots-three-vertical" size={16} color="black" />
+      </TouchableOpacity> */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            {/* Actions List */}
+            <View style={tw`flex-col p-5`}>
+              <TouchableOpacity
+                style={tw`py-3  border-b border-gray-100`}
+                onPress={() => setIsFollower(!isFollower)}
+              >
+                {isFollower ? (
+                  <View style={tw` flex-row items-center gap-2`}>
+                    <SimpleLineIcons
+                      name="user-follow"
+                      size={16}
+                      color="black"
+                    />
+                    <Text style={tw`text-[16px]   font-inter-500 text-black`}>
+                      follow
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={tw` flex-row items-center gap-2`}>
+                    <SimpleLineIcons
+                      name="user-unfollow"
+                      size={16}
+                      color="black"
+                    />
+                    <Text style={tw`text-[16px]   font-inter-500 text-black`}>
+                      Unfollow
+                    </Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={tw`flex-row items-center py-3 border-b border-gray-100`}
+                // onPress={onReport}
+                activeOpacity={0.7}
+                accessibilityLabel="Report content"
+              >
+                <Octicons name="report" size={16} color={tw.color("orange")} />
+                <Text style={tw`ml-3 text-orange font-inter-500 text-[16px]`}>
+                  Report
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={closeModal} style={tw`py-3 mt-2 `}>
+                <Text style={tw`text-[16px] font-inter-500 text-gray-600`}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <BlockModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        modalName={modalName}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "flex-end", // bottom sheet-like effect
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+    minHeight: 300,
+  },
+  sheetText: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  closeButton: {
+    marginTop: 20,
+    backgroundColor: "#ddd",
+    padding: 10,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  closeText: {
+    fontSize: 16,
+  },
+});
 
 export default Home;

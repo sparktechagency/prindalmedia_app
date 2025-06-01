@@ -49,8 +49,10 @@ const Post = () => {
   // console.log(userName);
 
   //get image url
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState([]);
   // console.log(image);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   // console.log(selectedOption);
   const [hover, setHover] = useState("");
@@ -85,7 +87,7 @@ const Post = () => {
     );
 
     // Here you can send formData to your backend or log it
-    console.log("Submitted Data:", rating);
+    // console.log("Submitted Data:", rating);
 
     // ✅ Reset all states
     setuserName("");
@@ -101,6 +103,8 @@ const Post = () => {
     setIsVisible(false); // hide dialog if needed
     setRestaurant("");
   };
+
+  console.log(image?.length);
 
   return (
     <KeyboardAvoidingView
@@ -187,9 +191,25 @@ const Post = () => {
               setNewTag={setuserName}
             />
 
+            {image && image?.length === 0 && (
+              <TouchableOpacity
+                style={tw`w-20`}
+                onPress={() => setModalVisible(true)}
+              >
+                <Text style={tw`text-sm text-orange font-inter-600`}>
+                  View Image
+                </Text>
+              </TouchableOpacity>
+            )}
+
             {/* Photo and People Tagging */}
-            <View style={tw`flex-row items-center justify-around`}>
-              <AddPhoto image={image} setImage={setImage} />
+
+            <View style={tw`flex-row  items-center justify-around`}>
+              <AddPhoto
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                setImage={setImage}
+              />
               <TagPepoleView
                 setuserName={setuserName}
                 isVisible={isVisible}

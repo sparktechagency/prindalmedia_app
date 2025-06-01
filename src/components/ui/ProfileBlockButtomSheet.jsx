@@ -85,7 +85,7 @@ const ProfileBlockBottomSheet = () => {
   };
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <GestureHandlerRootView>
       <View style={styles.content}>
         {/* <Button title=". . ." onPress={openSheet} /> */}
         <TouchableOpacity onPress={openSheet}>
@@ -111,18 +111,17 @@ const ProfileBlockBottomSheet = () => {
 export default ProfileBlockBottomSheet;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   content: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "black",
   },
   sheetContent: {
     flex: 1,
     alignItems: "center",
     padding: 20,
+    backgroundColor: "black",
   },
   sheetText: {
     fontSize: 18,

@@ -16,5 +16,5 @@
     "src/app/index.jsx",
     "src/components/ui/Recent.jsx",
     "src/app/auth/indexttsx"
-  ]
+, "src/app/auth/_layout.jsx"  ]
 }

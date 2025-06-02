@@ -20,12 +20,12 @@ import tw from "../../lib/tailwind";
 
 // tabs name and icons
 const tabs = [
-  { label: "Restaurants", icon: "" },
-  { label: "Recipes", icon: "" },
+  { label: "Restaurants to Try", icon: "" },
+  { label: "Recipes to Try", icon: "" },
 ];
 
 const RandomUser = () => {
-  const [activeTab, setActiveTab] = useState("Restaurants");
+  const [activeTab, setActiveTab] = useState("Restaurants to Try");
   const [isFollower, setIsFollower] = useState(false);
   const bottomSheetRef = useRef(null);
 
@@ -94,7 +94,7 @@ const RandomUser = () => {
         <View style={tw`py-4 flex-row justify-between items-center`}>
           <View style={tw`flex-row items-center gap-2`}>
             <SvgXml xml={IconsLists} />
-            <Text style={tw`text-4 font-bold text-[#121212]`}>Lists</Text>
+            <Text style={tw`text-4 font-bold text-[#121212]`}>Recents</Text>
           </View>
 
           <View style={tw`flex-row items-center gap-2`}>
@@ -123,20 +123,20 @@ const RandomUser = () => {
             {/* <View style={tw`flex-row items-center gap-2 ml-1`}>
               <SvgXml
                 xml={
-                  activeTab === "Restaurants"
-                    ? IconsListRestaurants
-                    : IconsListRecipes
+                  activeTab === "Restaurants to Try"
+                    ? IconsListRestaurants to Try
+                    : IconsListRecipes to Try
                 }
               />
-              <Text>{activeTab === "Restaurants" ? 257 : 258}</Text>
+              <Text>{activeTab === "Restaurants to Try" ? 257 : 258}</Text>
             </View> */}
           </View>
         </View>
 
         {/* Tab Content */}
         <View style={tw`flex-1`}>
-          {activeTab === "Restaurants" && <RecentActivityList />}
-          {activeTab === "Recipes" && <RecentActivityList />}
+          {activeTab === "Restaurants to Try" && <RecentActivityList />}
+          {activeTab === "Recipes to Try" && <RecentActivityList />}
         </View>
 
         {/* Bottom Sheet */}

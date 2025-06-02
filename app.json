@@ -15,9 +15,7 @@
       }
     },
     "android": {
-      "permissions": [
-        "ACCESS_FINE_LOCATION"
-      ],
+      "permissions": ["ACCESS_FINE_LOCATION"],
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/play_store_512.png",
@@ -47,7 +45,7 @@
           "recordAudioAndroid": true
         }
       ],
-      
+
       [
         "expo-media-library",
         {
@@ -73,7 +71,6 @@
         }
       ],
       "expo-font"
-  
     ],
     "experiments": {
       "typedRoutes": true

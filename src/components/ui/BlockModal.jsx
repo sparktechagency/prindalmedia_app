@@ -51,7 +51,7 @@ const BlockModal = ({ setModalVisible, modalVisible, modalName }) => {
           setModalVisible(false);
         }}
       >
-        <View style={tw`flex-1 bg-black/20 items-center justify-center`}>
+        <View style={tw`flex-1 bg-black/10 items-center justify-center`}>
           <View style={tw`bg-white p-6 rounded-2xl w-80`}>
             <Text style={tw`text-lg font-inter-600 mb-4 text-textgray`}>
               {content.title}

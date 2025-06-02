@@ -315,7 +315,7 @@ export default function MapView({ latitude, longitude }) {
         }
         properties={{
           isTrafficEnabled: true,
-          mapType: AppleMapsMapType.HYBRID,
+          mapType: AppleMapsMapType.SATELLITE,
           showsUserLocation: true,
           showsCompass: true,
           showsScale: true,
@@ -378,7 +378,7 @@ export default function MapView({ latitude, longitude }) {
         }}
         properties={{
           isTrafficEnabled: true,
-          mapType: GoogleMapsMapType.HYBRID,
+          mapType: GoogleMapsMapType.TERRAIN,
           isMyLocationEnabled: true,
           zoomControlsEnabled: true,
           compassEnabled: true,

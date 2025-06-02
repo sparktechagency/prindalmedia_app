@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useState } from "react";
 import {
   Modal,
   Pressable,
@@ -9,8 +9,8 @@ import {
 } from "react-native";
 
 import { Octicons, SimpleLineIcons } from "@expo/vector-icons";
-import BlockModal from "../../../components/ui/BlockModal";
 import Header from "../../../components/ui/Header";
+import ReportInput from "../../../components/ui/ReportInput";
 import UserPost from "../../../components/ui/UserPost";
 import tw from "../../../lib/tailwind";
 
@@ -19,38 +19,13 @@ const Home = () => {
 
   const [isActiveTab, setIsActiveTab] = useState("Following");
 
-  const bottomSheetRef = useRef(null);
-
-  // Snap points (height of the sheet)
-  const snapPoints = useMemo(() => ["25%", "50%"], []);
-
-  // Sheet change handler
-  const handleSheetChanges = useCallback((index) => {
-    // console.log("Sheet position changed to:", index);
-  }, []);
-
-  // Open bottom sheet manually
-  const openSheet = () => {
-    bottomSheetRef.current?.snapToIndex(0); // Open at 25%
-  };
-
   const [isVisible, setIsVisible] = useState(false);
   const openModal = () => {
     setIsVisible(true);
   };
   const closeModal = () => setIsVisible(false);
   // console.log(is);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalName, setmodalName] = useState("");
-
-  const handleViewMode = (name) => {
-    if (modalVisible) {
-      setIsVisible(!isVisible);
-    } else {
-      setModalVisible(true);
-    }
-    setmodalName(name);
-  };
+  const [reportVisible, setReportVisible] = useState(false);
 
   const [isFollower, setIsFollower] = useState(false);
 
@@ -148,7 +123,7 @@ const Home = () => {
 
               <TouchableOpacity
                 style={tw`flex-row items-center py-3 border-b border-gray-100`}
-                // onPress={onReport}
+                onPress={() => setReportVisible(!reportVisible)}
                 activeOpacity={0.7}
                 accessibilityLabel="Report content"
               >
@@ -157,6 +132,13 @@ const Home = () => {
                   Report
                 </Text>
               </TouchableOpacity>
+              {/* report  */}
+              {reportVisible && (
+                <ReportInput
+                  reportVisible={reportVisible}
+                  setReportVisible={setReportVisible}
+                />
+              )}
               <TouchableOpacity onPress={closeModal} style={tw`py-3 mt-2 `}>
                 <Text style={tw`text-[16px] font-inter-500 text-gray-600`}>
                   Cancel
@@ -166,12 +148,6 @@ const Home = () => {
           </View>
         </View>
       </Modal>
-
-      <BlockModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        modalName={modalName}
-      />
     </View>
   );
 };
@@ -180,14 +156,23 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     justifyContent: "flex-end", // bottom sheet-like effect
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    // backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   modalContent: {
     backgroundColor: "#fff",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
     padding: 20,
     minHeight: 300,
+
+    // ✅ iOS Shadow
+    shadowColor: "#000",
+    shadowOffset: { width: 100, height: 10 },
+    shadowOpacity: 10,
+    shadowRadius: 100,
+
+    // ✅ Android Shadow
+    elevation: 50,
   },
   sheetText: {
     fontSize: 18,

@@ -82,9 +82,9 @@
 
 import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
 import { useState } from "react";
-import { Image, Modal, TouchableOpacity, View } from "react-native";
-import tw from "twrnc";
+import { Image, Modal, Text, TouchableOpacity, View } from "react-native";
 
+import tw from "../../lib/tailwind";
 import UserCamera from "./UserCamera";
 import UserProfileGallery from "./UserProfileGallery";
 
@@ -115,6 +115,10 @@ const ProfileAlert = () => {
         </View>
       </TouchableOpacity>
 
+      <View>
+        <Text style={tw`text-3 mt-2 text-textgray`}>@marke_7</Text>
+      </View>
+
       {/* Custom Modal for options */}
       <Modal
         visible={isVisible}
@@ -122,8 +126,8 @@ const ProfileAlert = () => {
         animationType="slide"
         onRequestClose={() => setIsVisible(false)}
       >
-        <View style={tw`flex-1 justify-center items-center bg-black/40`}>
-          <View style={tw`bg-white w-72 rounded-2xl p-5`}>
+        <View style={tw`flex-1 justify-center items-center`}>
+          <View style={tw`bg-white w-72 rounded-2xl p-5 shadow-2xl`}>
             {/* Close Button */}
             <View style={tw`items-end`}>
               <TouchableOpacity onPress={() => setIsVisible(false)}>

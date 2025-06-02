@@ -1,31 +1,120 @@
-import { IconAddPhoto } from "@/assets/Icon";
+import { IconAddPhoto, IconsImageDeleted } from "@/assets/Icon";
 import * as ImagePicker from "expo-image-picker";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SvgXml } from "react-native-svg";
-import tw from "twrnc";
+import { useState } from "react";
+import {
+  Image,
+  Modal,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-export default function AddPhoto({ image, setImage }) {
+import { SvgXml } from "react-native-svg";
+import tw from "../../lib/tailwind";
+
+export default function AddPhoto({ setImage, modalVisible, setModalVisible }) {
   // console.log(image);
 
+  const [storeImage, setStoreImage] = useState([]);
+
+  // console.log(storeImage);
+  // console.log(storeImage.length);
+
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ["images", "videos"],
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
-    console.log(result?.assets[0]);
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
+    if (!result?.canceled && result?.assets && result?.assets?.length > 0) {
+      const uri = result?.assets[0]?.uri;
+      if (storeImage?.length < 5) {
+        setStoreImage((prev) => [...prev, uri]);
+      }
+      // data send to server
+      setImage(storeImage);
     }
   };
 
+  // removed the image from the array
+  const handleImageRemoved = (uri) => {
+    setStoreImage(storeImage?.filter((item) => item !== uri));
+  };
+
+  //clear data image array
+  const handleClearAll = () => {
+    setStoreImage([]);
+    setModalVisible(!modalVisible);
+    setImage("");
+  };
+
+  // console.log(image);
+
   return (
-    <TouchableOpacity onPress={pickImage}>
-      {image ? (
+    <View style={tw` `}>
+      <SafeAreaView style={styles.centeredView}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(!modalVisible)}
+        >
+          <View style={tw` bg-white flex-1`}>
+            <View style={tw` bg-white flex-1 p-4`}>
+              <View style={{ flex: 1 }}>
+                <View style={tw` py-4 flex-row items-center justify-between `}>
+                  <Text style={tw` text-textPrimary font-inter-600`}>
+                    Image Gallery ({storeImage?.length})
+                  </Text>
+
+                  <TouchableOpacity
+                    onPress={handleClearAll}
+                    style={tw` bg-orange px-4 py-2 rounded`}
+                  >
+                    <Text style={tw` text-white font-inter-600 `}>
+                      Clear All
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+
+                <ScrollView>
+                  {storeImage?.map((img, index) => (
+                    <View key={index + 1} style={tw` relative my-2 `}>
+                      <Image
+                        source={{ uri: img }}
+                        style={tw` rounded w-full h-40`}
+                        resizeMode="cover"
+                      />
+
+                      <TouchableOpacity
+                        onPress={() => handleImageRemoved(img)}
+                        style={tw` rounded  right-2 top-2 absolute p-1 bg-orange`}
+                      >
+                        <SvgXml xml={IconsImageDeleted} />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                </ScrollView>
+              </View>
+              <TouchableOpacity
+                style={tw` bg-orange py-2 rounded `}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={tw` font-inter-700 text-white text-center`}>
+                  Close Modal
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </SafeAreaView>
+
+      <TouchableOpacity onPress={pickImage}>
+        {/* {image ? (
         <Image source={{ uri: image }} style={styles.image} />
       ) : (
         <>
@@ -40,19 +129,62 @@ export default function AddPhoto({ image, setImage }) {
             </Text>
           </View>
         </>
-      )}
-    </TouchableOpacity>
+      )} */}
+
+        <View
+          style={tw`flex-row px-4 items-center justify-center gap-2 border-[1px] border-[#B0B0B0]  rounded-md  py-1.8  `}
+        >
+          <View style={tw` `}>
+            <SvgXml xml={IconAddPhoto} />
+          </View>
+          <Text style={tw`text-[16px] font-bold text-[#121212] `}>
+            Add photo
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  container: {},
   image: {
     width: 100,
     height: 100,
+  },
+
+  modalView: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });

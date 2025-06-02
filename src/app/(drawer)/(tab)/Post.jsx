@@ -104,7 +104,7 @@ const Post = () => {
     setRestaurant("");
   };
 
-  console.log(image?.length);
+  // console.log(image?.length);
 
   return (
     <KeyboardAvoidingView

@@ -55,8 +55,10 @@ const BookMark = () => {
           visible={isVisible}
           onRequestClose={() => setIsVisible(false)}
         >
-          <View style={tw`flex-1 bg-black/40 justify-center items-center`}>
-            <View style={tw`bg-white flex-col gap-6 w-72 rounded-xl  p-6 `}>
+          <View style={tw`flex-1  justify-center items-center`}>
+            <View
+              style={tw`bg-[#FDFFFE] shadow-2xl flex-col gap-6 w-72 rounded-xl  p-6 `}
+            >
               <View style={tw`bg-white flex-row justify-between  `}>
                 <Text style={tw`text-textPrimary text-xl font-inter-700`}>
                   Add to?
@@ -72,12 +74,12 @@ const BookMark = () => {
                 <View style={tw`gap-2`}>
                   <View style={tw`flex-col gap-2`}>
                     <BookMarkCustomRadioButton
-                      label="Restaurant"
+                      label="Restaurant to Try"
                       selected={selectedOption === "restaurant"}
                       onPress={() => setSelectedOption("restaurant")}
                     />
                     <BookMarkCustomRadioButton
-                      label="Home-Made"
+                      label="Recipe to Try"
                       selected={selectedOption === "home-made"}
                       onPress={() => setSelectedOption("home-made")}
                     />

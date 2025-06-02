@@ -152,7 +152,7 @@ const Header = () => {
                       <View style={tw`flex-row items-center gap-2`}>
                         <SvgXml xml={IconSideBookMark} />
                         <Text style={tw`text-4 font-inter-400 text-[#454545]`}>
-                          Bookmarks
+                          Lists
                         </Text>
                       </View>
                     </TouchableOpacity>

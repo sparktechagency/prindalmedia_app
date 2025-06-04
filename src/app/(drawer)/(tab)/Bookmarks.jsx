@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 // import Icon from "react-native-vector-icons/FontAwesome";
 import {
   IconsListRecipes,
@@ -15,17 +15,17 @@ import tw from "../../../lib/tailwind";
 
 // tabs name and icons
 const tabs = [
-  { label: "Restaurants to Try", icon: "history" },
-  { label: "Recipes to Try", icon: "account-group-outline" },
+  { label: "Restaurants ", icon: "history" },
+  { label: "Recipes ", icon: "account-group-outline" },
 ];
 
 const Bookmarks = () => {
-  const [activeTab, setActiveTab] = useState("Restaurants to Try");
+  const [activeTab, setActiveTab] = useState("Restaurants ");
   //
 
   return (
     <View style={tw`flex-1 bg-[#FDFFFE] `}>
-      <View style={tw`flex-1 p-[4%]  `}>
+      <View style={tw`flex-1 px-[4%]  `}>
         <Text style={tw`text-xl font-inter-700 p-4`}>My Lists</Text>
 
         {/*  */}
@@ -53,7 +53,7 @@ const Bookmarks = () => {
             <View style={tw`flex-row items-center justify-between `}>
               <View style={tw` flex-row  items-center  justify-center   `}>
                 {tabs.map((item, index) => (
-                  <Pressable
+                  <TouchableOpacity
                     key={item.label}
                     onPress={() => setActiveTab(item.label)}
                     style={tw`flex-row items-center  rounded-full ${
@@ -76,28 +76,28 @@ const Bookmarks = () => {
                     >
                       {item.label}
                     </Text>
-                  </Pressable>
+                  </TouchableOpacity>
                 ))}
               </View>
               <View style={tw`flex-row items-center  gap-2 `}>
                 <SvgXml
                   xml={
-                    activeTab === "Restaurants to Try"
+                    activeTab === "Restaurants "
                       ? IconsListRestaurants
                       : IconsListRecipes
                   }
                 />
-                <Text>{activeTab === "Restaurants to Try" ? 257 : 258} </Text>
+                <Text>{activeTab === "Restaurants " ? 257 : 258} </Text>
               </View>
             </View>
           </View>
 
           {/* added the all tabs view components */}
           <View style={tw`flex-1 `}>
-            {/* {activeTab === "Restaurants to Try" && <Recent />}
+            {/* {activeTab === "Restaurants " && <Recent />}
             {activeTab === "Recipes" && <Recent />} */}
-            {activeTab === "Restaurants to Try" && <MyList />}
-            {activeTab === "Recipes to Try" && <MyRecipesList />}
+            {activeTab === "Restaurants " && <MyList />}
+            {activeTab === "Recipes " && <MyRecipesList />}
           </View>
         </View>
       </View>

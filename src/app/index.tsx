@@ -20,6 +20,8 @@ export default function App() {
       InterLight: require("@/assets/fonts/Inter_24pt-Light.ttf"),
       InterRegular: require("@/assets/fonts/Inter_18pt-Regular.ttf"),
       InterMedium: require("@/assets/fonts/Inter_28pt-Medium.ttf"),
+      RubikBold: require("@/assets/fonts/Rubik-Bold.ttf"),
+      RubikExtraBold: require("@/assets/fonts/Rubik-ExtraBold.ttf"),
     });
     SplashScreen.hideAsync();
     setTimeout(() => {
@@ -27,7 +29,6 @@ export default function App() {
       // route?.replace("/map");
       route?.replace("/auth");
       // route?.replace("/");
-
     }, 1000);
   }, [route]);
 
@@ -46,12 +47,13 @@ export default function App() {
             </Text>
           </View>
           <View style={tw` relative`}>
-          <Text style={tw`text-sm   flex-1 absolute  font-inter-500 text-textgray mt-1`}>
-          Share your taste.   
-        </Text>
+            <Text
+              style={tw`text-sm   flex-1 absolute  font-inter-500 text-textgray mt-1`}
+            >
+              Share your taste.
+            </Text>
           </View>
         </View>
-          
       </View>
 
       {/* Loader */}

@@ -10,6 +10,8 @@ module.exports = {
         "inter-700": ["InterBold"],
         "inter-800": ["InterExtraBold"],
         "inter-900": ["InterBlack"],
+        "rubik-700": ["RubikBold"],
+        "rubik-800": ["RubikExtraBold"],
       },
       colors: {
         primary: "red",

@@ -49,7 +49,7 @@ const Post = () => {
   // console.log(userName);
 
   //get image url
-  const [image, setImage] = useState([]);
+  const [image, setImage] = useState();
   // console.log(image);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -89,7 +89,7 @@ const Post = () => {
     // Here you can send formData to your backend or log it
     // console.log("Submitted Data:", rating);
 
-    // ✅ Reset all states
+    // Reset all states
     setuserName("");
     setSelectedOption("");
     setSelectedOptionFood("");
@@ -191,7 +191,7 @@ const Post = () => {
               setNewTag={setuserName}
             />
 
-            {image && image?.length === 0 && (
+            {!!image && (
               <TouchableOpacity
                 style={tw`w-20`}
                 onPress={() => setModalVisible(true)}

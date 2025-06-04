@@ -5,7 +5,7 @@ import { Link, router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import ProfileViewImage from "../../../components/ui/ProfileViewImage";
-import RecentActivityList from "../../../components/ui/RecentActivityList";
+import RecentActivityList from "../../../components/ui/RecentActivityListRandomUser";
 import tw from "../../../lib/tailwind";
 
 // tabs name and icons
@@ -13,25 +13,24 @@ import tw from "../../../lib/tailwind";
 const Profile = () => {
   return (
     <View style={tw` flex-1  bg-primaryBg`}>
-      
       <View style={tw` flex-1 px-[4%]`}>
         <View style={tw`flex-row items-center gap-2 my-6`}>
-            <TouchableOpacity
-              onPress={() => {
-                router?.back();
-              }}
-            >
-              <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-            </TouchableOpacity>
-            <Text style={tw`text-4.2 text-[#121212] font-bold`}> My Profile</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              router?.back();
+            }}
+          >
+            <MaterialIcons name="arrow-back-ios" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={tw`text-4.2 text-[#121212] font-bold`}> My Profile</Text>
+        </View>
         {/* <Text style={tw`text-4.2 mt-8 text-[#121212] font-bold mb-5.2`}>
           My Profile
         </Text> */}
         <View style={tw`mb-3`}>
           {/* Profile image and badge */}
           <View style={tw``}>
-           <ProfileViewImage />
+            <ProfileViewImage />
           </View>
 
           {/* Name and handle */}
@@ -52,26 +51,26 @@ const Profile = () => {
           <View style={tw`flex-row mt-4  justify-center  gap-2`}>
             <TouchableOpacity>
               <Link href={"/userfollowing"}>
-              <View
-                style={tw`items-center  justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
-              >
-                <SvgXml xml={Iconsfollower} />
-                <Text style={tw` font-inter-400 `}>Followers:</Text>
-                <Text style={tw`text-textPrimary font-inter-700`}>5.1k</Text>
-              </View>
-            </Link>
+                <View
+                  style={tw`items-center  justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
+                >
+                  <SvgXml xml={Iconsfollower} />
+                  <Text style={tw` font-inter-400 `}>Followers:</Text>
+                  <Text style={tw`text-textPrimary font-inter-700`}>5.1k</Text>
+                </View>
+              </Link>
             </TouchableOpacity>
             {/* Following stats */}
             <TouchableOpacity>
               <Link href={"/userfollowing/following"}>
-              <View
-                style={tw`items-center justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
-              >
-                <SvgXml xml={Iconsfollower} />
-                <Text style={tw` font-inter-400 `}>Following:</Text>
-                <Text style={tw`text-textPrimary font-inter-700`}>1.1k</Text>
-              </View>
-            </Link>
+                <View
+                  style={tw`items-center justify-center flex-row gap-1.3  p-2 rounded-2 px-6 `}
+                >
+                  <SvgXml xml={Iconsfollower} />
+                  <Text style={tw` font-inter-400 `}>Following:</Text>
+                  <Text style={tw`text-textPrimary font-inter-700`}>1.1k</Text>
+                </View>
+              </Link>
             </TouchableOpacity>
           </View>
         </View>

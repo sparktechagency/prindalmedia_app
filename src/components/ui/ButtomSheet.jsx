@@ -95,7 +95,7 @@ export default function ButtomSheet() {
           enabled: false,
         }}
       >
-        <View style={tw`flex-1 p-[4%]`}>
+        <View style={tw`flex-1 shadow-2xl p-[4%]`}>
           {/* Header */}
           <View style={tw`flex-row justify-between items-center `}>
             <Text style={tw`text-lg font-inter-700 py-3`}>Comment</Text>

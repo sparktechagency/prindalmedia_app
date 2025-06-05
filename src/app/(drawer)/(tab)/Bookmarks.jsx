@@ -6,7 +6,7 @@ import {
   IconsListRestaurants,
   IconsSearch,
 } from "@/assets/Icon";
-import { TextInput } from "react-native-gesture-handler";
+import { Link } from "expo-router";
 import { SvgXml } from "react-native-svg";
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import MyList from "../../../components/ui/MyList";
@@ -33,20 +33,26 @@ const Bookmarks = () => {
         <View style={tw` flex-1 flex-col gap-4 justify-start`}>
           <View style={tw` flex-col gap-5 justify-start`}>
             <View style={tw`my-2`}>
-              <View
-                style={tw`bg-[#F3F3F3] flex-row items-center justify-between px-2 rounded-4 gap-1`}
-              >
-                <SvgXml xml={IconsSearch} />
+              <Link href={`searchList/${activeTab}`}>
+                <View
+                  style={tw`bg-[#F3F3F3] flex-row items-center justify-between px-2 rounded-2 gap-2`}
+                >
+                  <SvgXml xml={IconsSearch} />
 
-                <TextInput
-                  style={tw` py-4 flex-1 text-textPrimary`}
-                  placeholder="Search by user name or food name"
-                  placeholderTextColor="#888888"
-                  selectionColor="#888888"
-                  // onChangeText={(text) => handleSearchLocation(text)}
-                  // value={searchText}
-                />
-              </View>
+                  <Text style={tw` py-4 flex-1 text-textPrimary`}>
+                    Search by user name or food name
+                  </Text>
+
+                  {/* <TextInput
+                    style={tw` py-4 flex-1 text-textPrimary`}
+                    placeholder="Search by user name or food name"
+                    placeholderTextColor="#888888"
+                    selectionColor="#888888"
+                    // onChangeText={(text) => handleSearchLocation(text)}
+                    // value={searchText}
+                  /> */}
+                </View>
+              </Link>
             </View>
 
             {/* Tabs */}

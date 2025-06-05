@@ -88,8 +88,10 @@ const TagPeopleView = ({ isVisible, setIsVisible, setuserName, newTag }) => {
         transparent
         onRequestClose={() => setIsVisible(false)}
       >
-        <View style={tw`flex-1 bg-black/40 justify-center items-center`}>
-          <View style={tw`p-4 w-11/12 bg-[#FDFFFE] rounded-3xl`}>
+        <View style={tw`flex-1  justify-center items-center`}>
+          <View
+            style={tw`p-4 w-11/12 shadow-2xl shadow-black/40 bg-[#FDFFFE] rounded-3xl`}
+          >
             {/* Header */}
             <View style={tw`flex-row justify-between items-center`}>
               <Text style={tw`text-2xl py-4 font-inter-700 text-[#121212]`}>

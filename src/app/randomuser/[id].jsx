@@ -12,24 +12,25 @@ import {
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SvgXml } from "react-native-svg";
-import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 import BlockModal from "../../components/ui/BlockModal";
 import RandomUserProfile from "../../components/ui/RandomUserProfile";
-import RecentActivityList from "../../components/ui/RecentActivityList";
+import RecentActivityListRandomUser from "../../components/ui/RecentActivityListRandomUser";
+import RecentsActiveList from "../../components/ui/RecentsActiveList";
+import RecipesActivityList from "../../components/ui/RecipesActivityList";
 import tw from "../../lib/tailwind";
 
 // tabs name and icons
-const tabs = [
-  { label: "Restaurants to Try", icon: "" },
-  { label: "Recipes to Try", icon: "" },
-];
+const tabs = [{ label: "Restaurants" }, { label: "Recipes" }];
 
 const RandomUser = () => {
-  const [activeTab, setActiveTab] = useState("Restaurants to Try");
-  const [isFollower, setIsFollower] = useState(false);
+  const [activeTab, setActiveTab] = useState(null); // Start with no tab selected
+  const [isFollower, setIsFollower] = useState(true);
   const bottomSheetRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalName, setModalName] = useState("");
+  const [showRecent, setShowRecent] = useState(true); // Start with Recents shown
 
-  const snapPoints = useMemo(() => ["30", "60%", "70%", "90%"], []);
+  const snapPoints = useMemo(() => ["30%", "50%"], []);
 
   const handleSheetChanges = useCallback((index) => {
     // console.log("Sheet position changed to:", index);
@@ -39,17 +40,19 @@ const RandomUser = () => {
     bottomSheetRef.current?.snapToIndex(0);
   };
 
-  const [isVisible, setIsVisible] = useState();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalName, setmodalName] = useState("");
-
   const handleViewMode = (name) => {
-    if (modalVisible) {
-      setIsVisible(!isVisible);
-    } else {
-      setModalVisible(true);
-    }
-    setmodalName(name);
+    setModalVisible(true);
+    setModalName(name);
+  };
+
+  const handleTabPress = (label) => {
+    setShowRecent(false); // Hide Recents when a tab is selected
+    setActiveTab(label);
+  };
+
+  const handleRecentPress = () => {
+    setShowRecent(true); // Show Recents
+    setActiveTab(null); // Clear active tab
   };
 
   return (
@@ -69,11 +72,10 @@ const RandomUser = () => {
         </View>
 
         {/* Profile Card */}
-
         <RandomUserProfile />
 
         {/* Follow / Unfollow Button */}
-        <View style={tw`w-full `}>
+        <View style={tw`w-full`}>
           <Pressable
             onPress={() => setIsFollower(!isFollower)}
             style={tw`${
@@ -92,23 +94,27 @@ const RandomUser = () => {
 
         {/* Tabs Header */}
         <View style={tw`py-4 flex-row justify-between items-center`}>
-          <View style={tw`flex-row items-center gap-2`}>
+          <TouchableOpacity
+            onPress={handleRecentPress}
+            style={tw`flex-row items-center gap-2`}
+          >
             <SvgXml xml={IconsLists} />
-            <Text style={tw`text-4 font-bold text-[#121212]`}>Recents</Text>
-          </View>
+            <Text
+              style={tw`text-4 font-bold ${
+                showRecent ? "text-orange underline" : "text-[#121212]"
+              }`}
+            >
+              Recents
+            </Text>
+          </TouchableOpacity>
 
-          <View style={tw`flex-row items-center gap-2`}>
+          <View style={tw`flex-row items-center gap-4`}>
             {tabs.map((item) => (
               <Pressable
                 key={item.label}
-                onPress={() => setActiveTab(item.label)}
+                onPress={() => handleTabPress(item.label)}
                 style={tw`flex-row items-center gap-1`}
               >
-                <Icons
-                  name={item.icon}
-                  size={20}
-                  color={activeTab === item.label ? "#ED6237" : "#454545"}
-                />
                 <Text
                   style={tw`${
                     activeTab === item.label
@@ -120,23 +126,18 @@ const RandomUser = () => {
                 </Text>
               </Pressable>
             ))}
-            {/* <View style={tw`flex-row items-center gap-2 ml-1`}>
-              <SvgXml
-                xml={
-                  activeTab === "Restaurants to Try"
-                    ? IconsListRestaurants to Try
-                    : IconsListRecipes to Try
-                }
-              />
-              <Text>{activeTab === "Restaurants to Try" ? 257 : 258}</Text>
-            </View> */}
           </View>
         </View>
 
         {/* Tab Content */}
         <View style={tw`flex-1`}>
-          {activeTab === "Restaurants to Try" && <RecentActivityList />}
-          {activeTab === "Recipes to Try" && <RecentActivityList />}
+          {showRecent ? (
+            <RecentsActiveList />
+          ) : activeTab === "Restaurants" ? (
+            <RecentActivityListRandomUser />
+          ) : (
+            <RecipesActivityList />
+          )}
         </View>
 
         {/* Bottom Sheet */}
@@ -148,21 +149,30 @@ const RandomUser = () => {
           onChange={handleSheetChanges}
         >
           <BottomSheetView style={styles.contentContainer}>
-            <View style={tw`flex-col gap-2`}>
-              <TouchableOpacity onPress={() => handleViewMode("Block")}>
-                <Text style={tw` font-inter-500 text-orange`}>Block</Text>
+            <View style={tw`flex-col gap-4`}>
+              <TouchableOpacity
+                onPress={() => handleViewMode("Block")}
+                style={tw`py-2`}
+              >
+                <Text style={tw`font-inter-500 text-orange`}>Block</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleViewMode("Report")}>
-                <Text style={tw` font-inter-500 text-orange`}>Report</Text>
+              <TouchableOpacity
+                onPress={() => handleViewMode("Report")}
+                style={tw`py-2`}
+              >
+                <Text style={tw`font-inter-500 text-orange`}>Report</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleViewMode("Restrict")}>
-                <Text style={tw` font-inter-500 text-orange`}>Restrict</Text>
+              <TouchableOpacity
+                onPress={() => handleViewMode("Restrict")}
+                style={tw`py-2`}
+              >
+                <Text style={tw`font-inter-500 text-orange`}>Restrict</Text>
               </TouchableOpacity>
             </View>
           </BottomSheetView>
         </BottomSheet>
 
-        {/* open modal  */}
+        {/* Modal */}
         <BlockModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -174,10 +184,6 @@ const RandomUser = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "grey",
-  },
   contentContainer: {
     flex: 1,
     padding: 20,

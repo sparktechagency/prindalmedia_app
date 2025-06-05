@@ -1,14 +1,13 @@
 import { IconUserProfile } from "@/assets/Icon";
 import { Link } from "expo-router";
-import { Image, View } from 'react-native';
-import { SvgXml } from 'react-native-svg';
-import tw from '../../lib/tailwind';
+import { Image, View } from "react-native";
+import { SvgXml } from "react-native-svg";
+import tw from "../../lib/tailwind";
 
 const ProfileViewImage = () => {
   return (
-        
-<View style={tw`items-center `}>
-            {/* <Image
+    <View style={tw`items-center `}>
+      {/* <Image
               source={require("@/assets/images/image.png")} // Replace with your image
               style={tw`w-20 h-20 rounded-full`}
             />
@@ -21,21 +20,22 @@ const ProfileViewImage = () => {
             </Link>
           </View> */}
 
-          <View style={tw`relative`}>
-              <Image
-                 source={require("@/assets/images/image.png")} // Replace with your image
-                style={tw`w-16 h-16 rounded-full`}
-              />
-              {/* Verified Badge */}
+      <View style={tw`relative`}>
+        <Image
+          source={require("@/assets/images/image.png")} // Replace with your image
+          style={tw`w-20 h-20 rounded-full`}
+        />
+        {/* Verified Badge */}
 
-              <View style={tw`absolute bottom-0 right-0 bg-blue-500 p-1 rounded-full`}>
-                <Link  href={"/provers/1"}>
-                <SvgXml xml={IconUserProfile} />
-                </Link>
-              </View>
-            </View>
+        <Link
+          style={tw`absolute bottom-0 right-0 bg-blue-500 p-1.5 rounded-full`}
+          href={"/provers/1"}
+        >
+          <SvgXml xml={IconUserProfile} />
+        </Link>
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default ProfileViewImage
+export default ProfileViewImage;

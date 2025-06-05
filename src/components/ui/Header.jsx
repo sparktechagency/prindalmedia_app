@@ -59,7 +59,9 @@ const Header = () => {
         <TouchableOpacity onPress={() => setDrawerOpen(true)}>
           <SvgXml xml={IconMenu} />
         </TouchableOpacity>
-        <Text style={tw`text-2xl font-bold text-[#141A47]`}>Kalamari</Text>
+        <Text style={tw`text-2xl  font-rubik-700 text-[#141A47]`}>
+          Kalamari
+        </Text>
       </View>
 
       {/* Right - Icons and Avatar */}
@@ -112,9 +114,9 @@ const Header = () => {
             ]}
           >
             <View style={tw`flex-col gap-6`}>
-              <View style={tw`flex-row items-center justify-between mb-10`}>
-                <Text style={tw`text-9 font-inter-700 text-[#121212]`}>
-                  Kalamari.
+              <View style={tw`flex-row items-center justify-between `}>
+                <Text style={tw`text-9 font-rubik-700 text-[#141A47]`}>
+                  Kalamari
                 </Text>
                 <TouchableOpacity onPress={() => setDrawerOpen(false)}>
                   <SvgXml xml={IconClose} />

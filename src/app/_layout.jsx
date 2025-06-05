@@ -16,9 +16,12 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{}} />
         {/* <Stack.Screen name="auth" options={{}} /> */}
-        <Stack.Screen name="map/index" options={{
-          keyboardHandlingEnabled : false
-        }} />
+        <Stack.Screen
+          name="map/index"
+          options={{
+            keyboardHandlingEnabled: false,
+          }}
+        />
         <Stack.Screen name="notifications/index" options={{}} />
         <Stack.Screen name="notifications/[id]" options={{}} />
         <Stack.Screen name="provers/[id]" options={{}} />
@@ -27,6 +30,7 @@ export default function RootLayout() {
         <Stack.Screen name="userfollowing/index" options={{}} />
         <Stack.Screen name="viewpost/[id]" options={{}} />
         <Stack.Screen name="userSearch/index" options={{}} />
+        <Stack.Screen name="searchList/[index]" options={{}} />
         <Stack.Screen
           name="post_details_modal"
           options={{

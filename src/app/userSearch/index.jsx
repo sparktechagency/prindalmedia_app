@@ -20,7 +20,7 @@ const Search = () => {
   };
 
   return (
-    <View style={tw` flex-1 bg-primaryBg rounded-[24px] p-[4%]`}>
+    <View style={tw` flex-1 bg-primaryBg  p-[4%]`}>
       <View style={tw`flex-row items-center gap-2 my-4`}>
         <TouchableOpacity
           onPress={() => {

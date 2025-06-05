@@ -1,6 +1,6 @@
 import { Image, Text, View } from "react-native";
 
-import { Iconsfollower, IconVerify } from "@/assets/Icon";
+import { Iconsfollower, IconVerifyProfile } from "@/assets/Icon";
 import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
 
@@ -11,10 +11,10 @@ const RandomUserProfile = () => {
         <View style={tw`relative`}>
           <Image
             source={{ uri: "https://i.ibb.co/hFKjJHpC/Ellipse-4-1.png" }}
-            style={tw`w-16 h-16 rounded-full`}
+            style={tw`w-20 h-20 rounded-full`}
           />
           <View style={tw`absolute bottom-0 right-0`}>
-            <SvgXml xml={IconVerify} />
+            <SvgXml xml={IconVerifyProfile} />
           </View>
         </View>
         <View style={tw`items-center mt-4`}>

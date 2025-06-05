@@ -88,7 +88,7 @@ export default function Phone() {
 
             {/* Phone Input */}
             <View
-              style={tw`flex-row items-center border border-gray-300 rounded-md p-2 mb-2`}
+              style={tw`flex-row items-center border border-gray-300 rounded-md p-1 mb-2`}
             >
               {/* Country Code */}
               <View style={tw`flex-row items-center gap-2`}>
@@ -136,13 +136,16 @@ export default function Phone() {
               animationType="slide"
               transparent={true}
             >
-              <View style={tw`flex-1 bg-black bg-opacity-50 justify-center`}>
-                <View style={tw`bg-white rounded-lg mx-5 p-5 max-h-96`}>
+              <View style={tw`flex-1  justify-center`}>
+                <View
+                  style={tw`bg-white shadow-2xl shadow-black/40 rounded-lg mx-5 p-5 max-h-96`}
+                >
                   <Text style={tw`text-xl font-bold mb-4`}>Select Country</Text>
 
                   <FlatList
                     data={countries}
                     keyExtractor={(item) => item.code}
+                    showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
                       <Pressable
                         style={tw`flex-row items-center py-2`}
@@ -168,18 +171,22 @@ export default function Phone() {
                   />
 
                   <TouchableOpacity
-                    style={tw`mt-4 bg-gray-300 py-2 rounded-md items-center`}
+                    style={tw`mt-4 bg-orange py-2 rounded-md items-center`}
                     onPress={() => setModalVisible(false)}
                   >
-                    <Text>Cancel</Text>
+                    <Text style={tw`text-white`}>Cancel</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </Modal>
-            <View tyle={tw``}>
-              <TouchableOpacity onPress={() => router.push(`(drawer)/Mission`)}>
+            <View style={tw` flex items-center justify-center `}>
+              <TouchableOpacity
+                onPress={() => router.push("(drawer)/Mission")}
+                style={tw`w-30 mt-10`} // Better width handling
+                activeOpacity={0.7} // Adds press feedback
+              >
                 <Text
-                  style={tw`text-orange underline font-inter-600  text-center mt-10 `}
+                  style={tw`text-orange underline font-inter-600  text-center `}
                 >
                   Our Mission
                 </Text>

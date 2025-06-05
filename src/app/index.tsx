@@ -1,7 +1,7 @@
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-import { ActivityIndicator, Image, Text, View } from "react-native";
+import { ActivityIndicator, Image, View } from "react-native";
 
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
@@ -33,35 +33,53 @@ export default function App() {
   }, [route]);
 
   return (
-    <View style={tw`flex-1 justify-center items-center bg-primaryBg pb-[25%]`}>
-      <View style={tw`   flex-1 justify-center flex items-end`}>
-        {/* Logo and Title */}
-        <View style={tw`justify-center items-center`}>
-          <View style={tw`flex-row items-center gap-1.5`}>
-            <Image
-              source={require("@/assets/images/appIcons.png")}
-              style={tw`w-16 h-16`}
-            />
-            <Text style={tw`text-10.5 font-inter-700 text-[#141A47]`}>
-              Kalamari
-            </Text>
-          </View>
-          <View style={tw` relative`}>
-            <Text
-              style={tw`text-sm   flex-1 absolute  font-inter-500 text-textgray mt-1`}
-            >
-              Share your taste.
-            </Text>
-          </View>
+    <View style={tw`flex-1 bg-primaryBg `}>
+      {/* Logo Container */}
+      <View style={tw`flex-1 justify-center items-center pt-20`}>
+        <View style={tw`items-center mb-8`}>
+          <Image
+            source={require("@/assets/images/group-s.png")}
+            style={tw`w-96 h-20`}
+            resizeMode="contain"
+          />
         </View>
+        {/*  */}
+      </View>
+      <View>
+        <ActivityIndicator size="large" color="#ED6237" style={tw`mb-16`} />
       </View>
 
       {/* Loader */}
-      <ActivityIndicator
-        size="large"
-        color="#ED6237"
-        style={tw`absolute bottom-16`}
-      />
     </View>
+    // <View style={tw`flex-1 justify-center items-center bg-primaryBg pb-[25%]`}>
+    //   <View style={tw`   flex-1 justify-center flex items-end`}>
+    //     {/* Logo and Title */}
+    //     <View style={tw`justify-center items-center`}>
+    //       <View style={tw`flex-row items-center gap-1.5`}>
+    //         <Image
+    //           source={require("@/assets/images/appIcons.png")}
+    //           style={tw`w-16 h-16`}
+    //         />
+    //         <Text style={tw`text-10.5 font-inter-700 text-[#141A47]`}>
+    //           Kalamari
+    //         </Text>
+    //       </View>
+    //       <View style={tw` relative`}>
+    //         <Text
+    //           style={tw`text-sm   flex-1 absolute  font-inter-500 text-textgray mt-1`}
+    //         >
+    //           Share your taste.
+    //         </Text>
+    //       </View>
+    //     </View>
+    //   </View>
+
+    //   {/* Loader */}
+    //   <ActivityIndicator
+    //     size="large"
+    //     color="#ED6237"
+    //     style={tw`absolute bottom-16`}
+    //   />
+    // </View>
   );
 }

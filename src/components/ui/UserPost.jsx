@@ -120,13 +120,13 @@ const UserPost = ({ isActiveTab, openModal }) => {
           <View style={tw`flex-row gap-2 items-center `}>
             <View style={tw`flex-row gap-1 items-center `}>
               <SvgXml xml={IconRestruernt} />
-              <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+              <Text style={tw` text-3 font-inter-500 text-[#454545] `}>
                 Pizzaburg
               </Text>
             </View>
             <View style={tw`flex-row gap-1 items-center `}>
               <SvgXml xml={IconLOcation} />
-              <Text style={tw` text-3 font-inter-400 text-[#454545] `}>
+              <Text style={tw` text-3 font-inter-500 text-[#454545] `}>
                 {item?.user?.location}
               </Text>
             </View>
@@ -180,8 +180,8 @@ const UserPost = ({ isActiveTab, openModal }) => {
         </View>
 
         {/*  view user info and details  */}
-        <View style={tw`flex mt-2 gap-1   `}>
-          <View style={tw`flex-col gap-1   `}>
+        <View style={tw`flex mt-2  gap-1.5   `}>
+          <View style={tw`flex-col gap-2   `}>
             {/* rating */}
             <View style={tw`flex-row justify-between  items-center  `}>
               <Text style={tw` text-4 font-inter-700 text-textPrimary `}>
@@ -190,7 +190,9 @@ const UserPost = ({ isActiveTab, openModal }) => {
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
                 <SvgXml xml={IconStar} />
-                <Text style={tw` text-[16px]  font-inter-700 `}>
+                <Text
+                  style={tw` text-[16px]  text-textPrimary font-inter-700 `}
+                >
                   {item?.rating}
                 </Text>
               </View>
@@ -210,7 +212,7 @@ const UserPost = ({ isActiveTab, openModal }) => {
               </View>
               {/* star icons */}
               <View style={tw`flex-row gap-1 items-center`}>
-                <Text style={tw` text-[14px] font-inter-400 text-[#454545] `}>
+                <Text style={tw` text-[12px] font-inter-500 text-[#454545] `}>
                   {/* {new Date(item?.date).toDateString()} */}
                   {/* {item?.date}  */}
                   <SimplifyDate date={item?.date} />
@@ -221,7 +223,11 @@ const UserPost = ({ isActiveTab, openModal }) => {
           {/* post details  */}
           <View>
             {/*  */}
-            <Text style={tw`items-start leading-5`}>{item?.description}</Text>
+            <Text
+              style={tw`items-start text-sm font-inter-400 text-[#454545] leading-5`}
+            >
+              {item?.description}
+            </Text>
           </View>
         </View>
       </View>

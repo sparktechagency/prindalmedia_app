@@ -156,7 +156,7 @@ export default function Index() {
                   <TouchableOpacity
                     onPress={() => {
                       // handleSubmit()
-                      router.push("auth/phone");
+                      router.push("/(tab)");
                     }}
                     style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
                   >

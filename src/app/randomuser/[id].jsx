@@ -190,7 +190,7 @@ const RandomUser = () => {
 
                     {/* Submit Button */}
                     <TouchableOpacity
-                      style={tw`mt-4 self-start bg-[#F15A29] px-6 py-2 rounded-full`}
+                      style={tw`mt-4 self-start bg-[#F15A29] px-6 py-2 rounded`}
                       onPress={() => {
                         setReport(false);
                       }}

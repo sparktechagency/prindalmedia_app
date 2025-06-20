@@ -21,7 +21,7 @@ const MyRecipesList = () => {
 
   const handleDelete = () => {
     Alert.alert(
-      "Delete Confirmation",
+      "Delete",
       "Are you sure you want to delete this item?",
       [
         {

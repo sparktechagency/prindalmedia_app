@@ -40,7 +40,7 @@ const Bookmarks = () => {
                   <SvgXml xml={IconsSearch} />
 
                   <Text style={tw` py-4 flex-1 text-textPrimary`}>
-                    Search by user name or food name
+                    Search by Restaurants or Recipes
                   </Text>
 
                   {/* <TextInput

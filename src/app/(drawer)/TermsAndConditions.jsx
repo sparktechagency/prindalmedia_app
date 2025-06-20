@@ -1,5 +1,12 @@
 import { router } from "expo-router";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import {
+  Linking,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import BackButton from "../../components/ui/BackButton";
 import tw from "../../lib/tailwind";
 
@@ -112,7 +119,15 @@ const TermsAndConditions = () => {
           <Text style={tw`text-base font-inter-700 mb-2`}>10. Contact</Text>
           <Text style={tw`text-sm text-textgray font-inter-600 mb-4`}>
             • If you have any questions, please contact us at
-            princeton@kalameat.app.
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => Linking.openURL("mailto:princeton@kalamari.app")}
+              style={tw`flex-row flex-wrap items-center`}
+            >
+              <Text style={tw`text-sm text-orange font-inter-600 underline `}>
+                princeton@kalamari.app
+              </Text>
+            </TouchableOpacity>
           </Text>
         </ScrollView>
       </SafeAreaView>

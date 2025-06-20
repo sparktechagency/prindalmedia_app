@@ -138,7 +138,7 @@ export default function AddPhoto({ setImage, modalVisible, setModalVisible }) {
             <SvgXml xml={IconAddPhoto} />
           </View>
           <Text style={tw`text-[16px] font-bold text-[#121212] `}>
-            Add photo
+            Add Photo
           </Text>
         </View>
       </TouchableOpacity>

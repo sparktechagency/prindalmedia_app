@@ -1,5 +1,12 @@
 import { router } from "expo-router";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import {
+  Linking,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import BackButton from "../../components/ui/BackButton";
 import tw from "../../lib/tailwind";
 
@@ -10,7 +17,7 @@ const PrivacyPolicy = () => {
         onPress={() => {
           router?.back();
         }}
-        title={" Privacy policy"}
+        title={" Privacy Policy"}
       />
       <SafeAreaView style={tw`flex-1 bg-white`}>
         <ScrollView contentContainerStyle={tw`px-4`}>
@@ -90,9 +97,19 @@ const PrivacyPolicy = () => {
           </Text>
 
           <Text style={tw`text-xl font-inter-700 mb-2`}>9. Contact</Text>
-          <Text style={tw`text-sm text-textgray font-inter-600 mb-4`}>
-            • For questions, contact us at princeton@kalamar.app
+
+          <Text style={tw`text-sm text-textgray font-inter-600 flex-row `}>
+            • For questions, contact us at
           </Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => Linking.openURL("mailto:princeton@kalamari.app")}
+            style={tw`flex-row flex-wrap items-center mb-4 ml-1`}
+          >
+            <Text style={tw`text-sm text-orange font-inter-600 underline `}>
+              princeton@kalamari.app
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     </View>

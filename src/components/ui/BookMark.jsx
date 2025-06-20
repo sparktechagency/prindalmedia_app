@@ -74,12 +74,12 @@ const BookMark = () => {
                 <View style={tw`gap-2`}>
                   <View style={tw`flex-col gap-2`}>
                     <BookMarkCustomRadioButton
-                      label="Restaurant to Try"
+                      label="Restaurant List"
                       selected={selectedOption === "restaurant"}
                       onPress={() => setSelectedOption("restaurant")}
                     />
                     <BookMarkCustomRadioButton
-                      label="Recipe to Try"
+                      label="Recipe List"
                       selected={selectedOption === "home-made"}
                       onPress={() => setSelectedOption("home-made")}
                     />

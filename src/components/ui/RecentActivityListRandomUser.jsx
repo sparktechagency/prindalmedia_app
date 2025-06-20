@@ -1,6 +1,13 @@
-import { IconRestruernt, IconStar } from "@/assets/Icon";
+import { IconDelete, IconRestruernt, IconStar } from "@/assets/Icon";
 import { router } from "expo-router";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SvgXml } from "react-native-svg";
 import foodImage from "../../../assets/images/Recipes.png";
 import tw from "../../lib/tailwind";
@@ -12,6 +19,21 @@ const RecentActivityListRandomUser = () => {
     // console.log("asdfg");
     router.push(`/notifications/${1}`);
   };
+
+  const handleDelete = (id) => {
+    Alert.alert(
+      "Delete Resents",
+      "Are you sure you want to delete this Recents?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Delete",
+          style: "destructive",
+        },
+      ]
+    );
+  };
+
   return (
     <View style={tw`flex-1`}>
       {/* when the api changes ScrollView and adds flatList  */}
@@ -71,7 +93,7 @@ const RecentActivityListRandomUser = () => {
                     </View>
 
                     {/* Location and Date */}
-                    <View style={tw`flex-col justify-between items-end `}>
+                    <View style={tw`flex-col justify-between items-end gap-1 `}>
                       <View style={tw`flex-row items-center`}>
                         {/* <FontAwesome name="star" size={16} color="#facc15" /> */}
                         <SvgXml xml={IconStar} />
@@ -79,11 +101,20 @@ const RecentActivityListRandomUser = () => {
                           2.8
                         </Text>
                       </View>
-                      <Text
-                        style={tw`text-[#454545] font-inter-400 text-sm mt-1`}
-                      >
-                        May 13th
-                      </Text>
+                      {/*  */}
+                      <View>
+                        <Text
+                          style={tw`text-[#454545] font-inter-400 text-3 mt-1`}
+                        >
+                          May 13th
+                        </Text>
+                      </View>
+                      {/*  */}
+                      <View>
+                        <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                          <SvgXml xml={IconDelete} width={20} height={20} />
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 </View>

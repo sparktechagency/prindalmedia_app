@@ -38,7 +38,7 @@ const ListView = () => {
               <SvgXml xml={IconsSearch} />
               <TextInput
                 style={tw`py-4 flex-1 text-textPrimary`}
-                placeholder="Search by user name or food name"
+                placeholder="Search by Restaurants or Recipes"
                 placeholderTextColor="#888888"
                 selectionColor="#888888"
                 returnKeyType="search"

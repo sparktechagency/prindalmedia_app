@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import tw from "../../lib/tailwind";
 const Mission = () => {
   return (
-    <View style={tw`p-[4%] `}>
+    <View style={tw`p-[4%] bg-primaryBg flex-1 `}>
       <View style={tw`flex-row items-center gap-2 my-4`}>
         <TouchableOpacity
           onPress={() => {
@@ -20,7 +20,7 @@ const Mission = () => {
         <Text style={tw` leading-6 text-4 font-inter-500  text-[#454545]`}>
           Great food can be found everywhere from fine dining rooms to
           late-night takeout, home-cooked meals to street food gems. But what
-          truly makes a meal memorable isn’t just the taste it’s the people you
+          truly makes a meal memorable isn’t just the taste, it’s the people you
           share it with.
         </Text>
         <Text

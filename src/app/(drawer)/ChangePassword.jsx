@@ -86,7 +86,7 @@ const ChangePassword = () => {
               onPress={() => {
                 router?.back();
               }}
-              title={"Change password"}
+              title={"Change Password"}
             />
             <ScrollView
               showsVerticalScrollIndicator={false}
@@ -216,7 +216,7 @@ const ChangePassword = () => {
                       } w-full rounded-full`}
                     >
                       <Text style={tw`text-white py-3 font-medium text-lg`}>
-                        {isSubmitting ? "Saving..." : "Save changes"}
+                        {isSubmitting ? "Saving..." : "Save Changes"}
                       </Text>
                     </Pressable>
                   </View>

@@ -95,7 +95,7 @@ const TagPeopleView = ({ isVisible, setIsVisible, setuserName, newTag }) => {
             {/* Header */}
             <View style={tw`flex-row justify-between items-center`}>
               <Text style={tw`text-2xl py-4 font-inter-700 text-[#121212]`}>
-                Tag people
+                Tag People
               </Text>
               <AntDesign
                 name="close"

@@ -218,7 +218,7 @@ const Post = () => {
             </View>
 
             {/* Submit Button */}
-            <View style={tw` items-center justify-center flex-row   `}>
+            <View style={tw` items-center justify-center flex-row mt-4.5   `}>
               <TouchableOpacity
                 onPress={handleSubmit}
                 style={tw` items-center justify-center flex-row bg-orange px-9 py-3 rounded-full `}

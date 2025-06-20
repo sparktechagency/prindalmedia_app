@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-import { Octicons, SimpleLineIcons } from "@expo/vector-icons";
+import { Ionicons, Octicons, SimpleLineIcons } from "@expo/vector-icons";
 import Header from "../../../components/ui/Header";
 import ReportInput from "../../../components/ui/ReportInput";
 import UserPost from "../../../components/ui/UserPost";
@@ -139,10 +139,13 @@ const Home = () => {
                   setReportVisible={setReportVisible}
                 />
               )}
-              <TouchableOpacity onPress={closeModal} style={tw`py-3 mt-2 `}>
-                <Text style={tw`text-[16px] font-inter-500 text-gray-600`}>
-                  Cancel
-                </Text>
+              <TouchableOpacity
+                onPress={closeModal}
+                style={tw` flex-row py-3 gap-2 items-center `}
+              >
+                <Ionicons name="close" size={20} color="#333" />
+
+                <Text style={tw` text-[16px] font-inter-500 `}>Cancel</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -9,8 +9,7 @@ import {
   IconProfile,
   IconSideBookMark,
 } from "@/assets/Icon";
-import { Feather } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 import tw from "../../lib/tailwind";
@@ -18,7 +17,7 @@ import Logout from "./Logout";
 
 export default function CustomDrawerContent(props) {
   return (
-    <View style={tw`flex-col justify-between  mt-20 px-4  flex-1`}>
+    <View style={tw`flex-col justify-between  mt-20 px-4 pb-10  flex-1`}>
       <View style={tw`flex-col gap-6`}>
         <View style={tw`flex-row items-center justify-between `}>
           <Text style={tw`text-9 font-rubik-700 text-[#141A47]`}>Kalamari</Text>
@@ -33,7 +32,12 @@ export default function CustomDrawerContent(props) {
             Navigation
           </Text>
           <View style={tw`flex-col gap-2`}>
-            <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
+            <TouchableOpacity
+              onPress={() => {
+                router.push("/(tab)");
+                props.navigation.closeDrawer();
+              }}
+            >
               <View style={tw`flex-row items-center gap-2`}>
                 <SvgXml xml={IconDHome} />
                 <Text style={tw`text-4 font-inter-400 text-[#454545]`}>
@@ -122,17 +126,6 @@ export default function CustomDrawerContent(props) {
                   <SvgXml xml={IconMission} />
                   <Text style={tw`text-4 font-inter-400 text-[#454545]`}>
                     Our Mission
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </Link>
-
-            <Link href={"/(drawer)/Faq"} asChild>
-              <TouchableOpacity>
-                <View style={tw`flex-row items-center gap-2 mb-4`}>
-                  <Feather name="message-square" size={18} color="#454545" />
-                  <Text style={tw`text-4 font-inter-400 text-[#454545]`}>
-                    Faq
                   </Text>
                 </View>
               </TouchableOpacity>

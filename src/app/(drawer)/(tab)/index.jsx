@@ -37,7 +37,7 @@ const Home = () => {
           <Header />
           <View style={tw`pb-4`}>
             <View
-              style={tw`flex-row gap-4  w-60  bg-[#3333331A] p-2 rounded-full `}
+              style={tw`flex-row gap-2  w-65 items-center justify-center  bg-[#3333331A] p-2 rounded-full `}
             >
               {tab.map((item, index) => (
                 <View key={index} style={tw``}>

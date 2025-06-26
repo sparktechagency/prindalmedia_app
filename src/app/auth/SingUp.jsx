@@ -2,6 +2,7 @@ import { Iconlock, IconMail, user } from "@/assets/Icon";
 import Feather from "@expo/vector-icons/Feather";
 import Checkbox from "expo-checkbox";
 import { ImageBackground } from "expo-image";
+import { router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
 import {
@@ -18,6 +19,7 @@ import { SvgXml } from "react-native-svg";
 import * as Yup from "yup";
 import tw from "../../lib/tailwind";
 
+// ✅ Validation Schema
 const validationSchema = Yup.object().shape({
   fullname: Yup.string().required("Full name is required"),
   userName: Yup.string().required("Username is required"),
@@ -31,35 +33,33 @@ const validationSchema = Yup.object().shape({
   checkbox: Yup.boolean().oneOf([true], "You must accept terms"),
 });
 
-export default function SingUp() {
-  const [email, setEmail] = useState("");
+export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // console.log(email);
-
   const handleSubmit = (values) => {
-    // console.log("Submitted data", values);
-    // Handle API call or navigation
+    console.log("Submitted values:", values);
+    // Call your API here
+    router.push("/auth/OTPVerifyTow");
   };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
-      // keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
     >
       <ImageBackground
         source={require("@/assets/images/Signupscreen.png")}
-        style={tw`flex-1`}
+        style={tw`flex-1 `}
       >
         <ScrollView
-          contentContainerStyle={tw`flex-grow flex-1 justify-end`}
+          contentContainerStyle={tw`flex-grow justify-end`}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
         >
           <View
             style={[
-              tw`bg-primaryBg  rounded-t-3xl px-6 pt-2 pb-5`,
+              tw`bg-primaryBg rounded-t-3xl px-6 pt-4 pb-6`,
               {
                 shadowOffset: { width: 0, height: -4 },
                 shadowOpacity: 0.1,
@@ -89,190 +89,180 @@ export default function SingUp() {
                 touched,
                 setFieldValue,
               }) => (
-                <View>
+                <View style={tw`gap-3`}>
                   <Text
-                    style={tw`mt-2 text-7  text-textPrimary font-inter-700 mb-2 text-center`}
+                    style={tw`text-center text-2xl font-inter-700 text-textPrimary`}
                   >
                     Create an account
                   </Text>
-                  <View style={tw`flex-col gap-2   w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
-                      Full Name
-                    </Text>
-                    <View
-                      style={tw`flex-row  items-center bg-[#F3F3F3] px-4 py-2 rounded-1.5`}
-                    >
-                      <SvgXml xml={user} />
 
-                      <TextInput
-                        style={tw`flex-1 text-base text-black dark:text-white`}
-                        onChangeText={handleChange("fullname")}
-                        onBlur={handleBlur("fullname")}
-                        value={values.fullname}
-                        placeholderTextColor="#888"
-                        selectionColor={"#888"}
-                      />
-                    </View>
-                    {touched.fullname && errors.fullname && (
-                      <Text style={tw`text-red-500`}>{errors.fullname}</Text>
-                    )}
-                  </View>
+                  {/* Full Name */}
+                  <InputField
+                    label="Full Name"
+                    value={values.fullname}
+                    onChange={handleChange("fullname")}
+                    onBlur={handleBlur("fullname")}
+                    touched={touched.fullname}
+                    error={errors.fullname}
+                    icon={user}
+                    placeholder="Enter your full name"
+                  />
 
-                  {/* user name  */}
-                  <View style={tw`flex-col gap-2 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
-                      Username
-                    </Text>
-                    <View
-                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                    >
-                      <SvgXml xml={user} />
-
-                      <TextInput
-                        style={tw`flex-1 text-base text-black dark:text-white`}
-                        onChangeText={handleChange("userName")}
-                        onBlur={handleBlur("userName")}
-                        value={values.userName}
-                      />
-                    </View>
-                    {touched.userName && errors.userName && (
-                      <Text style={tw`text-red-500`}>{errors.userName}</Text>
-                    )}
-                  </View>
+                  {/* Username */}
+                  <InputField
+                    label="Username"
+                    value={values.userName}
+                    onChange={handleChange("userName")}
+                    onBlur={handleBlur("userName")}
+                    touched={touched.userName}
+                    error={errors.userName}
+                    icon={user}
+                    placeholder="Choose a username"
+                  />
 
                   {/* Email */}
-                  <View style={tw`flex-col gap-1 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
-                      Email
-                    </Text>
-                    <View
-                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                    >
-                      {/* <Fontisto
-                        name="email"
-                        size={20}
-                        color="black"
-                        style={tw`mr-2`}
-                      /> */}
-
-                      <SvgXml xml={IconMail} />
-
-                      <TextInput
-                        style={tw`flex-1 text-base text-black dark:text-white`}
-                        onChangeText={handleChange("email")}
-                        onBlur={handleBlur("email")}
-                        value={values.email}
-                        placeholderTextColor="#888"
-                        selectionColor={"#888"}
-                      />
-                    </View>
-                    {touched.email && errors.email && (
-                      <Text style={tw`text-red-500`}>{errors.email}</Text>
-                    )}
-                  </View>
+                  <InputField
+                    label="Email"
+                    value={values.email}
+                    onChange={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    touched={touched.email}
+                    error={errors.email}
+                    icon={IconMail}
+                    placeholder="Enter your email"
+                  />
 
                   {/* Password */}
-                  <View style={tw`flex-col gap-1 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
-                      Password
-                    </Text>
-                    <View
-                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                    >
-                      <SvgXml xml={Iconlock} />
-
-                      <TextInput
-                        style={tw`flex-1 text-base text-black dark:text-white`}
-                        secureTextEntry={!showPassword}
-                        onChangeText={handleChange("password")}
-                        onBlur={handleBlur("password")}
-                        value={values.password}
-                        placeholderTextColor="#888"
-                        selectionColor={"#888"}
-                      />
+                  <InputField
+                    label="Password"
+                    value={values.password}
+                    onChange={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    touched={touched.password}
+                    error={errors.password}
+                    icon={Iconlock}
+                    placeholder="Enter password"
+                    secureTextEntry={!showPassword}
+                    toggleIcon={
                       <Feather
-                        onPress={() => setShowPassword(!showPassword)}
                         name={showPassword ? "eye-off" : "eye"}
                         size={18}
-                        color="#888888"
+                        color="#888"
+                        onPress={() => setShowPassword(!showPassword)}
                       />
-                    </View>
-                    {touched.password && errors.password && (
-                      <Text style={tw`text-red-500`}>{errors.password}</Text>
-                    )}
-                  </View>
+                    }
+                  />
 
                   {/* Confirm Password */}
-                  <View style={tw`flex-col gap-1 w-full`}>
-                    <Text style={tw`text-4 text-[#121212] font-inter-500`}>
-                      Confirm Password
-                    </Text>
-                    <View
-                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}
-                    >
-                      <SvgXml xml={Iconlock} />
-
-                      <TextInput
-                        style={tw`flex-1 text-base text-black dark:text-white`}
-                        secureTextEntry={!showConfirm}
-                        onChangeText={handleChange("confirmPassword")}
-                        onBlur={handleBlur("confirmPassword")}
-                        value={values.confirmPassword}
-                        placeholderTextColor="#888"
-                        selectionColor={"#888"}
-                      />
+                  <InputField
+                    label="Confirm Password"
+                    value={values.confirmPassword}
+                    onChange={handleChange("confirmPassword")}
+                    onBlur={handleBlur("confirmPassword")}
+                    touched={touched.confirmPassword}
+                    error={errors.confirmPassword}
+                    icon={Iconlock}
+                    placeholder="Re-enter password"
+                    secureTextEntry={!showConfirm}
+                    toggleIcon={
                       <Feather
-                        onPress={() => setShowConfirm(!showConfirm)}
                         name={showConfirm ? "eye-off" : "eye"}
                         size={18}
-                        color="#888888"
+                        color="#888"
+                        onPress={() => setShowConfirm(!showConfirm)}
                       />
-                    </View>
-                    {touched.confirmPassword && errors.confirmPassword && (
-                      <Text style={tw`text-red-500`}>
-                        {errors.confirmPassword}
-                      </Text>
-                    )}
-                  </View>
+                    }
+                  />
 
                   {/* Checkbox */}
-                  <View style={tw`flex-row items-start mt-2 w-full`}>
+                  <View style={tw`flex-row items-start mt-2`}>
                     <Checkbox
                       value={values.checkbox}
                       onValueChange={(val) => setFieldValue("checkbox", val)}
-                      color="#888888"
+                      color="#ED6237"
                       style={tw`mt-1 mr-2 w-4 h-4`}
                     />
-                    <Text style={tw`flex-1 text-sm text-[#888888]`}>
+                    <Text style={tw`text-sm text-[#888] flex-1`}>
                       By creating this account, you agree to the
-                      <Text style={tw`text-[#ED6237]`}> Terms of Use </Text>&
+                      <Text style={tw`text-[#ED6237]`}> Terms of Use </Text>
+                      and
                       <Text style={tw`text-[#ED6237]`}> Privacy Policy</Text>.
                     </Text>
                   </View>
-                  {/* check box error  */}
-                  <View style={tw`w-full flex-row items-start justify-start  `}>
-                    {touched.checkbox && errors.checkbox && (
-                      <Text style={tw`text-red-500  `}>{errors.checkbox}</Text>
-                    )}
-                  </View>
+                  {touched.checkbox && errors.checkbox && (
+                    <Text style={tw`text-red-500 text-sm mt-1`}>
+                      {errors.checkbox}
+                    </Text>
+                  )}
 
-                  {/* Submit Button */}
-                  <View style={tw`w-full mt-3 rounded-full bg-[#ED6237]`}>
-                    <TouchableOpacity onPress={handleSubmit} style={tw`py-4`}>
-                      <Text style={tw`text-center text-white text-xl`}>
-                        Register
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
+                  {/* Submit */}
+                  <TouchableOpacity
+                    // onPress={handleSubmit}
+                    onPress={() => router.push("/auth/OTPVerifyTow")}
+                    style={tw`mt-4 bg-[#ED6237] py-4 rounded-full`}
+                  >
+                    <Text
+                      style={tw`text-white text-center text-lg font-inter-600`}
+                    >
+                      Register
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               )}
             </Formik>
+
+            {/* Our Mission */}
+            <View style={tw`items-center mt-6`}>
+              <TouchableOpacity onPress={() => router.push("(drawer)/Mission")}>
+                <Text style={tw`text-orange underline font-inter-600`}>
+                  Our Mission
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
       </ImageBackground>
     </KeyboardAvoidingView>
   );
 }
+
+// ✅ Reusable Input Field Component
+const InputField = ({
+  label,
+  value,
+  onChange,
+  onBlur,
+  touched,
+  error,
+  icon,
+  placeholder,
+  secureTextEntry,
+  toggleIcon,
+}) => (
+  <View>
+    <Text style={tw`text-base text-[#121212] font-inter-500 mb-1`}>
+      {label}
+    </Text>
+    <View style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-2 rounded-md`}>
+      <SvgXml xml={icon} />
+      <TextInput
+        style={tw`flex-1 text-base text-black ml-2`}
+        value={value}
+        onChangeText={onChange}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        placeholderTextColor="#888"
+        selectionColor="#888"
+        secureTextEntry={secureTextEntry}
+        autoCapitalize="none"
+      />
+      {toggleIcon && toggleIcon}
+    </View>
+    {touched && error && (
+      <Text style={tw`text-red-500 text-sm mt-1`}>{error}</Text>
+    )}
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

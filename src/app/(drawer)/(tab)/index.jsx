@@ -44,7 +44,7 @@ const Home = () => {
                   <Pressable onPress={() => setIsActiveTab(item)}>
                     <Text
                       style={tw`
-                  text-[16px] font-inter-400 px-4 py-1 ${
+                  text-base font-inter-400 px-4 py-1 ${
                     isActiveTab === item
                       ? ` text-white bg-orange rounded-full `
                       : "text-textgray"

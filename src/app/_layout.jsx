@@ -15,7 +15,7 @@ export default function RootLayout() {
     >
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{}} />
-        {/* <Stack.Screen name="auth" options={{}} /> */}
+        {/* <Stack.Screen name="auth" options={{}} />
         <Stack.Screen
           name="map/index"
           options={{
@@ -38,7 +38,7 @@ export default function RootLayout() {
             sheetAllowedDetents: "fitToContents",
           }}
         />
-        <Stack.Screen name="(drawer)" options={{}} />
+        <Stack.Screen name="(drawer)" options={{}} /> */}
       </Stack>
     </SafeAreaView>
   );

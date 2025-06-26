@@ -19,6 +19,7 @@ import {
 import { SvgXml } from "react-native-svg";
 import * as Yup from "yup";
 
+// ✅ Validation Schema
 const validation = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
@@ -27,14 +28,12 @@ const validation = Yup.object().shape({
 });
 
 export default function Index() {
-  const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // console.log(email);
-
-  const handleSubmit = (value) => {
+  const handleLogin = async (values) => {
+    // Here you'd normally call your API or auth logic
+    console.log("Login values:", values);
     router.push("/(tab)");
-    setEmail(value);
   };
 
   return (
@@ -47,146 +46,153 @@ export default function Index() {
         resizeMode="cover"
         style={tw`flex-1 justify-end`}
       >
-        <View style={tw` bg-primaryBg rounded-t-3xl px-4 py-5 `}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Formik
-              initialValues={{
-                name: "",
-                email: "",
-                password: "",
-                checkbox: false,
-                createdOn: new Date(),
-              }}
-              validationSchema={validation}
-              onSubmit={handleSubmit}
+        <View style={tw`flex-1 justify-end`}>
+          <View style={tw`bg-primaryBg rounded-t-3xl px-4 pt-6 pb-10`}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
             >
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-                setFieldValue,
-              }) => (
-                <View style={tw`flex-col gap-3`}>
-                  {/* Top Heading */}
-                  <Text style={tw`text-xl font-bold text-black text-center`}>
-                    Welcome back!
-                  </Text>
-                  <Text style={tw`text-sm text-[#888] text-center mb-4`}>
-                    Please sign in to continue.
-                  </Text>
-
-                  {/* Email */}
-                  <Text style={tw`text-sm font-semibold text-[#121212]`}>
-                    Email
-                  </Text>
-                  <View
-                    style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-3 rounded-md`}
-                  >
-                    <SvgXml xml={IconMail} />
-                    <TextInput
-                      style={tw`flex-1 text-base text-black ml-2`}
-                      onChangeText={handleChange("email")}
-                      onBlur={handleBlur("email")}
-                      value={values.email}
-                      placeholder="Enter your email"
-                      placeholderTextColor="#888"
-                      selectionColor={"#888"}
-                    />
-                  </View>
-                  {touched.email && errors.email && (
-                    <Text style={tw`text-red-500 text-sm`}>{errors.email}</Text>
-                  )}
-
-                  {/* Password */}
-                  <Text style={tw`text-sm font-semibold text-[#121212]`}>
-                    Password
-                  </Text>
-                  <View
-                    style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-3 rounded-md`}
-                  >
-                    <SvgXml xml={Iconlock} />
-                    <TextInput
-                      style={tw`flex-1 text-base text-black ml-2`}
-                      secureTextEntry={!showPassword}
-                      onChangeText={handleChange("password")}
-                      onBlur={handleBlur("password")}
-                      value={values.password}
-                      placeholder="Enter your password"
-                      placeholderTextColor="#888"
-                      selectionColor={"#888"}
-                    />
-                    <Feather
-                      onPress={() => setShowPassword((prev) => !prev)}
-                      name={showPassword ? "eye-off" : "eye"}
-                      size={18}
-                      color="#888"
-                    />
-                  </View>
-                  {touched.password && errors.password && (
-                    <Text style={tw`text-red-500 text-sm`}>
-                      {errors.password}
+              <Formik
+                initialValues={{
+                  email: "",
+                  password: "",
+                  checkbox: false,
+                  createdOn: new Date(),
+                }}
+                validationSchema={validation}
+                onSubmit={handleLogin}
+              >
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  touched,
+                  setFieldValue,
+                }) => (
+                  <View style={tw`gap-4`}>
+                    <Text style={tw`text-xl font-bold text-black text-center`}>
+                      Welcome back!
                     </Text>
-                  )}
+                    <Text style={tw`text-sm text-[#888] text-center mb-2`}>
+                      Please sign in to continue.
+                    </Text>
 
-                  {/* Checkbox and Forgot */}
-                  <View style={tw`flex-row justify-between items-center mt-2`}>
-                    <View style={tw`flex-row items-center`}>
-                      <Checkbox
-                        value={values.checkbox}
-                        onValueChange={(val) => setFieldValue("checkbox", val)}
-                        color="#B0B0B0"
-                        style={{ width: 16, height: 16 }}
+                    {/* Email */}
+                    <Text style={tw`text-sm font-semibold text-[#121212]`}>
+                      Email
+                    </Text>
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-3 rounded-md`}
+                    >
+                      <SvgXml xml={IconMail} />
+                      <TextInput
+                        style={tw`flex-1 text-base text-black ml-2`}
+                        placeholder="Enter your email"
+                        placeholderTextColor="#888"
+                        selectionColor="#888"
+                        onChangeText={handleChange("email")}
+                        onBlur={handleBlur("email")}
+                        value={values.email}
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                       />
-                      <Text style={tw`text-[#888888] text-sm ml-2`}>
-                        Remember me
-                      </Text>
                     </View>
-                    <Link
-                      href="auth/OTPOne"
-                      style={tw`text-[#E25C44] underline  font-inter-600 text-xs`}
-                    >
-                      Forgot password?
-                    </Link>
-                  </View>
+                    {touched.email && errors.email && (
+                      <Text style={tw`text-red-500 text-sm`}>
+                        {errors.email}
+                      </Text>
+                    )}
 
-                  {/* Sign in button */}
-                  <TouchableOpacity
-                    onPress={() => {
-                      // handleSubmit()
-                      router.push("/(tab)");
-                    }}
-                    style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
-                  >
-                    <Text
-                      style={tw`text-center text-white text-base font-semibold`}
-                    >
-                      Sign in
+                    {/* Password */}
+                    <Text style={tw`text-sm font-semibold text-[#121212]`}>
+                      Password
                     </Text>
-                  </TouchableOpacity>
-
-                  {/* Sign up link */}
-                  <Text style={tw`text-center text-[#121212] mt-4`}>
-                    Don’t have an account?{" "}
-                    <Link
-                      href="/auth/SingUp"
-                      style={tw`text-[#ED6237] underline`}
+                    <View
+                      style={tw`flex-row items-center bg-[#F3F3F3] px-4 py-3 rounded-md`}
                     >
-                      Sign up
-                    </Link>
-                  </Text>
-                </View>
-              )}
-            </Formik>
-          </ScrollView>
+                      <SvgXml xml={Iconlock} />
+                      <TextInput
+                        style={tw`flex-1 text-base text-black ml-2`}
+                        placeholder="Enter your password"
+                        placeholderTextColor="#888"
+                        selectionColor="#888"
+                        secureTextEntry={!showPassword}
+                        onChangeText={handleChange("password")}
+                        onBlur={handleBlur("password")}
+                        value={values.password}
+                      />
+                      <Feather
+                        name={showPassword ? "eye-off" : "eye"}
+                        size={18}
+                        color="#888"
+                        onPress={() => setShowPassword((prev) => !prev)}
+                      />
+                    </View>
+                    {touched.password && errors.password && (
+                      <Text style={tw`text-red-500 text-sm`}>
+                        {errors.password}
+                      </Text>
+                    )}
+
+                    {/* Checkbox & Forgot Password */}
+                    <View
+                      style={tw`flex-row justify-between items-center mt-1`}
+                    >
+                      <View style={tw`flex-row items-center`}>
+                        <Checkbox
+                          value={values.checkbox}
+                          onValueChange={(val) =>
+                            setFieldValue("checkbox", val)
+                          }
+                          color="#B0B0B0"
+                          style={{ width: 16, height: 16 }}
+                        />
+                        <Text style={tw`text-[#888888] text-sm ml-2`}>
+                          Remember me
+                        </Text>
+                      </View>
+                      <Link
+                        href="auth/EmailVerify"
+                        style={tw`text-[#E25C44] underline font-inter-600 text-xs`}
+                      >
+                        Forgot password?
+                      </Link>
+                    </View>
+
+                    {/* Sign In Button */}
+                    <TouchableOpacity
+                      onPress={handleSubmit}
+                      style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
+                    >
+                      <Text
+                        style={tw`text-center text-white text-base font-semibold`}
+                      >
+                        Sign in
+                      </Text>
+                    </TouchableOpacity>
+
+                    {/* Sign Up Link */}
+                    <Text style={tw`text-center text-[#121212] mt-4`}>
+                      Don’t have an account?{" "}
+                      <Link
+                        href="/auth/SingUp"
+                        style={tw`text-[#ED6237] underline`}
+                      >
+                        Sign up
+                      </Link>
+                    </Text>
+                  </View>
+                )}
+              </Formik>
+            </ScrollView>
+          </View>
         </View>
       </ImageBackground>
     </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

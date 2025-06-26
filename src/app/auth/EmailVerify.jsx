@@ -1,5 +1,4 @@
 import { Fontisto } from "@expo/vector-icons";
-import { router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
 import {
@@ -27,7 +26,6 @@ const EmailVerify = () => {
 
   const handleFormSubmit = (values) => {
     setVerifyEmail(values.email);
-    router.push("auth/OTPVerifyTow");
   };
 
   return (

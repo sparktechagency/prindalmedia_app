@@ -23,6 +23,7 @@ const OTPVerifyTow = () => {
     } else {
       Alert.alert("OTP", "OTP Not Verify");
     }
+    router.push("/(tab)");
   };
 
   return (

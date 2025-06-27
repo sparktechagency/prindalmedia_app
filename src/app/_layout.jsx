@@ -1,21 +1,24 @@
 import { Stack } from "expo-router";
 import { SafeAreaView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 export default function RootLayout() {
   const { bottom, top } = useSafeAreaInsets();
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        paddingBottom: bottom,
-        paddingTop: top,
-      }}
-    >
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" options={{}} />
-        {/* <Stack.Screen name="auth" options={{}} />
+    <Provider store={store}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          paddingBottom: bottom,
+          paddingTop: top,
+        }}
+      >
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" options={{}} />
+          {/* <Stack.Screen name="auth" options={{}} />
         <Stack.Screen
           name="map/index"
           options={{
@@ -39,7 +42,8 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen name="(drawer)" options={{}} /> */}
-      </Stack>
-    </SafeAreaView>
+        </Stack>
+      </SafeAreaView>
+    </Provider>
   );
 }

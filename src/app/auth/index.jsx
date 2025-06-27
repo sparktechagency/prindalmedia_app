@@ -2,10 +2,11 @@ import { Iconlock, IconMail } from "@/assets/Icon";
 import tw from "@/src/lib/tailwind";
 import Feather from "@expo/vector-icons/Feather";
 import Checkbox from "expo-checkbox";
-import { Link, router } from "expo-router";
+import { Link } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
 import {
+  ActivityIndicator,
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
@@ -18,6 +19,8 @@ import {
 } from "react-native";
 import { SvgXml } from "react-native-svg";
 import * as Yup from "yup";
+import { useLoginMutation } from "../../redux/apiSlices/authApiSlice";
+import { storage } from "../../utils/storage";
 
 // ✅ Validation Schema
 const validation = Yup.object().shape({
@@ -30,10 +33,33 @@ const validation = Yup.object().shape({
 export default function Index() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [userLogin, { isLoading }] = useLoginMutation();
+
   const handleLogin = async (values) => {
     // Here you'd normally call your API or auth logic
     console.log("Login values:", values);
-    router.push("(tab)");
+
+    const userData = {
+      email: values?.email,
+      password: values?.password,
+    };
+
+    // console.log(userData);
+
+    try {
+      const response = await userLogin(userData).unwrap();
+      // console.log(res);
+
+      if (response.status) {
+        await storage.set("token", response?.token);
+        await storage.set("user", JSON.stringify(response.user));
+        // console.log("login_user : ", login_user, response.user);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // router.push("(tab)");
   };
 
   return (
@@ -163,14 +189,19 @@ export default function Index() {
 
                     {/* Sign In Button */}
                     <TouchableOpacity
-                      onPress={() => router.push("/(tab)")}
+                      onPress={handleSubmit}
+                      // onPress={() => router.push("/(tab)")}
                       style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
                     >
-                      <Text
-                        style={tw`text-center text-white text-base font-semibold`}
-                      >
-                        Sign in
-                      </Text>
+                      {isLoading ? (
+                        <ActivityIndicator size="small" color="#ffff" />
+                      ) : (
+                        <Text
+                          style={tw`text-white text-center text-lg font-inter-600`}
+                        >
+                          Sign in
+                        </Text>
+                      )}
                     </TouchableOpacity>
 
                     {/* Sign Up Link */}

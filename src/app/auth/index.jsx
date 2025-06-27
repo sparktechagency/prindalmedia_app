@@ -33,7 +33,7 @@ export default function Index() {
   const handleLogin = async (values) => {
     // Here you'd normally call your API or auth logic
     console.log("Login values:", values);
-    router.push("/(tab)");
+    router.push("(tab)");
   };
 
   return (
@@ -163,7 +163,7 @@ export default function Index() {
 
                     {/* Sign In Button */}
                     <TouchableOpacity
-                      onPress={handleSubmit}
+                      onPress={() => router.push("/(tab)")}
                       style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
                     >
                       <Text

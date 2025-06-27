@@ -77,6 +77,7 @@ const EmailVerify = () => {
                       autoCapitalize="none"
                       placeholderTextColor="#888"
                       selectionColor={"#888"}
+                      placeholder="Enter your email"
                     />
                   </View>
                   {touched.email && errors.email && (

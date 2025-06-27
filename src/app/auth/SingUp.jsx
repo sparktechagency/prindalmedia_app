@@ -6,6 +6,8 @@ import { router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -18,6 +20,7 @@ import {
 import { SvgXml } from "react-native-svg";
 import * as Yup from "yup";
 import tw from "../../lib/tailwind";
+import { useSignUpMutation } from "../../redux/apiSlices/authApiSlice";
 
 // ✅ Validation Schema
 const validationSchema = Yup.object().shape({
@@ -37,10 +40,61 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const handleSubmit = (values) => {
+  const [registerUser, { isLoading, isError, error }] = useSignUpMutation();
+
+  const handleSubmit = async (values) => {
     console.log("Submitted values:", values);
     // Call your API here
-    router.push("/auth/OTPVerifyTow");
+    // router.push("/auth/OTPVerifyTow");
+
+    const userData = {
+      full_name: values.fullname,
+      user_name: values.userName,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.confirmPassword,
+    };
+
+    console.log("User Data:", userData);
+
+    try {
+      const response = await registerUser(userData).unwrap();
+      // console.log("Registration successful", response);
+
+      if (response.status) {
+        Alert.alert("Registration Successful!", response.message);
+        router.push("/auth/OTPVerifyTow");
+      } else {
+        Alert.alert(
+          "Registration Failed",
+          response.message || "Something went wrong."
+        );
+      }
+    } catch (error) {
+      console.error("Registration Error:", error);
+      Alert.alert(
+        "Warning",
+        error?.data?.message || "Something went wrong. Please try again."
+      );
+    }
+
+    // registerUser({
+    //   fullname: values.fullname,
+    //   username: values.userName,
+    //   email: values.email,
+    //   password: values.password,
+    //   confirmPassword: values.confirmPassword,
+    //   checkbox: values.checkbox,
+    // })
+    //   .unwrap()
+    //   .then(() => {
+    //     // Handle successful registration
+    //     router.push("/auth/OTPVerifyTow");
+    //   })
+    //   .catch((error) => {
+    //     // Handle registration error
+    //     console.error("Registration error:", error);
+    //   });
   };
 
   return (
@@ -197,15 +251,20 @@ export default function SignUp() {
 
                   {/* Submit */}
                   <TouchableOpacity
-                    // onPress={handleSubmit}
-                    onPress={() => router.push("/auth/OTPVerifyTow")}
+                    onPress={handleSubmit}
+                    // onPress={() => router.push("/auth/OTPVerifyTow")}
+                    disabled={isLoading}
                     style={tw`mt-4 bg-[#ED6237] py-4 rounded-full`}
                   >
-                    <Text
-                      style={tw`text-white text-center text-lg font-inter-600`}
-                    >
-                      Register
-                    </Text>
+                    {isLoading ? (
+                      <ActivityIndicator size="small" color="#ffff" />
+                    ) : (
+                      <Text
+                        style={tw`text-white text-center text-lg font-inter-600`}
+                      >
+                        Register
+                      </Text>
+                    )}
                   </TouchableOpacity>
                 </View>
               )}

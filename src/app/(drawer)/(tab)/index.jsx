@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Dimensions,
   Modal,
   Pressable,
   StyleSheet,
@@ -29,6 +30,8 @@ const Home = () => {
 
   const [isFollower, setIsFollower] = useState(false);
 
+  const { width } = Dimensions.get("window");
+
   return (
     <View style={tw`flex-1  bg-[#FDFFFE] `}>
       {/* top header */}
@@ -37,19 +40,21 @@ const Home = () => {
           <Header />
           <View style={tw`pb-4`}>
             <View
-              style={tw`flex-row gap-2  w-65 items-center justify-center  bg-[#3333331A] p-2 rounded-full `}
+              style={tw`flex-row gap-2 w-[70%]   items-center justify-center  bg-[#3333331A] p-2 rounded-full `}
             >
               {tab.map((item, index) => (
                 <View key={index} style={tw``}>
                   <Pressable onPress={() => setIsActiveTab(item)}>
                     <Text
-                      style={tw`
-                  text-base font-inter-400 px-4 py-1 ${
-                    isActiveTab === item
-                      ? ` text-white bg-orange rounded-full `
-                      : "text-textgray"
-                  }
-                `}
+                      style={[
+                        tw.style(
+                          "font-inter-400 px-4 py-1",
+                          isActiveTab === item
+                            ? "text-white bg-orange rounded-full"
+                            : "text-textgray"
+                        ),
+                        { fontSize: width * 0.04 }, // dynamic font size (e.g. ~15–18px)
+                      ]}
                     >
                       {item}
                     </Text>

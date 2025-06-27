@@ -1,6 +1,7 @@
 import { Link, router } from "expo-router";
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -13,17 +14,43 @@ import {
 import { OtpInput } from "react-native-otp-entry";
 import tw from "twrnc";
 import AuthHeading from "../../components/ui/AuthHeading";
+import { useVerifyOTPMutation } from "../../redux/apiSlices/authApiSlice";
+import { storage } from "../../utils/storage";
 
 const OTPVerifyTow = () => {
   const [otpVerify, setOtpVerify] = useState("");
 
-  const handleNavigate = () => {
-    if (otpVerify) {
-      router.push("auth/ResetPassword");
-    } else {
-      Alert.alert("OTP", "OTP Not Verify");
+  const [verifyotp, { isLoading }] = useVerifyOTPMutation();
+
+  const handleNavigate = async () => {
+    try {
+      if (!otpVerify || otpVerify.length === 0) {
+        Alert.alert("OTP Required", "Please enter the OTP to proceed.");
+        return;
+      }
+
+      // console.log("Verifying OTP:", otpVerify);
+
+      const response = await verifyotp({ otp: otpVerify }).unwrap();
+
+      if (response?.access_token) {
+        // await AsyncStorage.setItem("token", response?.access_token);
+
+        await storage.set("token", response?.access_token);
+
+        Alert.alert("Success", "OTP Verified Successfully!");
+        router.push("/(tab)"); // or your desired route
+      } else {
+        Alert.alert("Verification Failed", "Invalid response from server.");
+      }
+    } catch (error) {
+      // console.error("OTP verification error:", error);
+
+      Alert.alert(
+        "OTP Verification Failed",
+        error?.data?.message || "Something went wrong. Please try again."
+      );
     }
-    router.push("/(tab)");
   };
 
   return (
@@ -66,8 +93,20 @@ const OTPVerifyTow = () => {
             </View>
 
             <View style={tw`w-full flex-col rounded-full bg-[#ED6237] mt-10 `}>
-              <TouchableOpacity onPress={handleNavigate} style={tw`py-4`}>
-                <Text style={tw`text-center text-white text-xl`}>Verify</Text>
+              <TouchableOpacity
+                disabled={isLoading}
+                onPress={handleNavigate}
+                style={tw`py-4`}
+              >
+                {isLoading ? (
+                  <ActivityIndicator size="small" color="#ffff" />
+                ) : (
+                  <Text
+                    style={tw`text-white text-center text-lg font-inter-600`}
+                  >
+                    Verify
+                  </Text>
+                )}
               </TouchableOpacity>
             </View>
           </View>

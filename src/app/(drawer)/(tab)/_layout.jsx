@@ -9,7 +9,7 @@ import {
   IconProfileinActive,
 } from "@/assets/Icon";
 import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { SvgXml } from "react-native-svg";
 
 export default function TabLayout() {
@@ -20,8 +20,13 @@ export default function TabLayout() {
         tabBarActiveTintColor: "#ED6237",
         tabBarInactiveTintColor: "#454545",
         tabBarStyle: {
-          paddingVertical: 10,
           height: 70,
+          paddingBottom: Platform.OS === "ios" ? 25 : 10,
+          paddingTop: 10,
+          borderTopWidth: 0,
+          // position: "absolute", // for floating effect
+          alignItems: "center",
+          justifyContent: "center",
         },
       }}
     >

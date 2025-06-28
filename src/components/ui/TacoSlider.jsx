@@ -1,3 +1,4 @@
+import tw from "@/src/lib/tailwind";
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useRef, useState } from "react";
 
@@ -8,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import tw from "twrnc";
 
 // Dummy image data
 const images = [

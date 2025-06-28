@@ -8,7 +8,7 @@ import {
 import { router, useLocalSearchParams } from "expo-router";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SvgXml } from "react-native-svg";
-import tw from "twrnc";
+import tw from "../../lib/tailwind";
 
 const ViewSinglePost = () => {
   const { index } = useLocalSearchParams();

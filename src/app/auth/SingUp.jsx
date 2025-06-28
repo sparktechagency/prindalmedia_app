@@ -71,7 +71,7 @@ export default function SignUp() {
         );
       }
     } catch (error) {
-      console.error("Registration Error:", error);
+      // console.error("Registration Error:", error);
       Alert.alert(
         "Warning",
         error?.data?.message || "Something went wrong. Please try again."

@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -15,9 +16,10 @@ import {
   View,
 } from "react-native";
 import { SvgXml } from "react-native-svg";
-import tw from "twrnc";
 import * as Yup from "yup";
 import AuthHeading from "../../components/ui/AuthHeading";
+import tw from "../../lib/tailwind";
+import { useChangePasswordMutation } from "../../redux/apiSlices/authApiSlice";
 
 // Yup validation schema
 const ResetPasswordSchema = Yup.object().shape({
@@ -33,10 +35,34 @@ export default function ResetPassword() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleFormSubmit = () => {
+  const [updatedUserPassword, { isLoading }] = useChangePasswordMutation();
+
+  const handleFormSubmit = async (values) => {
+    // user all data
+    const updatedePass = {
+      password: values.password,
+      password_confirmation: values.confirmPassword,
+    };
+
+    try {
+      const res = await updatedUserPassword(updatedePass).unwrap();
+      // console.log(res);
+
+      if (res?.status) {
+        router.push("/(tab)");
+      }
+    } catch (error) {
+      // console.log(error?.message?.password);
+
+      Alert.alert(
+        "Change Password Failed",
+        error?.message || "Something went wrong. Please try again."
+      );
+    }
+
     // Normally you would send API request here
-    Alert.alert("Password Updated", "Your new password has been set.");
-    router.push("/(tab)");
+    // Alert.alert("Password Updated", error?.message?.password);
+    // router.push("/(tab)");
   };
 
   return (
@@ -139,29 +165,29 @@ export default function ResetPassword() {
                   </View>
 
                   {/* Submit Button */}
-                  <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
+                  {/* <View style={tw`w-full mt-10 rounded-full bg-[#ED6237]`}>
                     <TouchableOpacity onPress={handleSubmit} style={tw`py-4`}>
                       <Text style={tw`text-center text-white text-xl`}>
                         Update
                       </Text>
                     </TouchableOpacity>
-                  </View>
+                  </View> */}
 
                   {/* Submit Button */}
-                  {/* <TouchableOpacity
-                      onPress={handleSubmit}
-                      style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
-                    >
-                      {isLoading ? (
-                        <ActivityIndicator size="small" color="#ffff" />
-                      ) : (
-                        <Text
-                          style={tw`text-white text-center text-lg font-inter-600`}
-                        >
-                          Sign in
-                        </Text>
-                      )}
-                    </TouchableOpacity> */}
+                  <TouchableOpacity
+                    onPress={handleSubmit}
+                    style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
+                  >
+                    {isLoading ? (
+                      <ActivityIndicator size="small" color="#ffff" />
+                    ) : (
+                      <Text
+                        style={tw`text-white text-center text-lg font-inter-600`}
+                      >
+                        Update
+                      </Text>
+                    )}
+                  </TouchableOpacity>
                 </>
               )}
             </Formik>

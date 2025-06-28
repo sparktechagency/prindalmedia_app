@@ -1,4 +1,4 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -12,8 +12,9 @@ import {
   View,
 } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
-import tw from "twrnc";
 import AuthHeading from "../../components/ui/AuthHeading";
+import ResendEmail from "../../components/ui/ResendEmail";
+import tw from "../../lib/tailwind";
 import { useVerifyOTPMutation } from "../../redux/apiSlices/authApiSlice";
 import { storage } from "../../utils/storage";
 
@@ -84,12 +85,7 @@ const OTPVerifyTow = () => {
                 }}
               />
               {/* navigation */}
-              <Link
-                href=""
-                style={tw`text-[#ED6237] text-sm font-semibold underline `}
-              >
-                Send again?
-              </Link>
+              <ResendEmail />
             </View>
 
             <View style={tw`w-full flex-col rounded-full bg-[#ED6237] mt-10 `}>

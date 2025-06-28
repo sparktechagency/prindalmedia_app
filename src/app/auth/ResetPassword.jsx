@@ -87,6 +87,7 @@ export default function ResetPassword() {
                         value={values.password}
                         placeholderTextColor="#888"
                         selectionColor={"#888"}
+                        placeholder="Enter new password"
                       />
                       <Feather
                         name={showPassword ? "eye-off" : "eye"}
@@ -118,6 +119,7 @@ export default function ResetPassword() {
                         value={values.confirmPassword}
                         placeholderTextColor="#888"
                         selectionColor={"#888"}
+                        placeholder="Confirm new password"
                       />
                       <Feather
                         name={showConfirmPassword ? "eye-off" : "eye"}
@@ -144,6 +146,22 @@ export default function ResetPassword() {
                       </Text>
                     </TouchableOpacity>
                   </View>
+
+                  {/* Submit Button */}
+                  {/* <TouchableOpacity
+                      onPress={handleSubmit}
+                      style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
+                    >
+                      {isLoading ? (
+                        <ActivityIndicator size="small" color="#ffff" />
+                      ) : (
+                        <Text
+                          style={tw`text-white text-center text-lg font-inter-600`}
+                        >
+                          Sign in
+                        </Text>
+                      )}
+                    </TouchableOpacity> */}
                 </>
               )}
             </Formik>

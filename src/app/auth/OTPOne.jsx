@@ -1,6 +1,7 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -11,17 +12,45 @@ import {
   View,
 } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
-import tw from "twrnc";
 import AuthHeading from "../../components/ui/AuthHeading";
+import ResendEmail from "../../components/ui/ResendEmail";
+import tw from "../../lib/tailwind";
+import { useVerifyOTPMutation } from "../../redux/apiSlices/authApiSlice";
+import { storage } from "../../utils/storage";
 
 const OTPOne = () => {
   const [otpVerify, setOtpVerify] = useState("");
 
-  const handleNavigate = () => {
-    if (otpVerify) {
-      router.push("auth/EmailVerify");
-    } else {
-      Alert.alert("OTP", "OTP Not Verify");
+  const [verifyotp, { isLoading }] = useVerifyOTPMutation();
+
+  const handleOTPVeriFy = async () => {
+    try {
+      if (!otpVerify || otpVerify.length === 0) {
+        Alert.alert("OTP Required", "Please enter the OTP to proceed.");
+        return;
+      }
+
+      // console.log("Verifying OTP:", otpVerify);
+
+      const response = await verifyotp({ otp: otpVerify }).unwrap();
+
+      if (response?.access_token) {
+        // await AsyncStorage.setItem("token", response?.access_token);
+
+        await storage.set("token", response?.access_token);
+
+        Alert.alert("Success", "OTP Verified Successfully!");
+        router.push("/auth/ResetPassword"); // or your desired route
+      } else {
+        Alert.alert("Verification Failed", "Invalid response from server.");
+      }
+    } catch (error) {
+      // console.error("OTP verification error:", error);
+
+      Alert.alert(
+        "OTP Verification Failed",
+        error?.data?.message || "Something went wrong. Please try again."
+      );
     }
   };
 
@@ -56,21 +85,32 @@ const OTPOne = () => {
               }}
             />
             {/* navigation */}
-            <Link
-              href=""
-              style={tw`text-[#ED6237] text-sm font-semibold underline `}
-            >
-              Send again?
-            </Link>
+            <ResendEmail />
           </View>
 
-          <View
+          {/* <View
             style={tw`w-full flex-col gap-4 mt-10 rounded-full bg-[#ED6237] `}
           >
             <TouchableOpacity onPress={handleNavigate} style={tw`py-4`}>
-              <Text style={tw`text-center text-white text-xl`}>Verify</Text>
+              <Text style={tw`text-center text-white text-xl`}></Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
+
+          {/*  */}
+          {/* Sign In Button */}
+          <TouchableOpacity
+            onPress={handleOTPVeriFy}
+            // onPress={() => router.push("/(tab)")}
+            style={tw`mt-6 bg-[#F15A29] p-4 rounded-full`}
+          >
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#ffff" />
+            ) : (
+              <Text style={tw`text-white text-center text-lg font-inter-600`}>
+                Verify
+              </Text>
+            )}
+          </TouchableOpacity>
         </SafeAreaView>
       </View>
     </KeyboardAvoidingView>

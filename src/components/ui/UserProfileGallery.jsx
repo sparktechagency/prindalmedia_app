@@ -1,7 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { TouchableOpacity, View } from "react-native";
-import tw from "twrnc";
+import tw from "../../lib/tailwind";
 
 export default function UserProfileGallery({ image, setImage }) {
   // console.log(image);

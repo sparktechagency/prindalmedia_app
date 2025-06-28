@@ -59,7 +59,7 @@ export const AuthApiSlice = api.injectEndpoints({
     // forget password
     forgetPassword: builder.mutation({
       query: (data) => ({
-        url: `/forgot-password`,
+        url: `/change-password`,
         method: "POST",
         body: data,
       }),
@@ -112,8 +112,8 @@ export const AuthApiSlice = api.injectEndpoints({
 
     // other user profile data by id
     getOthersProfile: builder.query({
-      query: ({ id }) => ({
-        url: `/user-friend-profile?friend_id=${id}`,
+      query: () => ({
+        url: `/profile`,
       }),
       providesTags: ["auth"],
     }),

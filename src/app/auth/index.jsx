@@ -2,11 +2,12 @@ import { Iconlock, IconMail } from "@/assets/Icon";
 import tw from "@/src/lib/tailwind";
 import Feather from "@expo/vector-icons/Feather";
 import Checkbox from "expo-checkbox";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { Formik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
@@ -35,9 +36,19 @@ export default function Index() {
 
   const [userLogin, { isLoading }] = useLoginMutation();
 
+  useEffect(() => {
+    const fetchToken = async () => {
+      const token = await storage.getString("token");
+      if (token) {
+        router.push("/(tab)");
+      }
+    };
+    fetchToken();
+  }, []);
+
   const handleLogin = async (values) => {
     // Here you'd normally call your API or auth logic
-    console.log("Login values:", values);
+    // console.log("Login values:", values);
 
     const userData = {
       email: values?.email,
@@ -48,12 +59,14 @@ export default function Index() {
 
     try {
       const response = await userLogin(userData).unwrap();
-      // console.log(res);
+      console.log("api response ", response);
 
-      if (response.status) {
+      if (response?.token) {
         await storage.set("token", response?.token);
-        await storage.set("user", JSON.stringify(response.user));
+        await storage.set("user", JSON.stringify(response?.user));
         // console.log("login_user : ", login_user, response.user);
+        Alert.alert("Success", response?.message);
+        router.push("/(tab)");
       }
     } catch (error) {
       console.log(error);

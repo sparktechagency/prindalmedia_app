@@ -1,13 +1,7 @@
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
-import {
-  Modal,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import tw from "twrnc";
+import { Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
+import tw from "../../lib/tailwind";
 
 const SuccessAlert = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -30,9 +24,7 @@ const SuccessAlert = () => {
         onRequestClose={() => setIsVisible(false)}
       >
         <View style={tw`flex-1 bg-black/40 justify-center items-center`}>
-          <View
-            style={tw`bg-white w-80 rounded-2xl p-6 items-center`}
-          >
+          <View style={tw`bg-white w-80 rounded-2xl p-6 items-center`}>
             {/* Icon */}
             <View style={tw`bg-gray-200 p-4 rounded-full mb-4`}>
               <AntDesign name="checkcircle" size={32} color="black" />

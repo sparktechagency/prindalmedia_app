@@ -1,7 +1,7 @@
 import { IconLogOut } from "@/assets/Icon";
 import { Text, View } from "react-native";
 import { SvgXml } from "react-native-svg";
-import tw from "twrnc";
+import tw from "../../lib/tailwind";
 
 const Logout = () => {
   return (

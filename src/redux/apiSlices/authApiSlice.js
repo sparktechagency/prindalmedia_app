@@ -1,20 +1,19 @@
 import { api } from "../api/baseApi";
 
 export const AuthApiSlice = api.injectEndpoints({
+  overrideExisting: true, //Prevents duplicate endpoint errors
   endpoints: (builder) => ({
-    // login
+    // Login
     login: builder.mutation({
-      query: (data) => {
-        return {
-          url: `/login`,
-          method: "POST",
-          body: data,
-        };
-      },
+      query: (data) => ({
+        url: `/login`,
+        method: "POST",
+        body: data,
+      }),
       invalidatesTags: ["auth"],
     }),
 
-    // signUp
+    // Sign Up
     signUp: builder.mutation({
       query: (data) => ({
         url: `/register`,
@@ -24,30 +23,23 @@ export const AuthApiSlice = api.injectEndpoints({
       invalidatesTags: ["auth"],
     }),
 
-    // get username
+    // Get Username
     getUserName: builder.query({
-      query: (data) => {
-        console.log("response check: ", data);
-        console.log(`/get-username?query=${data}`);
-        return {
-          url: `/get-username?query=${data}`,
-        };
-      },
+      query: (data) => ({
+        url: `/get-username?query=${data}`,
+      }),
     }),
 
-    // verify OTP
+    // Verify OTP
     verifyOTP: builder.mutation({
-      query: (data) => {
-        console.log("from rtk: ", data);
-        return {
-          url: `/verify-otp`,
-          method: "POST",
-          body: data,
-        };
-      },
+      query: (data) => ({
+        url: `/verify-otp`,
+        method: "POST",
+        body: data,
+      }),
     }),
 
-    // resend OTP
+    // Resend OTP
     resendOTP: builder.mutation({
       query: (data) => ({
         url: `/resend-otp`,
@@ -56,8 +48,17 @@ export const AuthApiSlice = api.injectEndpoints({
       }),
     }),
 
-    // forget password
+    // Forget Password (Send OTP/Request)
     forgetPassword: builder.mutation({
+      query: (data) => ({
+        url: `/forgot-password`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    // Change Password (OTP + New Pass)
+    changePassword: builder.mutation({
       query: (data) => ({
         url: `/change-password`,
         method: "POST",
@@ -65,17 +66,7 @@ export const AuthApiSlice = api.injectEndpoints({
       }),
     }),
 
-    // Change Password
-    changePassword: builder.mutation({
-      query: (data) => {
-        return {
-          url: `/create-password`,
-          method: "POST",
-          body: data,
-        };
-      },
-    }),
-    // update password
+    // Update Password (inside account)
     updatePassword: builder.mutation({
       query: (data) => ({
         url: `/update-password`,
@@ -85,7 +76,7 @@ export const AuthApiSlice = api.injectEndpoints({
       invalidatesTags: ["auth"],
     }),
 
-    // get profile
+    // Get Logged-in User Profile
     getProfile: builder.query({
       query: () => ({
         url: `/profile`,
@@ -93,7 +84,7 @@ export const AuthApiSlice = api.injectEndpoints({
       providesTags: ["auth"],
     }),
 
-    // update profile
+    // Update Profile Info
     updateProfile: builder.mutation({
       query: (data) => ({
         url: `/profile-update?_method=PUT`,
@@ -103,23 +94,24 @@ export const AuthApiSlice = api.injectEndpoints({
       invalidatesTags: ["auth"],
     }),
 
-    // token validation check
+    // Token Validation
     validateToken: builder.query({
       query: () => ({
         url: `/validate-token`,
       }),
     }),
 
-    // other user profile data by id
+    // Get Other User Profile
     getOthersProfile: builder.query({
-      query: () => ({
-        url: `/profile`,
+      query: (id) => ({
+        url: `/profile/${id}`,
       }),
       providesTags: ["auth"],
     }),
   }),
 });
 
+// Export hooks
 export const {
   useLoginMutation,
   useSignUpMutation,
@@ -130,8 +122,7 @@ export const {
   useChangePasswordMutation,
   useUpdatePasswordMutation,
   useGetProfileQuery,
-
-  useGetOthersProfileQuery,
   useUpdateProfileMutation,
   useValidateTokenQuery,
+  useGetOthersProfileQuery,
 } = AuthApiSlice;

@@ -1,7 +1,9 @@
 import { Fontisto } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Formik } from "formik";
-import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -11,9 +13,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import tw from "twrnc";
 import * as Yup from "yup";
 import AuthHeading from "../../components/ui/AuthHeading";
+import tw from "../../lib/tailwind";
+import { useForgetPasswordMutation } from "../../redux/apiSlices/authApiSlice";
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,10 +25,26 @@ const ForgotPasswordSchema = Yup.object().shape({
 });
 
 const EmailVerify = () => {
-  const [verifyEmail, setVerifyEmail] = useState("");
+  // const [email, setEmail] = useState("");
 
-  const handleFormSubmit = (values) => {
-    setVerifyEmail(values.email);
+  const [resetEmail, { isLoading }] = useForgetPasswordMutation();
+
+  const handleFormSubmit = async (values) => {
+    try {
+      // send user eamil
+      const res = await resetEmail({ email: values.email }).unwrap();
+
+      // user data all ok
+      if (res?.status) {
+        Alert.alert("Success", res?.message);
+        router.push("/auth/OTPOne");
+      } else {
+        Alert.alert("Failed", res?.message || "Something went wrong");
+      }
+    } catch (error) {
+      // console.error("OTP Email Error:", error);
+      Alert.alert("Error", error?.message || "Something went wrong");
+    }
   };
 
   return (
@@ -78,6 +97,7 @@ const EmailVerify = () => {
                       placeholderTextColor="#888"
                       selectionColor={"#888"}
                       placeholder="Enter your email"
+                      // onChange={(text) => setEmail(text)}
                     />
                   </View>
                   {touched.email && errors.email && (
@@ -91,7 +111,11 @@ const EmailVerify = () => {
                 >
                   <TouchableOpacity onPress={handleSubmit} style={tw`py-4`}>
                     <Text style={tw`text-center text-white text-xl`}>
-                      Submit
+                      {isLoading ? (
+                        <ActivityIndicator size="small" color="#ffff" />
+                      ) : (
+                        "Submit"
+                      )}
                     </Text>
                   </TouchableOpacity>
                 </View>

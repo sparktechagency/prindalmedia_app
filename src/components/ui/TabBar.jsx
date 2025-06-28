@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import tw from "twrnc";
+import tw from "../../lib/tailwind";
 
 const TabBar = ({ activeTab, onTabChange }) => {
   return (

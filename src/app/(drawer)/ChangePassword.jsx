@@ -122,6 +122,8 @@ const ChangePassword = () => {
                           onChangeText={handleChange("currentPassword")}
                           onBlur={handleBlur("currentPassword")}
                           value={values.currentPassword}
+                          placeholder="Old Password"
+                          selectionColor={"#888"}
                         />
                         <Feather
                           onPress={() => setShowCurrent(!showCurrent)}
@@ -156,6 +158,8 @@ const ChangePassword = () => {
                           onChangeText={handleChange("newPassword")}
                           onBlur={handleBlur("newPassword")}
                           value={values.newPassword}
+                          placeholder="New Password"
+                          selectionColor={"#888"}
                         />
                         <Feather
                           onPress={() => setShowNew(!showNew)}
@@ -190,6 +194,8 @@ const ChangePassword = () => {
                           onChangeText={handleChange("confirmPassword")}
                           onBlur={handleBlur("confirmPassword")}
                           value={values.confirmPassword}
+                          placeholder="Confirm New Password"
+                          selectionColor={"#888"}
                         />
                         <Feather
                           onPress={() => setShowConfirm(!showConfirm)}

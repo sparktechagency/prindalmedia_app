@@ -17,6 +17,7 @@ import TagManager from "../../../components/ui/TagManager";
 import TagPepoleView from "../../../components/ui/TagPepoleView";
 import UserRating from "../../../components/ui/UserRating";
 import tw from "../../../lib/tailwind";
+import { useShareMealMutation } from "../../../redux/postApi/postApi";
 
 //  updated and more better code readabel
 
@@ -24,88 +25,74 @@ const Post = () => {
   const [userName, setuserName] = useState("");
   const [mealName, setMealName] = useState("");
   const [description, setDescription] = useState("");
-
-  // restaurant, setRestaurant -> this hook
   const [selectedOption, setSelectedOption] = useState("");
-  // meal, setMeal -> this hoos
   const [selectedOptionFood, setSelectedOptionFood] = useState("");
-
-  // view dailog
   const [isVisible, setIsVisible] = useState(false);
-
-  //get locations all data get user
   const [selectedLocation, setSelectedLocation] = useState(null);
-  // console.log( 'view new locations ' ,selectedLocation?.name);
-  // console.log( 'view new   {"lat": 23.7520933, "lng": 90.4246379} ' ,selectedLocation?.geometry?.location);
-
-  // user Rating
   const [rating, setRating] = useState("");
   const [restaurant, setRestaurant] = useState("");
-  // console.log(restaurant);
-
-  //
   const [tags, setTags] = useState([]);
-
-  // console.log(userName);
-
-  //get image url
-  const [image, setImage] = useState();
-  // console.log(image);
-
+  const [image, setImage] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-
-  // console.log(selectedOption);
   const [hover, setHover] = useState("");
+  const [userPostData, { isLoading }] = useShareMealMutation();
 
-  const handleSubmit = () => {
-    // You can customize validation logic here
-    const formData = {
-      userName,
-      selectedOption, // e.g., restaurant
-      selectedOptionFood, // e.g., meal
-      selectedLocation,
-      rating,
-      image,
-      mealName,
-      description,
-      hover,
-      tags,
-      restaurant,
-    };
+  const handleSubmit = async () => {
+    // Create FormData object
+    const formData = new FormData();
 
-    Alert.alert(
-      "Success!",
-      "Your data has been submitted.",
-      [
-        {
-          text: "OK",
-          // onPress: () => console.log("Alert closed"),
-          style: "default",
-        },
-      ],
-      { cancelable: true }
-    );
+    // Append simple fields
+    formData.append("meal_name", "Text"); // minimal 2 characters, required
+    formData.append("have_it", "1"); // required (1 for Restaurant, 2 for Home-made)
+    formData.append("restaurant_name", "Restaurant_name"); // nullable
+    formData.append("food_type", "Meal"); // required
+    formData.append("location", "Asthuliya"); // nullable
+    formData.append("description", "Wow very nice and testy."); // required
+    formData.append("rating", "4"); // nullable
 
-    // Here you can send formData to your backend or log it
-    // console.log("Submitted Data:", rating);
+    // Append tags as a JSON string array
+    const hardcodedTags = ["tag 1", "tag 2", "tag 3"];
+    formData.append("tagged", JSON.stringify(hardcodedTags));
 
-    // Reset all states
-    setuserName("");
-    setSelectedOption("");
-    setSelectedOptionFood("");
-    setSelectedLocation(null);
-    setHover("");
-    setMealName("");
-    setDescription("");
-    setRating("");
-    setTags("");
-    setImage(null);
-    setIsVisible(false); // hide dialog if needed
-    setRestaurant("");
+    // Append images as separate form fields with the same name
+    const hardcodedImages = [
+      {
+        uri: "file://path/to/image1.jpg",
+        type: "image/jpeg",
+        name: "image1.jpg",
+      },
+      {
+        uri: "file://path/to/image2.jpg",
+        type: "image/jpeg",
+        name: "image2.jpg",
+      },
+      {
+        uri: "file://path/to/image3.jpg",
+        type: "image/jpeg",
+        name: "image3.jpg",
+      },
+    ];
+
+    // Append each image with the same key 'images[]'
+    hardcodedImages.forEach((img) => {
+      formData.append("images[]", img);
+    });
+
+    // Log the FormData entries for debugging
+    const entries = Array.from(formData.entries());
+    for (let [key, value] of entries) {
+      console.log(`${key}:`, value);
+    }
+
+    try {
+      const response = await userPostData(formData).unwrap();
+      console.log("API response:", response);
+      Alert.alert("Success", "Your meal has been shared successfully!");
+    } catch (error) {
+      console.error("Submit failed:", error);
+      Alert.alert("Warning", "Failed to share your meal. Please try again.");
+    }
   };
-
-  // console.log(image?.length);
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

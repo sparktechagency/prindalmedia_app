@@ -226,12 +226,23 @@ import {
 } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { SvgXml } from "react-native-svg";
+import useUserId from "../../hooks/useUserId";
 import tw from "../../lib/tailwind";
+import {
+  useGetUserCommentQuery,
+  usePostUserCommentMutation,
+} from "../../redux/commentApi/commentApi.js";
 
-export default function ButtomSheet() {
+const ButtomSheet = ({ item }) => {
   const bottomSheetRef = useRef();
+
+  const { data, isLoading } = useGetUserCommentQuery({ id: item?.id });
+  // console.log(data?.data);
+
   const [likeId, setLikeId] = useState([]);
   const [comment, setComment] = useState("");
+  // console.log("comment : ", comment);
+
   const [comments, setComments] = useState([
     { id: 1, user: "Casey", text: "It's a nice food. Very tasty & sweet." },
     { id: 2, user: "Alex", text: "Loved it!" },
@@ -265,17 +276,24 @@ export default function ButtomSheet() {
     bottomSheetRef.current.open();
   };
 
-  const handleComment = () => {
-    if (comment.trim() === "") return;
+  const [userComment, { isLoading: newLoading }] = usePostUserCommentMutation();
 
-    const newComment = {
-      id: Date.now(),
-      user: "You",
-      text: comment.trim(),
-    };
-    setComments([newComment, ...comments]);
-    setComment("");
-    Keyboard.dismiss();
+  const userId = useUserId();
+  // console.log(userId);
+
+  const handleComment = async () => {
+    // if (comment.trim() === "") return;
+
+    console.log("view");
+
+    const usehh = { id: userId, comment: comment };
+    console.log(usehh);
+
+    const res = await userComment(usehh).unwrap();
+    console.log("view commen", res);
+
+    // setComment("");
+    // Keyboard.dismiss();
   };
 
   const handlClose = () => {
@@ -363,7 +381,7 @@ export default function ButtomSheet() {
               style={styles.commentList}
               keyboardDismissMode="on-drag"
             >
-              {comments.map((item) => (
+              {data?.data?.map((item) => (
                 <View key={item.id}>
                   <View style={tw`flex-row items-start justify-between my-2`}>
                     <View style={tw`flex-row flex-1`}>
@@ -375,12 +393,12 @@ export default function ButtomSheet() {
                       />
                       <View style={tw`flex-1`}>
                         <Text style={tw`text-textgray font-inter-600 text-3`}>
-                          {item.user}
+                          {item?.user}
                         </Text>
                         <Text
                           style={tw`text-textPrimary text-4 font-inter-400 mt-0.5`}
                         >
-                          {item.text}
+                          {item?.comment}
                         </Text>
                         <View style={tw`flex-row mt-1`}>
                           <TouchableOpacity>
@@ -453,7 +471,7 @@ export default function ButtomSheet() {
       </RBSheet>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   safeArea: {},
@@ -469,6 +487,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 });
+
+export default ButtomSheet;
 
 // import { IconComment, IconDelete, IconHeart, IconsBlue } from "@/assets/Icon";
 // import { Ionicons } from "@expo/vector-icons";

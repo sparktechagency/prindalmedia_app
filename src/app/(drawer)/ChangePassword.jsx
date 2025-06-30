@@ -4,6 +4,8 @@ import { router } from "expo-router";
 import { Formik } from "formik";
 import { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -17,6 +19,7 @@ import { SvgXml } from "react-native-svg";
 import * as Yup from "yup";
 import BackButton from "../../components/ui/BackButton";
 import tw from "../../lib/tailwind";
+import { useChangePasswordMutation } from "../../redux/apiSlices/authApiSlice";
 
 //  Yup validation schema
 const validationSchema = Yup.object().shape({
@@ -38,27 +41,31 @@ const ChangePassword = () => {
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const handleSubmit = (values) => {
-    router.push("(drawer)/(tab)");
-    // Handle API call or navigation
-  };
+  const [change_password, { isLoading, reset }] = useChangePasswordMutation();
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-
-  const handleSubmi = async () => {
-    router.push("(drawer)/(tab)");
+  const handleSubmit = async (values) => {
+    const newPass = {
+      current_password: values.currentPassword,
+      password: values.newPassword,
+      password_confirmation: values.newPassword,
+    };
 
     try {
-      setIsSubmitting(true);
-      setError(null);
-      // await submitFunction();
-    } catch (err) {
-      setError(err?.message || "Something went wrong");
-    } finally {
-      setIsSubmitting(false);
+      const res = await change_password(newPass).unwrap();
+      if (res?.status) {
+        reset();
+        Alert.alert(
+          "Success",
+          res?.message || "Password changed successfully."
+        );
+
+        router.push("/(drawer)/(tab)");
+      }
+    } catch (error) {
+      Alert.alert("Error", error?.data?.message || "Something went wrong.");
     }
   };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -105,7 +112,7 @@ const ChangePassword = () => {
                   <View style={tw`flex-col gap-4 mt-5`}>
                     {/* Current Password */}
                     <View style={tw`flex-col gap-2`}>
-                      <Text style={tw`text-3.5 text-[#121212] font-inter-600 `}>
+                      <Text style={tw`text-sm text-[#121212] font-inter-600 `}>
                         Current Password
                       </Text>
                       <View
@@ -177,7 +184,7 @@ const ChangePassword = () => {
 
                     {/* Confirm Password */}
                     <View style={tw`flex-col gap-2`}>
-                      <Text style={tw`text-3.5 text-[#121212] font-inter-600 `}>
+                      <Text style={tw`text-sm text-[#121212] font-inter-600 `}>
                         Confirm Password
                       </Text>
                       <View
@@ -213,16 +220,19 @@ const ChangePassword = () => {
                   </View>
 
                   {/* Submit Button */}
-                  <View style={tw`  `}>
+                  <View style={tw``}>
                     <Pressable
-                      onPress={handleSubmi}
-                      disabled={isSubmitting}
-                      style={tw`items-center justify-center flex-row ${
-                        isSubmitting ? "bg-gray-400" : "bg-orange"
-                      } w-full rounded-full`}
+                      onPress={handleSubmit}
+                      // disabled={isSubmitting}
+                      style={tw`items-center justify-center flex-row  bg-orange w-full rounded-full`}
                     >
                       <Text style={tw`text-white py-3 font-medium text-lg`}>
-                        {isSubmitting ? "Saving..." : "Save Changes"}
+                        {isLoading ? (
+                          <ActivityIndicator size="small" color="#ffff" />
+                        ) : (
+                          "Save Changes"
+                        )}
+                        {/* Save Changes */}
                       </Text>
                     </Pressable>
                   </View>

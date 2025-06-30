@@ -54,8 +54,8 @@ export const api = createApi({
   endpoints: () => ({}),
   tagTypes: [
     "auth",
-    "attractions",
-    "bucket",
+    "post",
+    "home",
     "friend",
     "dashboard",
     "equipment",

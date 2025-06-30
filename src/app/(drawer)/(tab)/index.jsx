@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   Modal,
@@ -14,9 +14,20 @@ import Header from "../../../components/ui/Header";
 import ReportInput from "../../../components/ui/ReportInput";
 import UserPost from "../../../components/ui/UserPost";
 import tw from "../../../lib/tailwind";
+import { storage } from "../../../utils/storage";
 
 const Home = () => {
   const tab = ["Following", "Discovery"];
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const token = await storage.getString("token");
+      if (token) {
+        // router.push("/(tab)");
+      }
+    };
+    fetchToken();
+  }, []);
 
   const [isActiveTab, setIsActiveTab] = useState("Following");
 

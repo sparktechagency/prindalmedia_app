@@ -7,7 +7,6 @@ import { Formik } from "formik";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Alert,
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
@@ -37,15 +36,18 @@ export default function Index() {
   const [userLogin, { isLoading }] = useLoginMutation();
 
   useEffect(() => {
-    const fetchToken = async () => {
-      const token = await storage.getString("token");
-      if (token) {
-        router.push("/(tab)");
-      }
-    };
-    fetchToken();
-  }, []);
+    const checkToken = async () => {
+      const token = storage.getString("token");
 
+      if (token) {
+        router.replace("/(tab)"); // Main tab/home screen
+      }
+
+      // setLoading(false);
+    };
+
+    checkToken();
+  }, []);
   const handleLogin = async (values) => {
     // Here you'd normally call your API or auth logic
     // console.log("Login values:", values);
@@ -59,13 +61,13 @@ export default function Index() {
 
     try {
       const response = await userLogin(userData).unwrap();
-      console.log("api response ", response);
+      // console.log("api response ", response);
 
       if (response?.token) {
         await storage.set("token", response?.token);
         await storage.set("user", JSON.stringify(response?.user));
         // console.log("login_user : ", login_user, response.user);
-        Alert.alert("Success", response?.message);
+        // Alert.alert("Success", response?.message);
         router.push("/(tab)");
       }
     } catch (error) {

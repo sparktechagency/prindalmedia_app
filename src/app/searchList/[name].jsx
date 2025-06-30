@@ -13,7 +13,7 @@ const ListView = () => {
 
   // Normalize the name parameter to handle potential whitespace or case differences
   const normalizedName = typeof name === "string" ? name.trim() : "";
-  // console.log(normalizedName);
+  console.log(normalizedName);
 
   return (
     <View style={tw`flex-1 bg-[#FDFFFE]`}>

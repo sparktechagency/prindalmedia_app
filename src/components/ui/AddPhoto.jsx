@@ -2,10 +2,10 @@ import { IconAddPhoto, IconsImageDeleted } from "@/assets/Icon";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import {
+  FlatList,
   Image,
   Modal,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -20,8 +20,7 @@ export default function AddPhoto({ setImage, modalVisible, setModalVisible }) {
 
   const [storeImage, setStoreImage] = useState([]);
 
-  // console.log(storeImage);
-  // console.log(storeImage.length);
+  setImage(storeImage);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -30,16 +29,16 @@ export default function AddPhoto({ setImage, modalVisible, setModalVisible }) {
       quality: 1,
     });
 
-    if (!result?.canceled && result?.assets && result?.assets?.length > 0) {
-      const uri = result?.assets[0]?.uri;
-      if (storeImage?.length < 5) {
-        setStoreImage((prev) => [...prev, uri]);
-      }
-      // data send to server
-      setImage(storeImage);
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      // Extract just the image object from assets[0]
+      const imageObj = {
+        ...result.assets[0],
+      };
+
+      setStoreImage((prev) => [...prev, imageObj]);
+      setImage((prev) => [...prev, imageObj]);
     }
   };
-
   // removed the image from the array
   const handleImageRemoved = (uri) => {
     setStoreImage(storeImage?.filter((item) => item !== uri));
@@ -81,24 +80,29 @@ export default function AddPhoto({ setImage, modalVisible, setModalVisible }) {
                   </TouchableOpacity>
                 </View>
 
-                <ScrollView>
-                  {storeImage?.map((img, index) => (
-                    <View key={index + 1} style={tw` relative my-2 `}>
-                      <Image
-                        source={{ uri: img }}
-                        style={tw` rounded w-full h-40`}
-                        resizeMode="cover"
-                      />
+                <>
+                  <FlatList
+                    data={storeImage}
+                    keyExtractor={(item, index) => `${item}-${index}`}
+                    renderItem={({ item }) => (
+                      <View style={tw`relative my-2`}>
+                        <Image
+                          source={{ uri: item }}
+                          style={tw`rounded w-full h-40`}
+                          resizeMode="cover"
+                        />
 
-                      <TouchableOpacity
-                        onPress={() => handleImageRemoved(img)}
-                        style={tw` rounded  right-2 top-2 absolute p-1 bg-orange`}
-                      >
-                        <SvgXml xml={IconsImageDeleted} />
-                      </TouchableOpacity>
-                    </View>
-                  ))}
-                </ScrollView>
+                        <TouchableOpacity
+                          onPress={() => handleImageRemoved(item)}
+                          style={tw`absolute right-2 top-2 p-1 bg-orange rounded`}
+                        >
+                          <SvgXml xml={IconsImageDeleted} />
+                        </TouchableOpacity>
+                      </View>
+                    )}
+                    showsVerticalScrollIndicator={false}
+                  />
+                </>
               </View>
               <TouchableOpacity
                 style={tw` bg-orange py-2 rounded `}

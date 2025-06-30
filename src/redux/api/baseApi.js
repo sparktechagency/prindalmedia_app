@@ -56,7 +56,7 @@ export const api = createApi({
     "auth",
     "post",
     "home",
-    "friend",
+    "comment",
     "dashboard",
     "equipment",
     "quests",

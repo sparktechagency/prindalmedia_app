@@ -28,7 +28,7 @@ const PostViewCard = ({ item, openModal, handleNavigate }) => {
   }, []);
 
   return (
-    <View style={tw`my-3 py-2 flex-col gap-3`}>
+    <View style={tw` flex-1 my-3 py-2 flex-col gap-3 `}>
       {/* Header */}
       <View style={tw`flex-row items-center gap-2`}>
         <TouchableOpacity onPress={handleNavigate}>
@@ -92,23 +92,30 @@ const PostViewCard = ({ item, openModal, handleNavigate }) => {
       <TacoSlider />
 
       {/* Actions */}
-      <View style={tw`flex-row gap-4 items-center justify-between mt-3`}>
-        <View style={tw`flex-row gap-4 justify-center items-center`}>
-          <View style={tw`flex-row justify-center gap-1 items-center`}>
+      <View style={tw`flex-row  mr-[5%] items-center  mt-3`}>
+        {/* Left Actions: Like, Comment, Share */}
+        <View style={tw`flex-row items-center gap-4`}>
+          {/* Like */}
+          <View style={tw`flex-row items-center gap-1`}>
             <TouchableOpacity onPress={toggleHeart}>
               <SvgXml xml={isHeart ? IconHeart : IconLove} />
             </TouchableOpacity>
-            <Text style={tw`text-3 font-inter-600 text-[#454545]`}>1111</Text>
-          </View>
-          <View style={tw`flex-row gap-1 justify-center items-center`}>
-            <ButtomSheet item={item} />
-            <Text style={tw`text-3 font-inter-600 text-[#454545]`}>
-              {item?.comments || 0}
+            <Text style={tw`text-[13px] font-inter-600 text-[#454545]`}>
+              1111
             </Text>
           </View>
+
+          {/* Comment */}
+          <ButtomSheet item={item} />
+
+          {/* Share */}
           <ShareButton />
         </View>
-        <BookMark />
+
+        {/* Bookmark (Right Side) */}
+        <View style={tw``}>
+          <BookMark />
+        </View>
       </View>
 
       {/* Content */}

@@ -1,851 +1,397 @@
-// import { IconComment, IconDelete, IconHeart, IconsBlue } from "@/assets/Icon";
-// import { Ionicons } from "@expo/vector-icons";
-// import { useRef, useState } from "react";
-// import {
-//   Alert,
-//   Image,
-//   SafeAreaView,
-//   ScrollView,
-//   Text,
-//   TextInput,
-//   TouchableOpacity,
-//   View,
-// } from "react-native";
-// import RBSheet from "react-native-raw-bottom-sheet";
-// import { SvgXml } from "react-native-svg";
-// import tw from "../../lib/tailwind";
-
-// export default function ButtomSheet() {
-//   const bottomSheetRef = useRef();
-//   const [likeId, setLikeId] = useState([]);
-//   const [comment, setComment] = useState("");
-//   const [comments, setComments] = useState([
-//     { id: 1, user: "Casey", text: "It's a nice food. Very tasty & sweet." },
-//     { id: 2, user: "Alex", text: "Loved it!" },
-//     { id: 3, user: "Mia", text: "Not bad." },
-//     { id: 4, user: "Mia", text: "Not bad." },
-//     { id: 5, user: "Mia", text: "Not bad." },
-//   ]);
-
-//   const openBottomSheet = () => {
-//     bottomSheetRef.current.open();
-//   };
-
-//   const handleComment = () => {
-//     if (comment.trim() === "") return;
-
-//     const newComment = {
-//       id: Date.now(),
-//       user: "You",
-//       text: comment.trim(),
-//     };
-//     setComments([newComment, ...comments]);
-//     setComment("");
-//   };
-
-//   const handlClose = () => {
-//     bottomSheetRef.current.close();
-//   };
-
-//   const handleDelete = (id) => {
-//     Alert.alert(
-//       "Delete Comment",
-//       "Are you sure you want to delete this comment?",
-//       [
-//         { text: "Cancel", style: "cancel" },
-//         {
-//           text: "Delete",
-//           style: "destructive",
-//           onPress: () =>
-//             setComments((prevComments) =>
-//               prevComments.filter((c) => c.id !== id)
-//             ),
-//         },
-//       ]
-//     );
-//   };
-
-//   const handleLike = (id) => {
-//     if (likeId.includes(id)) {
-//       // Already liked → unlike it
-//       setLikeId((prev) => prev.filter((itemId) => itemId !== id));
-//     } else {
-//       // Not yet liked → like it
-//       setLikeId((prev) => [...prev, id]);
-//     }
-//   };
-
-//   return (
-//     <SafeAreaView>
-//       <TouchableOpacity onPress={openBottomSheet}>
-//         <SvgXml xml={IconComment} />
-//       </TouchableOpacity>
-
-//       <RBSheet
-//         ref={bottomSheetRef}
-//         closeOnDragDown={true}
-//         closeOnPressMask={true}
-//         height={500}
-//         customStyles={{
-//           wrapper: {
-//             backgroundColor: "transparent",
-//           },
-//           draggableIcon: {
-//             backgroundColor: "#000",
-//           },
-//           container: {
-//             borderTopLeftRadius: 20,
-//             borderTopRightRadius: 20,
-//           },
-//         }}
-//         customModalProps={{
-//           animationType: "slide",
-//           statusBarTranslucent: true,
-//         }}
-//         customAvoidingViewProps={{
-//           enabled: false,
-//         }}
-//       >
-//         <View style={tw`flex-1 shadow-2xl p-[4%]`}>
-//           {/* Header */}
-//           <View style={tw`flex-row justify-between items-center `}>
-//             <Text style={tw`text-lg font-inter-700 py-3`}>Comment</Text>
-//             <Ionicons
-//               name="close"
-//               size={24}
-//               color="#121212"
-//               onPress={handlClose}
-//             />
-//           </View>
-
-//           {/* Comment List */}
-//           <ScrollView
-//             showsVerticalScrollIndicator={false}
-//             style={{ height: 280 }}
-//           >
-//             {comments.map((item) => (
-//               <View key={item.id}>
-//                 <View style={tw`flex-row  items-start justify-between my-2`}>
-//                   <View style={tw`flex-row flex-1`}>
-//                     <Image
-//                       source={{
-//                         uri: "https://randomuser.me/api/portraits/men/1.jpg",
-//                       }}
-//                       style={tw`w-10.5 h-10.5 rounded-full mr-3`}
-//                     />
-//                     <View style={tw`flex-1`}>
-//                       <Text style={tw`text-textgray font-inter-600 text-3`}>
-//                         {item.user}
-//                       </Text>
-//                       <Text
-//                         style={tw`text-textPrimary text-4 font-inter-400 mt-0.5`}
-//                       >
-//                         {item.text}
-//                       </Text>
-//                       <View style={tw`flex-row mt-1`}>
-//                         <TouchableOpacity>
-//                           <Text
-//                             style={tw`font-inter-400 text-[#888888] text-xs mr-4`}
-//                           >
-//                             Reply
-//                           </Text>
-//                         </TouchableOpacity>
-//                         <TouchableOpacity onPress={() => handleLike(item?.id)}>
-//                           {likeId.includes(item?.id) ? (
-//                             <Text
-//                               style={tw`font-inter-400 text-[#888888] text-xs`}
-//                             >
-//                               <SvgXml xml={IconHeart} width={15} height={15} />
-//                             </Text>
-//                           ) : (
-//                             <Text
-//                               style={tw`font-inter-400 text-[#888888] text-xs`}
-//                             >
-//                               Like
-//                             </Text>
-//                           )}
-//                         </TouchableOpacity>
-//                       </View>
-//                     </View>
-//                   </View>
-//                   <TouchableOpacity onPress={() => handleDelete(item.id)}>
-//                     <SvgXml xml={IconDelete} width={20} height={20} />
-//                   </TouchableOpacity>
-//                 </View>
-//               </View>
-//             ))}
-//           </ScrollView>
-
-//           {/* Compact Input Section */}
-
-//           <View style={tw`my-4`}>
-//             <View
-//               style={tw`flex-row items-center bg-[#F3F3F3] rounded-full px-3 py-3`}
-//             >
-//               <Image
-//                 source={{
-//                   uri: "https://randomuser.me/api/portraits/men/1.jpg",
-//                 }}
-//                 style={tw`w-5 h-5 rounded-full mr-2`}
-//               />
-//               <TextInput
-//                 style={tw`flex-1 text-textPrimary text-sm py-1`}
-//                 placeholder="Write a comment..."
-//                 placeholderTextColor="#888"
-//                 value={comment}
-//                 onChangeText={setComment}
-//                 onSubmitEditing={handleComment}
-//                 returnKeyType="send"
-//               />
-//               <TouchableOpacity onPress={handleComment}>
-//                 <SvgXml xml={IconsBlue} />
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//         </View>
-//       </RBSheet>
-//     </SafeAreaView>
-//   );
-// }
-
-import { IconComment, IconDelete, IconHeart, IconsBlue } from "@/assets/Icon";
+import { IconComment, IconsBlue } from "@/assets/Icon";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Alert,
+  ActivityIndicator,
   Image,
   Keyboard,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import RBSheet from "react-native-raw-bottom-sheet";
 import { SvgXml } from "react-native-svg";
-import useUserId from "../../hooks/useUserId";
 import tw from "../../lib/tailwind";
 import {
   useGetUserCommentQuery,
+  usePostLinkCountMutation,
   usePostUserCommentMutation,
-} from "../../redux/commentApi/commentApi.js";
+  useReplyCommentsMutation,
+} from "../../redux/commentApi/commentApi";
+
+import CommentSection from "./CommentSection";
 
 const ButtomSheet = ({ item }) => {
-  const bottomSheetRef = useRef();
+  const { data, isLoading, refetch } = useGetUserCommentQuery({ id: item?.id });
 
-  const { data, isLoading } = useGetUserCommentQuery({ id: item?.id });
-  // console.log(data?.data);
+  // console.log(data);
 
-  const [likeId, setLikeId] = useState([]);
+  const [postComment, { isLoading: posting }] = usePostUserCommentMutation();
+  const [likeComment] = usePostLinkCountMutation();
+  const [replyComment] = useReplyCommentsMutation();
+
+  const [modalVisible, setModalVisible] = useState(false);
   const [comment, setComment] = useState("");
-  // console.log("comment : ", comment);
-
-  const [comments, setComments] = useState([
-    { id: 1, user: "Casey", text: "It's a nice food. Very tasty & sweet." },
-    { id: 2, user: "Alex", text: "Loved it!" },
-    { id: 3, user: "Mia", text: "Not bad." },
-    { id: 4, user: "Mia", text: "Not bad." },
-    { id: 5, user: "Mia", text: "Not bad." },
-  ]);
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const [activeReplyId, setActiveReplyId] = useState(null);
+  const [replyText, setReplyText] = useState("");
+  const [countComment, setCountComment] = useState(0);
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      "keyboardDidShow",
-      (e) => {
-        setKeyboardHeight(e.endCoordinates.height);
-      }
-    );
-    const keyboardDidHideListener = Keyboard.addListener(
-      "keyboardDidHide",
-      () => {
-        setKeyboardHeight(0);
-      }
-    );
+    setCountComment(data?.data?.[0]?.comment_count || 0);
+  }, [data]);
 
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
-
-  const openBottomSheet = () => {
-    bottomSheetRef.current.open();
-  };
-
-  const [userComment, { isLoading: newLoading }] = usePostUserCommentMutation();
-
-  const userId = useUserId();
-  // console.log(userId);
+  const openModal = () => setModalVisible(true);
+  const closeModal = () => setModalVisible(false);
 
   const handleComment = async () => {
-    // if (comment.trim() === "") return;
-
-    console.log("view");
-
-    const usehh = { id: userId, comment: comment };
-    console.log(usehh);
-
-    const res = await userComment(usehh).unwrap();
-    console.log("view commen", res);
-
-    // setComment("");
-    // Keyboard.dismiss();
+    if (!comment.trim()) return;
+    try {
+      await postComment({ post_id: item?.id, comment }).unwrap();
+      setComment("");
+      refetch();
+    } catch (err) {
+      console.error("Error posting comment:", err);
+    }
   };
 
-  const handlClose = () => {
-    bottomSheetRef.current.close();
+  const handleReply = async (parentId) => {
+    if (!replyText.trim()) return;
+    try {
+      await postComment({
+        post_id: item?.id,
+        comment: replyText,
+        parent_id: parentId,
+      }).unwrap();
+      setReplyText("");
+      setActiveReplyId(null);
+      refetch();
+    } catch (err) {
+      console.error("Error posting reply:", err);
+    }
   };
 
-  const handleDelete = (id) => {
-    Alert.alert(
-      "Delete Comment",
-      "Are you sure you want to delete this comment?",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: () =>
-            setComments((prevComments) =>
-              prevComments.filter((c) => c.id !== id)
-            ),
-        },
-      ]
-    );
-  };
-
-  const handleLike = (id) => {
-    if (likeId.includes(id)) {
-      setLikeId((prev) => prev.filter((itemId) => itemId !== id));
-    } else {
-      setLikeId((prev) => [...prev, id]);
+  const handleLike = async (id) => {
+    try {
+      await likeComment({ id }).unwrap();
+      refetch();
+    } catch (err) {
+      console.error("Like error", err);
     }
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <TouchableOpacity onPress={openBottomSheet}>
-        <SvgXml xml={IconComment} />
+    <View>
+      <TouchableOpacity onPress={openModal}>
+        <View style={tw`flex-row gap-1 items-center`}>
+          <SvgXml xml={IconComment} />
+          <Text style={tw`text-base font-inter-400 text-[#454545]`}>
+            {countComment > 0 && countComment}
+          </Text>
+        </View>
       </TouchableOpacity>
 
-      <RBSheet
-        ref={bottomSheetRef}
-        closeOnDragDown={true}
-        closeOnPressMask={true}
-        height={500 + keyboardHeight} // Adjust height based on keyboard
-        customStyles={{
-          wrapper: {
-            backgroundColor: "transparent",
-          },
-          draggableIcon: {
-            backgroundColor: "#000",
-          },
-          container: {
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-          },
-        }}
-        customModalProps={{
-          animationType: "slide",
-          statusBarTranslucent: true,
-        }}
-        customAvoidingViewProps={{
-          enabled: false,
-        }}
+      <Modal
+        visible={modalVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={closeModal}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View
-            style={[
-              styles.container,
-              { marginBottom: keyboardHeight > 0 ? keyboardHeight - 30 : 0 },
-            ]}
-          >
-            {/* Header */}
-            <View style={tw`flex-row justify-between items-center`}>
-              <Text style={tw`text-lg font-inter-700 py-3`}>Comment</Text>
-              <Ionicons
-                name="close"
-                size={24}
-                color="#121212"
-                onPress={handlClose}
-              />
-            </View>
-
-            {/* Comment List */}
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              style={styles.commentList}
-              keyboardDismissMode="on-drag"
+          <View style={tw`flex-1 justify-end bg-black/10`}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : null}
+              style={tw`bg-white rounded-t-2xl p-4 max-h-[60%]`}
             >
-              {data?.data?.map((item) => (
-                <View key={item.id}>
-                  <View style={tw`flex-row items-start justify-between my-2`}>
-                    <View style={tw`flex-row flex-1`}>
-                      <Image
-                        source={{
-                          uri: "https://randomuser.me/api/portraits/men/1.jpg",
-                        }}
-                        style={tw`w-10.5 h-10.5 rounded-full mr-3`}
-                      />
-                      <View style={tw`flex-1`}>
-                        <Text style={tw`text-textgray font-inter-600 text-3`}>
-                          {item?.user}
-                        </Text>
-                        <Text
-                          style={tw`text-textPrimary text-4 font-inter-400 mt-0.5`}
-                        >
-                          {item?.comment}
-                        </Text>
-                        <View style={tw`flex-row mt-1`}>
-                          <TouchableOpacity>
-                            <Text
-                              style={tw`font-inter-400 text-[#888888] text-xs mr-4`}
-                            >
-                              Reply
-                            </Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            onPress={() => handleLike(item?.id)}
-                          >
-                            {likeId.includes(item?.id) ? (
-                              <Text
-                                style={tw`font-inter-400 text-[#888888] text-xs`}
-                              >
-                                <SvgXml
-                                  xml={IconHeart}
-                                  width={15}
-                                  height={15}
-                                />
-                              </Text>
-                            ) : (
-                              <Text
-                                style={tw`font-inter-400 text-[#888888] text-xs`}
-                              >
-                                Like
-                              </Text>
-                            )}
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </View>
-                    <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                      <SvgXml xml={IconDelete} width={20} height={20} />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              ))}
-            </ScrollView>
+              <View style={tw`flex-row justify-between items-center mb-2`}>
+                <Text style={tw`text-lg font-inter-700`}>Comment</Text>
+                <Ionicons
+                  name="close"
+                  size={24}
+                  color="#121212"
+                  onPress={closeModal}
+                />
+              </View>
 
-            {/* Input Section */}
-            <View style={styles.inputContainer}>
+              {/* Comment Section */}
+              <CommentSection data={data} />
+
               <View
-                style={tw`flex-row items-center bg-[#F3F3F3] rounded-full px-3 py-3`}
+                style={tw`flex-row items-center bg-[#F3F3F3] rounded-full px-3 py-2 mt-2`}
               >
                 <Image
                   source={{
                     uri: "https://randomuser.me/api/portraits/men/1.jpg",
                   }}
-                  style={tw`w-5 h-5 rounded-full mr-2`}
+                  style={tw`w-7 h-7 rounded-full mr-2`}
                 />
                 <TextInput
-                  style={tw`flex-1 text-textPrimary text-sm py-1`}
+                  style={tw`flex-1 text-sm text-textPrimary`}
                   placeholder="Write a comment..."
                   placeholderTextColor="#888"
                   value={comment}
                   onChangeText={setComment}
                   onSubmitEditing={handleComment}
-                  returnKeyType="send"
-                  selectionColor={"#888"}
                 />
-                <TouchableOpacity onPress={handleComment}>
-                  <SvgXml xml={IconsBlue} />
+                <TouchableOpacity onPress={handleComment} disabled={posting}>
+                  {posting ? (
+                    <ActivityIndicator size="small" />
+                  ) : (
+                    <SvgXml xml={IconsBlue} />
+                  )}
                 </TouchableOpacity>
               </View>
-            </View>
+            </KeyboardAvoidingView>
           </View>
         </TouchableWithoutFeedback>
-      </RBSheet>
-    </SafeAreaView>
+      </Modal>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  safeArea: {},
-  container: {
-    flex: 1,
-    padding: "4%",
-  },
-  commentList: {
-    flex: 1,
-    marginBottom: 16,
-  },
-  inputContainer: {
-    marginBottom: 16,
-  },
-});
 
 export default ButtomSheet;
 
 // import { IconComment, IconDelete, IconHeart, IconsBlue } from "@/assets/Icon";
 // import { Ionicons } from "@expo/vector-icons";
-// import BottomSheet from "@gorhom/bottom-sheet";
-// import { useCallback, useRef, useState } from "react";
+// import { useEffect, useState } from "react";
 // import {
-//   Alert,
+//   ActivityIndicator,
 //   Image,
+//   Keyboard,
 //   KeyboardAvoidingView,
+//   Modal,
 //   Platform,
-//   SafeAreaView,
 //   ScrollView,
 //   Text,
 //   TextInput,
 //   TouchableOpacity,
+//   TouchableWithoutFeedback,
 //   View,
 // } from "react-native";
 // import { SvgXml } from "react-native-svg";
 // import tw from "../../lib/tailwind";
+// import {
+//   useGetUserCommentQuery,
+//   usePostLinkCountMutation,
+//   usePostUserCommentMutation,
+// } from "../../redux/commentApi/commentApi.js";
 
-// export default function ButtomSheet() {
-//   const bottomSheetRef = useRef(null);
+// const CommentModal = ({ item }) => {
+//   console.log(item?.id);
+//   // get comment  api
+//   const { data, isLoading } = useGetUserCommentQuery({ id: item?.id });
+//   console.log(data?.data?.[0]?.comment_count);
+
+//   // post comment
+//   const [userComment, { isLoading: newLoading }] = usePostUserCommentMutation();
+
+//   // post like
+//   const [postLinkCount, { isLoading: likeLoading }] =
+//     usePostLinkCountMutation();
+
+//   // All hooks
+//   const [modalVisible, setModalVisible] = useState(false);
 //   const [likeId, setLikeId] = useState([]);
 //   const [comment, setComment] = useState("");
-//   const [comments, setComments] = useState([
-//     { id: 1, user: "Casey", text: "It's a nice food. Very tasty & sweet." },
-//     { id: 2, user: "Alex", text: "Loved it!" },
-//     { id: 3, user: "Mia", text: "Not bad." },
-//     { id: 4, user: "Mia", text: "Not bad." },
-//     { id: 5, user: "Mia", text: "Not bad." },
-//   ]);
+//   const [countComment, setCountComment] = useState(0);
 
-//   // Callbacks
-//   const handleSheetChanges = useCallback((index) => {
-//     console.log("handleSheetChanges", index);
-//   }, []);
+//   useEffect(() => {
+//     if (data?.data?.[0]?.comment_count) {
+//       setCountComment(data?.data[0]?.comment_count);
+//     }
+//   }, [data]); // ✅ data change হলে update হবে
 
-//   const openBottomSheet = () => {
-//     bottomSheetRef.current?.expand();
-//   };
+//   console.log("view ", countComment);
 
-//   const handleComment = () => {
-//     if (comment.trim() === "") return;
+//   // console.log("data ", data?.data[0]?.comment_count);
+//   // console.log("data 2", countComment);
 
-//     const newComment = {
-//       id: Date.now(),
-//       user: "You",
-//       text: comment.trim(),
-//     };
-//     setComments([newComment, ...comments]);
-//     setComment("");
-//   };
+//   //
+//   const [activeReplyId, setActiveReplyId] = useState(null); // Which comment is being replied to
+//   const [replyText, setReplyText] = useState("");
 
-//   const handleClose = () => {
-//     bottomSheetRef.current?.close();
-//   };
+//   // const id = useUserId();
 
-//   const handleDelete = (id) => {
-//     Alert.alert(
-//       "Delete Comment",
-//       "Are you sure you want to delete this comment?",
-//       [
-//         { text: "Cancel", style: "cancel" },
-//         {
-//           text: "Delete",
-//           style: "destructive",
-//           onPress: () =>
-//             setComments((prevComments) =>
-//               prevComments.filter((c) => c.id !== id)
-//             ),
-//         },
-//       ]
-//     );
-//   };
+//   // console.log("view data", data?.data[0]?.comment_count);
 
-//   const handleLike = (id) => {
-//     if (likeId.includes(id)) {
-//       setLikeId((prev) => prev.filter((itemId) => itemId !== id));
-//     } else {
-//       setLikeId((prev) => [...prev, id]);
+//   const openModal = () => setModalVisible(true);
+//   const closeModal = () => setModalVisible(false);
+//   // console.log("new Id ", item?.id);
+
+//   // comment post
+//   const handleComment = async () => {
+//     try {
+//       if (comment.trim() === "") return;
+
+//       const payload = {
+//         post_id: item?.id, // string or number (depends on API)
+//         comment: comment, // string (required)
+//       };
+//       console.log(payload);
+
+//       const res = await userComment(payload).unwrap();
+//       console.log("Posted comment:", res);
+//       setComment("");
+//       Keyboard.dismiss();
+//     } catch (error) {
+//       console.log("Error while posting comment:", error);
 //     }
 //   };
 
+//   const handleDelete = (id) => {
+//     // Alert.alert("Delete Comment", "Are you sure?", [
+//     //   { text: "Cancel", style: "cancel" },
+//     //   {
+//     //     text: "Delete",
+//     //     style: "destructive",
+//     //     onPress: () =>
+//     //       setComments((prevComments) => prevComments.filter((c) => c.id !== id)),
+//     //   },
+//     // ]);
+//   };
+
+//   const handleLike = async (id) => {
+//     console.log("comment_id", id);
+
+//     try {
+//       const res = await postLinkCount({ id }).unwrap();
+//       console.log(res);
+//     } catch (error) {
+//       console.log(error);
+//     }
+
+//     // if (likeId.includes(id)) {
+//     //   setLikeId((prev) => prev.filter((itemId) => itemId !== id));
+//     // } else {
+//     //   setLikeId((prev) => [...prev, id]);
+//     // }
+//   };
+
 //   return (
-//     <SafeAreaView>
-//       <TouchableOpacity onPress={openBottomSheet}>
-//         <SvgXml xml={IconComment} />
+//     <View>
+//       {/* Open Button */}
+//       <TouchableOpacity onPress={openModal}>
+//         <View style={tw` flex-row gap-1 items-center`}>
+//           <SvgXml xml={IconComment} />
+//           <Text style={tw`text-base font-inter-400 text-[#454545]`}>
+//             {countComment > 0 && countComment}
+//           </Text>
+//         </View>
 //       </TouchableOpacity>
 
-//       <BottomSheet
-//         ref={bottomSheetRef}
-//         index={-1} // Start closed
-//         snapPoints={["25%", "50%", "90%"]} // Adjust these as needed
-//         onChange={handleSheetChanges}
-//         enablePanDownToClose={true}
-//         backgroundStyle={tw`bg rounded-t-3xl`}
-//         handleIndicatorStyle={tw`bg-gray-400 w-1/5`}
+//       {/* Modal */}
+//       <Modal
+//         visible={modalVisible}
+//         animationType="fade"
+//         transparent
+//         onRequestClose={closeModal}
 //       >
-//         <KeyboardAvoidingView
-//           behavior={Platform.OS === "ios" ? "padding" : "height"}
-//           style={tw`flex-1`}
-//           keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
-//         >
-//           <View style={tw`flex-1 shadow-2xl p-4`}>
-//             {/* Header */}
-//             <View style={tw`flex-row justify-between items-center`}>
-//               <Text style={tw`text-lg font-inter-700 py-3`}>Comment</Text>
-//               <Ionicons
-//                 name="close"
-//                 size={24}
-//                 color="#121212"
-//                 onPress={handleClose}
-//               />
-//             </View>
-
-//             {/* Comment List */}
-//             <ScrollView
-//               showsVerticalScrollIndicator={false}
-//               style={{ flex: 1 }}
-//               contentContainerStyle={{ paddingBottom: 16 }}
+//         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+//           <View style={tw`flex-1 justify-end  bg-black/10 `}>
+//             <KeyboardAvoidingView
+//               behavior={Platform.OS === "ios" ? "padding" : null}
+//               style={tw`bg-white rounded-t-2xl p-4 max-h-[60%] shadow-xl`}
 //             >
-//               {comments.map((item) => (
-//                 <View key={item.id} style={tw`mb-4`}>
-//                   <View style={tw`flex-row items-start justify-between`}>
-//                     <View style={tw`flex-row flex-1`}>
-//                       <Image
-//                         source={{
-//                           uri: "https://randomuser.me/api/portraits/men/1.jpg",
-//                         }}
-//                         style={tw`w-10 h-10 rounded-full mr-3`}
-//                       />
-//                       <View style={tw`flex-1`}>
-//                         <Text style={tw`text-textgray font-inter-600 text-sm`}>
-//                           {item.user}
-//                         </Text>
-//                         <Text
-//                           style={tw`text-textPrimary text-base font-inter-400 mt-1`}
-//                         >
-//                           {item.text}
-//                         </Text>
-//                         <View style={tw`flex-row mt-2`}>
-//                           <TouchableOpacity>
-//                             <Text
-//                               style={tw`font-inter-400 text-[#888888] text-xs mr-4`}
-//                             >
-//                               Reply
-//                             </Text>
-//                           </TouchableOpacity>
-//                           <TouchableOpacity onPress={() => handleLike(item.id)}>
-//                             {likeId.includes(item.id) ? (
-//                               <SvgXml xml={IconHeart} width={15} height={15} />
-//                             ) : (
-//                               <Text
-//                                 style={tw`font-inter-400 text-[#888888] text-xs`}
-//                               >
-//                                 Like
-//                               </Text>
-//                             )}
-//                           </TouchableOpacity>
-//                         </View>
-//                       </View>
-//                     </View>
-//                     <TouchableOpacity onPress={() => handleDelete(item.id)}>
-//                       <SvgXml xml={IconDelete} width={20} height={20} />
-//                     </TouchableOpacity>
-//                   </View>
-//                 </View>
-//               ))}
-//             </ScrollView>
-
-//             {/* Input Section */}
-//             <View style={tw`mt-auto mb-4`}>
-//               <View
-//                 style={tw`flex-row items-center bg-[#F3F3F3] rounded-full px-3 py-2`}
-//               >
-//                 <Image
-//                   source={{
-//                     uri: "https://randomuser.me/api/portraits/men/1.jpg",
-//                   }}
-//                   style={tw`w-8 h-8 rounded-full mr-2`}
+//               {/* Header */}
+//               <View style={tw`flex-row justify-between items-center mb-2`}>
+//                 <Text style={tw`text-lg font-inter-700`}>Comment</Text>
+//                 <Ionicons
+//                   name="close"
+//                   size={24}
+//                   color="#121212"
+//                   onPress={closeModal}
 //                 />
-//                 <TextInput
-//                   style={tw`flex-1 text-textPrimary text-sm py-1`}
-//                   placeholder="Write a comment..."
-//                   placeholderTextColor="#888"
-//                   value={comment}
-//                   onChangeText={setComment}
-//                   onSubmitEditing={handleComment}
-//                   returnKeyType="send"
-//                 />
-//                 <TouchableOpacity onPress={handleComment}>
-//                   <SvgXml xml={IconsBlue} />
-//                 </TouchableOpacity>
 //               </View>
-//             </View>
-//           </View>
-//         </KeyboardAvoidingView>
-//       </BottomSheet>
-//     </SafeAreaView>
-//   );
-// }
-// import { IconComment, IconDelete, IconsBlue } from "@/assets/Icon";
-// import { Ionicons } from "@expo/vector-icons";
-// import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-// import { useCallback, useMemo, useRef, useState } from "react";
-// import {
-//   Alert,
-//   Image,
-//   SafeAreaView,
-//   ScrollView,
-//   Text,
-//   TextInput,
-//   TouchableOpacity,
-//   View,
-// } from "react-native";
-// import { GestureHandlerRootView } from "react-native-gesture-handler";
-// import { SvgXml } from "react-native-svg";
-// import tw from "../../lib/tailwind";
 
-// export default function ButtomSheet() {
-//   const bottomSheetRef = useRef(null);
-//   const [comment, setComment] = useState("");
-//   const [comments, setComments] = useState([
-//     { id: 1, user: "Casey", text: "It's a nice food. Very tasty & sweet." },
-//     { id: 2, user: "Alex", text: "Loved it!" },
-//     { id: 3, user: "Mia", text: "Not bad." },
-//     { id: 4, user: "Mia", text: "Not bad." },
-//     { id: 5, user: "Mia", text: "Not bad." },
-//   ]);
-
-//   // Snap points for the bottom sheet
-//   const snapPoints = useMemo(() => ["25%", "50%", "90%"], []);
-
-//   const handleSheetChanges = useCallback((index) => {
-//     console.log("handleSheetChanges", index);
-//   }, []);
-
-//   const openBottomSheet = () => {
-//     bottomSheetRef.current?.snapToIndex(1); // Open at 50%
-//   };
-
-//   const handleClose = () => {
-//     bottomSheetRef.current?.close();
-//   };
-
-//   const handleComment = () => {
-//     if (comment.trim() === "") return;
-
-//     const newComment = {
-//       id: Date.now(),
-//       user: "You",
-//       text: comment.trim(),
-//     };
-//     setComments([newComment, ...comments]);
-//     setComment("");
-//   };
-
-//   const handleDelete = (id) => {
-//     Alert.alert(
-//       "Delete Comment",
-//       "Are you sure you want to delete this comment?",
-//       [
-//         { text: "Cancel", style: "cancel" },
-//         {
-//           text: "Delete",
-//           style: "destructive",
-//           onPress: () =>
-//             setComments((prevComments) =>
-//               prevComments.filter((c) => c.id !== id)
-//             ),
-//         },
-//       ]
-//     );
-//   };
-
-//   return (
-//     <GestureHandlerRootView style={tw``}>
-//       <SafeAreaView style={tw``}>
-//         <TouchableOpacity onPress={openBottomSheet}>
-//           <SvgXml xml={IconComment} />
-//         </TouchableOpacity>
-
-//         <BottomSheet
-//           ref={bottomSheetRef}
-//           index={-1} // Initially closed
-//           snapPoints={snapPoints}
-//           onChange={handleSheetChanges}
-//           enablePanDownToClose={true}
-//           backgroundStyle={tw`bg-white rounded-t-3xl`}
-//           handleIndicatorStyle={tw`bg-gray-400`}
-//         >
-//           <BottomSheetView style={tw`flex-1 px-4`}>
-//             {/* Header */}
-//             <View style={tw`flex-row justify-between items-center`}>
-//               <Text style={tw`text-lg font-inter-700 py-3`}>Comment</Text>
-//               <Ionicons
-//                 name="close"
-//                 size={24}
-//                 color="#121212"
-//                 onPress={handleClose}
-//               />
-//             </View>
-
-//             {/* Comment List */}
-//             <ScrollView
-//               showsVerticalScrollIndicator={false}
-//               style={tw`max-h-64`}
-//             >
-//               {comments.map((item) => (
-//                 <View key={item.id} style={tw`mb-4`}>
-//                   <View style={tw`flex-row items-start justify-between`}>
-//                     <View style={tw`flex-row flex-1`}>
-//                       <Image
-//                         source={{
-//                           uri: "https://randomuser.me/api/portraits/men/1.jpg",
-//                         }}
-//                         style={tw`w-10.5 h-10.5 rounded-full mr-3`}
-//                       />
-//                       <View style={tw`flex-1`}>
-//                         <Text style={tw`text-textgray font-inter-600 text-3`}>
-//                           {item.user}
-//                         </Text>
-//                         <Text
-//                           style={tw`text-textPrimary text-4 font-inter-400 mt-0.5`}
+//               {countComment > 0 ? (
+//                 <ScrollView showsVerticalScrollIndicator={false}>
+//                   {data?.data?.map((item) =>
+//                     item?.comments?.map((item) => (
+//                       <View
+//                         key={item.id}
+//                         style={tw`flex-row items-center gap-2 justify-between`}
+//                       >
+//                         <View
+//                           style={tw`flex-row items-center gap-2 justify-between   py-3`}
 //                         >
-//                           {item.text}
-//                         </Text>
-//                         <View style={tw`flex-row mt-1`}>
-//                           <TouchableOpacity>
+//                           {/* Profile Image */}
+//                           <View style={tw`mr-3`}>
+//                             <Image
+//                               source={{
+//                                 uri: "https://randomuser.me/api/portraits/men/1.jpg",
+//                               }}
+//                               style={tw`w-10.5 h-10.5 rounded-full`}
+//                             />
+//                           </View>
+
+//                           {/* Content */}
+//                           <View style={tw`flex-1`}>
 //                             <Text
-//                               style={tw`font-inter-400 text-[#888888] text-xs mr-4`}
+//                               style={tw`text-textPrimary text-sm font-inter-400 mb-2`}
 //                             >
-//                               Reply
+//                               {item?.comment}
 //                             </Text>
-//                           </TouchableOpacity>
-//                           <TouchableOpacity>
-//                             <Text
-//                               style={tw`font-inter-400 text-[#888888] text-xs`}
-//                             >
-//                               Like
-//                             </Text>
+
+//                             {/* Actions */}
+//                             <View style={tw`flex-row items-center`}>
+//                               <TouchableOpacity>
+//                                 <Text style={tw`text-xs text-[#888888] mr-4`}>
+//                                   Reply
+//                                 </Text>
+//                               </TouchableOpacity>
+
+//                               {/* Like fun */}
+//                               <View
+//                                 style={tw`flex-row items-center justify-center gap1`}
+//                               >
+//                                 <TouchableOpacity
+//                                   onPress={() => handleLike(item?.id)}
+//                                 >
+//                                   {item?.like > 0 ? (
+//                                     <SvgXml
+//                                       xml={IconHeart}
+//                                       width={20}
+//                                       height={20}
+//                                     />
+//                                   ) : (
+//                                     <Text style={tw`text-xs text-[#888888]`}>
+//                                       Like
+//                                     </Text>
+//                                   )}
+//                                 </TouchableOpacity>
+
+//                                 <Text
+//                                   style={tw`text-textPrimary text-sm font-inter-400 `}
+//                                 >
+//                                   {item?.like > 0 && item?.like}
+//                                 </Text>
+//                               </View>
+//                             </View>
+//                           </View>
+
+//                           {/* Delete Icon */}
+//                           <TouchableOpacity
+//                             onPress={() => handleDelete(item.id)}
+//                           >
+//                             <SvgXml xml={IconDelete} width={20} height={20} />
 //                           </TouchableOpacity>
 //                         </View>
 //                       </View>
-//                     </View>
-//                     <TouchableOpacity onPress={() => handleDelete(item.id)}>
-//                       <SvgXml xml={IconDelete} />
-//                     </TouchableOpacity>
-//                   </View>
+//                     ))
+//                   )}
+//                 </ScrollView>
+//               ) : (
+//                 <View>
+//                   <Text style={tw`text-gray-500 py-3`}>No comments yet</Text>
 //                 </View>
-//               ))}
-//             </ScrollView>
+//               )}
 
-//             {/* Comment Input Section */}
-//             <View style={tw`my-4`}>
+//               {/* Comment Input */}
 //               <View
-//                 style={tw`flex-row items-center bg-[#F3F3F3] rounded-full px-3 py-3`}
+//                 style={tw`flex-row items-center bg-[#F3F3F3] rounded-full px-3 py-3 mt-2`}
 //               >
 //                 <Image
 //                   source={{
@@ -862,14 +408,26 @@ export default ButtomSheet;
 //                   onSubmitEditing={handleComment}
 //                   returnKeyType="send"
 //                 />
-//                 <TouchableOpacity onPress={handleComment}>
-//                   <SvgXml xml={IconsBlue} />
+//                 {/* <TouchableOpacity onPress={handleComment}>
+//                 </TouchableOpacity> */}
+
+//                 {/* post data  */}
+//                 <TouchableOpacity onPress={handleComment} disabled={newLoading}>
+//                   {newLoading ? (
+//                     <ActivityIndicator size="small" />
+//                   ) : (
+//                     <SvgXml xml={IconsBlue} />
+//                   )}
 //                 </TouchableOpacity>
+
+//                 {/*  */}
 //               </View>
-//             </View>
-//           </BottomSheetView>
-//         </BottomSheet>
-//       </SafeAreaView>
-//     </GestureHandlerRootView>
+//             </KeyboardAvoidingView>
+//           </View>
+//         </TouchableWithoutFeedback>
+//       </Modal>
+//     </View>
 //   );
-// }
+// };
+
+// export default CommentModal;

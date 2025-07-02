@@ -5,18 +5,35 @@ export const commentApi = api.injectEndpoints({
   endpoints: (builder) => ({
     // Login
     getUserComment: builder.query({
-      query: ({ id, ...res }) => ({
-        url: `/get-comments?post_id=${id}`,
+      query: ({ id }) => ({
+        url: `/get-comments-with-replay-like?post_id=${id}`,
         method: "GET",
-        body: res,
       }),
       providesTags: ["comment"],
     }),
+
     postUserComment: builder.mutation({
-      query: ({ id }) => ({
+      query: (id) => ({
         url: `/create-comment`,
         method: "POST",
         body: id,
+      }),
+      invalidatesTags: ["comment"],
+    }),
+    postLinkCount: builder.mutation({
+      query: ({ id }) => ({
+        url: `/like?comment_id=${id}`,
+        method: "POST",
+        body: { comment_id: id },
+      }),
+      invalidatesTags: ["comment"],
+    }),
+    replyComments: builder.mutation({
+      query: ({ comment_id, reply }) => ({
+        url: `/replay?comment_id=${comment_id}&replay=${encodeURIComponent(
+          reply
+        )}`,
+        method: "POST",
       }),
       invalidatesTags: ["comment"],
     }),
@@ -24,5 +41,9 @@ export const commentApi = api.injectEndpoints({
 });
 
 // Export hooks
-export const { useGetUserCommentQuery, usePostUserCommentMutation } =
-  commentApi;
+export const {
+  useGetUserCommentQuery,
+  usePostUserCommentMutation,
+  usePostLinkCountMutation, //
+  useReplyCommentsMutation, //
+} = commentApi;

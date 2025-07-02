@@ -24,6 +24,7 @@ export default function AddPhoto({ setImage, modalVisible, setModalVisible }) {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
+      cameraType: ImagePicker.CameraType.front,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
